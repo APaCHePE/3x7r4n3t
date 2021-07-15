@@ -6,7 +6,8 @@
 
 <style lang="scss">
 html, body {
-  background: #EAF0F9;
+  // background: #EAF0F9;
+  background: #FFFFFC;
 }
 #app {
   font-family: 'Montserrat', sans-serif;

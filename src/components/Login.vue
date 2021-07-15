@@ -16,7 +16,7 @@
                         <!-- /Brand logo-->
                         <!-- Left Text-->
                         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
-                            <div class="w-100 d-lg-flex align-items-center justify-content-center px-5"><img class="img-fluid" src="app-assets/images/pages/login-v2.svg" alt="Login V2" /></div>
+                            <div class="w-100 d-lg-flex align-items-center justify-content-center px-5"><img class="img-fluid" :src="logo_v2" alt="Login V2" /></div>
                         </div>
                         <!-- /Left Text-->
                         <!-- Login-->
@@ -65,10 +65,11 @@
  <script src="app-assets/js/core/app.js"></script>
  <script src="app-assets/js/scripts/pages/page-auth-login.js"></script>
 <script>
+import image from '@/assets/images/pages/login-v2.svg'
 export default {
   data() {
     return {
-    
+        logo_v2: image
     };
   },
   created() {
