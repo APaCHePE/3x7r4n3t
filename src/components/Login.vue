@@ -41,7 +41,7 @@
             aria-describedby="login-password"
             tabindex="2"
           />
-          <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
+          <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div>
         </div>
       </div>
       <div class="form-group">
@@ -60,14 +60,14 @@
           >
         </div>
       </div>
-      <!-- <router-link to="/menu"
+      <router-link to="/menu"
         ><button class="btn btn-primary btn-block" tabindex="4">
           Ingresar
         </button></router-link
-      > -->
+      >
     </form>
     <p class="text-center mt-2">
-      <!-- <a href="SolicitarCuenta.html"><span>&nbsp;Solicitar Cuenta</span></a> -->
+      <a @click="login=false"><span>&nbsp;Solicitar Cuenta</span></a>
     </p>
   </div>
 </template>
@@ -84,13 +84,26 @@ export default {
   },
   created() {
     // $(window).on("load", function () {
-      // if (feather) {
-      //   feather.replace({
-      //     width: 14,
-      //     height: 14,
-      //   });
-      // }
+    // if (feather) {
+    //   feather.replace({
+    //     width: 14,
+    //     height: 14,
+    //   });
+    // }
     // });
+  },
+  computed: {
+    login: {
+      // getter
+      get: function () {
+        return this.Login;
+      },
+      // setter
+      set: function () {
+        console.log("enviando parametro ");
+        this.$emit('cambiar-registro')
+      },
+    },
   },
   methods: {},
 };

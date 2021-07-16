@@ -25,19 +25,16 @@
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
                                 <h2 class="card-title font-weight-bold mb-1">ESTEC</h2>
                                 <p class="card-text mb-2">Portal pago a provedores</p>
-                                  <el-row>
-                                    <div >
-                                  
-                                      <div v-if="login">
-                                        <Registro @nuevoVoto='limpiarVoto'/>
-                                      </div>
-                                      <div v-else>
-                                        <Login />
-                                      </div><br>
-                                      
+                                  <div >
+                                
+                                    <div v-if="login">
+                                      <Registro @cambiar-registro='cambiarModo' :Login="login"/>
                                     </div>
+                                    <div v-else>
+                                      <Login @cambiar-registro='cambiarModo'/>
+                                    </div><br>
                                     
-                                  </el-row>
+                                  </div>
                             </div>
                         </div>
                         <!-- /Login-->
@@ -75,6 +72,11 @@ export default {
     // }
   },
   methods: {
+    cambiarModo(){
+      console.log("recibiendo parametro "+this.login);
+      this.login = (this.login == undefined)?true: !this.login;
+      console.log(this.login);
+    },
     limpiarVoto(){
       console.log("EVENTO NUEVO VOTO")
       this.login = false;
