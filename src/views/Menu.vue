@@ -33,7 +33,7 @@
                     <li class="waves-effect"><a href="#" title="Documentos Electrónicos"><img src="../plugins/img/icons/ico-menu-inbox.png"><span
                                 class="nav-item-text">Documentos Electrónicos</span></a>
                         <ul class="sub-nav" role="menu">
-                            <li class="waves-effect"><a href="estec-DE-Bandeja.html">Bandeja</a></li>
+                            <li class="waves-effect"><a src="/Bandeja.vue">Bandeja</a></li>
 							<li class="waves-effect"><a href="estec-DE-Registro.html">Registro</a></li>
                         </ul>
                     </li>
@@ -156,9 +156,8 @@ export default {
 @import '../plugins/css/bootstrap/bootstrap-datetimepicker.min.css';
 @import '../plugins/css/bootstrap/bootstrap-multiselect.css';
  @import '../plugins/css/style.css'; 
-/*@import '../plugins/css/main.css';
-@import '../plugins/css/font-awesome.css';*/ 
-/* @import '../plugins/css/responsive.css'; */
- @import url('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js') 
+@import '../plugins/css/main.css';
+@import '../plugins/css/font-awesome.css';
+@import '../plugins/css/responsive.css';
 
 </style>
