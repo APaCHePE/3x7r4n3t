@@ -2,13 +2,11 @@
   <el-row>
     <div >
    
-     
-
         <div v-if="login">
           <Terminado @nuevoVoto='limpiarVoto'/>
         </div>
         <div v-else>
-          <Login style="align-vertical: center; margin-top: 20px" />
+          <Login />
         </div><br>
         
       </div>
@@ -17,7 +15,7 @@
 </template>
 
 <script>
-import Login from "@/components/Login.vue";
+import Login from "@/components/Registro.vue";
 import Terminado from "@/components/Terminado.vue";
 
 export default {

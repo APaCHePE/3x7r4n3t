@@ -1,4 +1,4 @@
-# voto-smm
+# ESTEC
 
 ## Project setup
 ```

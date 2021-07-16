@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/voto-smm/'
+    publicPath: '/ESTEC/'
 };
