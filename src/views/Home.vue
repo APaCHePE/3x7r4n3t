@@ -3,7 +3,7 @@
     <div >
    
         <div v-if="login">
-          <Terminado @nuevoVoto='limpiarVoto'/>
+          <Registro @nuevoVoto='limpiarVoto'/>
         </div>
         <div v-else>
           <Login />
@@ -15,15 +15,15 @@
 </template>
 
 <script>
-import Login from "@/components/Registro.vue";
-import Terminado from "@/components/Terminado.vue";
+import Login from "@/components/Login.vue";
+import Registro from "@/components/Registro.vue";
 
 export default {
   props: ["finish"],
   name: "Home",
   components: {
     Login,
-    Terminado,
+    Registro,
   },
   data() {
     return {
