@@ -72,6 +72,9 @@
 
       <button class="btn btn-primary btn-block" tabindex="4">Solicitar</button>
     </form>
+    <p class="text-center mt-2">
+      <a @click="login=false"><span>&nbsp;Ya tengo cuenta</span></a>
+    </p>
   </div>
 </template>
 
@@ -82,6 +85,19 @@ export default {
     return {
       logo_v2: image,
     };
+  },
+  computed: {
+    login: {
+      // getter
+      get: function () {
+        return this.Login;
+      },
+      // setter
+      set: function () {
+        console.log("enviando parametro ");
+        this.$emit('cambiar-registro')
+      },
+    },
   },
 };
 </script>

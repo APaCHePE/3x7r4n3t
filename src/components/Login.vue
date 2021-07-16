@@ -26,9 +26,10 @@
         <div class="d-flex justify-content-between">
           <label class="size-text-login" for="login-password"
             >Contrase&ntilde;a</label
-          ><a href="RecuperarLogin.html"
-            ><small>Olvidaste tu contrase&ntilde;a?</small></a
           >
+          <!-- <a href="RecuperarLogin.html"
+            ><small>Olvidaste tu contrase&ntilde;a?</small></a
+          > -->
         </div>
         <div class="input-group input-group-merge form-password-toggle">
           <input
@@ -40,7 +41,7 @@
             aria-describedby="login-password"
             tabindex="2"
           />
-          <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
+          <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div>
         </div>
       </div>
       <div class="form-group">
@@ -66,12 +67,11 @@
       >
     </form>
     <p class="text-center mt-2">
-      <a href="SolicitarCuenta.html"><span>&nbsp;Solicitar Cuenta</span></a>
+      <a @click="login=false"><span>&nbsp;Solicitar Cuenta</span></a>
     </p>
   </div>
 </template>
 
- <script src="app-assets/js/scripts/pages/page-auth-login.js"></script>
 <script>
 import image from "@/assets/images/pages/login-v2.svg";
 
@@ -83,14 +83,27 @@ export default {
     };
   },
   created() {
-    $(window).on("load", function () {
-      if (feather) {
-        feather.replace({
-          width: 14,
-          height: 14,
-        });
-      }
-    });
+    // $(window).on("load", function () {
+    // if (feather) {
+    //   feather.replace({
+    //     width: 14,
+    //     height: 14,
+    //   });
+    // }
+    // });
+  },
+  computed: {
+    login: {
+      // getter
+      get: function () {
+        return this.Login;
+      },
+      // setter
+      set: function () {
+        console.log("enviando parametro ");
+        this.$emit('cambiar-registro')
+      },
+    },
   },
   methods: {},
 };
