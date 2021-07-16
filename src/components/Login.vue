@@ -27,9 +27,9 @@
           <label class="size-text-login" for="login-password"
             >Contrase&ntilde;a</label
           >
-          <!-- <a href="RecuperarLogin.html"
+           <a href="RecuperarLogin.html"
             ><small>Olvidaste tu contrase&ntilde;a?</small></a
-          > -->
+          > 
         </div>
         <div class="input-group input-group-merge form-password-toggle">
           <input
@@ -41,7 +41,7 @@
             aria-describedby="login-password"
             tabindex="2"
           />
-          <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div>
+          <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
         </div>
       </div>
       <div class="form-group">
@@ -66,7 +66,7 @@
         </button></router-link
       >
     </form>
-    <p class="text-center mt-2">
+    <p class="text-center mt-2" style="color: #51c1ff">
       <a @click="login=false"><span>&nbsp;Solicitar Cuenta</span></a>
     </p>
   </div>

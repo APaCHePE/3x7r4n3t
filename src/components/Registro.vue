@@ -72,7 +72,7 @@
 
       <button class="btn btn-primary btn-block" tabindex="4">Solicitar</button>
     </form>
-    <p class="text-center mt-2">
+    <p class="text-center mt-2" style="color: #51c1ff">
       <a @click="login=false"><span>&nbsp;Ya tengo cuenta</span></a>
     </p>
   </div>
