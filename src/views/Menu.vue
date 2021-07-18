@@ -1,80 +1,37 @@
 <template>
-  <div class="ball-scale-multiple top-bar-fixed left-sidebar-fixed page-footer boxed-layout">
-    <!-- INICIO: CABECERA -->
-    <!-- <div class="top-bar">
-        <div class="container container-full contenedor-opciones">
-            <nav class="navbar navbar-default">
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="sidebar-toggle"><a id="left-sidebar-toggle" href="#"> <img src="../plugins/img/icons/ico-navbar.png">
-                        </a> </li>
-                    <li class="sidebar-hide"><a id="left-sidebar-hide" href="#"> <img src="../plugins/img/icons/ico-navbar.png">
-                        </a> </li>
-                    <li class="sidebar-toggle separador-vertical-ico-menu"></li>
-                    <li class="page-title ml20 mr20">
-                        <h2><img class="" src="../plugins/img/logo.png" width="75" height="15px"></h2>
-                    </li>
-                    <li class="separador-vertical-ico-menu "></li>
-                    <li class="page-sistema ml20">
-                        <h2>Pago a proveedores</h2>
-                    </li>
-                </ul>
-           
-            </nav>
-        </div>
-    </div> -->
-    <nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-</nav>
-    <!-- FIN: CABECERA -->
-  <!-- INICIO: MENU PRINCIPAL -->
-    <div class="left-sidebar-wrapper">
-        <div class="left-sidebar left-sidebar-toggle">
-            <div class="scroll-area">
-                <ul class="sidebar-nav" data-open-speed="250" data-close-speed="200" data-easing="linear">
-                    <li class="waves-effect"><a href="estec-Inicio.html" title="Inicio"><img src="../plugins/img/icons/ico-menu-inicio.png"><span
-                                class="nav-item-text">Inicio</span></a> </li>
-                      <li class="waves-effect"><a href="#" title="Administracion"><img src="../plugins/img/icons/ico-menu-administracion-sistema.png"><span
-                                class="nav-item-text">Administración</span></a>
-								<ul class="sub-nav" role="menu">
-							<li class="waves-effect"><a href="estec-PV-Bandeja.html">Mi Cuenta</a></li>
-                            <li class="waves-effect"><a href="estec-PV-Registro.html">Mis Usuarios</a></li>
-                            
-                        </ul>
-                    </li>
-                    <li class="waves-effect"><a href="#" title="Documentos Electrónicos"><img src="../plugins/img/icons/ico-menu-inbox.png"><span
-                                class="nav-item-text">Documentos Electrónicos</span></a>
-                        <ul class="sub-nav" role="menu">
-                            <li class="waves-effect"><a src="/Bandeja.vue">Bandeja</a></li>
-							<li class="waves-effect"><a href="estec-DE-Registro.html">Registro</a></li>
-                        </ul>
-                    </li>
-                    <li class="waves-effect"><a href="#" title="Documentos Físicos"><img src="../plugins/img/icons/ico-menu-inbox.png"><span
-                                class="nav-item-text">Documentos Físicos</span></a>
-                        <ul class="sub-nav" role="menu">
-                            <li class="waves-effect"><a href="estec-DF-Bandeja.html">Bandeja</a></li>
-                            <li class="waves-effect"><a href="estec-DF-Registro.html">Registro</a></li>
-                        </ul>
-                    </li>
-                     <!-- <li class="waves-effect"><a href="#" title="Seguridad"><img src="../plugins/img/icons/ico-menu-seguridad.png"><span
-                                class="nav-item-text">Seguridad</span></a>
-								<ul class="sub-nav" role="menu">
-                            <li class="waves-effect"><a href="estec-Perfil.html">Perfil</a></li>
-                            
-                        </ul>
-                    </li> -->
-                    
-                </ul>
-            </div>
-        </div>
+  <div >
+
+ <nav class="navbar navbar-expand-lg navbar-light navPrincipal" >      
+   
+  <b-button v-b-toggle.sidebar-1 variant="background-color: #ffffff;box-shadow: none" class="buttonMenu">
+     <!-- <li class="sidebar-hide" style=" background-color: #ffffff "> -->
+        <a id="left-sidebar-hide" href="#"> 
+           <img src="../plugins/img/icons/ico-navbar.png" style="width: 25px; height: 25px;">
+        </a> 
+     <!-- </li> -->
+  </b-button>
+    
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a><img class="" src="../plugins/img/logo.png" width="100" height="30px"></a>
+      <a class="nav-item nav-link" href="#">Pago a Proveedores</a>
     </div>
-    <!-- FIN: MENU PRINCIPAL -->
+  </div>
+  </nav>
+
+
+    <!-- <b-button v-b-toggle.sidebar-1 style="float: left; background-color: #ffffff "><li class="sidebar-hide" style=" background-color: #ffffff "><a id="left-sidebar-hide" href="#"> <img src="../plugins/img/icons/ico-navbar.png" style="width: 50px; height: 50px;"></a> </li></b-button>
+    <Sidebar/>
+    <h2 style="float: left; background-color: #ffffff "><img class="" src="../plugins/img/logo.png" width="75" height="15px"></h2>
+ </nav> -->
+  
+   <!-- FIN: MENU PRINCIPAL -->
      <!-- INICIO: CUERPO CONTENIDO -->
+  <div class="ball-scale-multiple top-bar-fixed left-sidebar-fixed page-footer boxed-layout">
      <div class="container container-full">
+        <Sidebar/>
         <div class="page-container">
+           
            <div class="main-content body-full">
               <div class="content contentTG left-sidebar-toggle contenedor-opciones" style="min-height: 592px;">
                  <div class="container">
@@ -84,7 +41,6 @@
                           <h2 class="t1">Bievenido(a)</h2>
                           <span class="t2" id="NombreCompleto"></span><span class="t3">al aplicativo <b>Pago a proveedores</b></span>
                        </div>
-                       <!-- <div class="col-md-4"><span class="pregunta">¿Que deseas hacer hoy?</span><img src="../plugins/img/icons/bg-blue.png" alt="" data-themekey="#"></div> -->
                     </div>
                      <div class="row mt15">
                         <div class="col-md-8">
@@ -130,11 +86,18 @@
         </div>
      </div>
   </div>
+  </div>
 </template>
 
 <script>
+import Sidebar from './Sidebar.vue'
 export default {
+  components: { Sidebar },
+data(){
+   return{
 
+   }
+}
 }
 </script>
 
@@ -154,5 +117,13 @@ export default {
 }
 .options{
    display: flex;
+}
+.navPrincipal{
+background-color: #ffffff;
+box-shadow: 5px 10px 8px #c7c7c7;
+}
+.buttonMenu{
+   float: left;
+   box-shadow: none;
 }
 </style>
