@@ -75,9 +75,15 @@ methods:{
     añadirCuenta(){
         
         this.$swal({
-                  title: 'Nueva Cuenta',
-                });
-    }
+                  title: "Nueva Cuenta",
+  text: "Espacio para anadir una nueva cuenta bancaria",
+  type: "input",
+  showCancelButton: true,
+  closeOnConfirm: false,
+  inputPlaceholder: "Write something"
+});
+
+}
 }
 }
 </script>

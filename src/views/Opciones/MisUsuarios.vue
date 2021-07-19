@@ -15,10 +15,13 @@
                 <div class="col-md-2"><input class="form-control form-control-merge" v-model="item.cargo"></div>
                 <div class="col-md-2"><input class="form-control form-control-merge" v-model="item.correo"></div>
                 <div class="col-md-2"><input class="form-control form-control-merge" v-model="item.nombres"></div>
-                <div class="col-md-2"><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
+                <div class="col-md-2" @click="cambiarContraseña()" ><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
             <br><br> 
             </div>
-            <div class="añadir">+ añadir cuenta</div>
+            <div class="añadir" >
+                <u @click="añadirCuenta()" style="text-decoration: none;">
+            + añadir usuario</u>
+                </div>
         </div>
       </div>
 </div></div></div> 
@@ -61,9 +64,32 @@ export default {
             
 
         }
+    },
+    methods:{
+        añadirCuenta(){
+        
+        this.$swal({
+                  title: "Nuevo Usuario",
+  text: "Espacio para anadir un nuevo usuario",
+  type: "input",
+  showCancelButton: true,
+  closeOnConfirm: false,
+  inputPlaceholder: "Write something"
+});
+    },
+
+    cambiarContraseña(){
+        this.$swal({
+                  title: "Cambiar Contraseña",
+                text: "Espacio para editar contraseña",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                inputPlaceholder: "Write something"
+});
     }
 
-}
+}}
 </script>
 
 <style>
