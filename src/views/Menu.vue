@@ -18,7 +18,7 @@
     </div>
   </div>
   </nav>
- <Sidebar/>
+      <Sidebar @cambio-component="redirigir"/>
    <!-- FIN: MENU PRINCIPAL -->
      <!-- INICIO: CUERPO CONTENIDO -->
   <div class="ball-scale-multiple top-bar-fixed left-sidebar-fixed page-footer boxed-layout">
@@ -35,8 +35,8 @@
      </div>
   </div>
   </div>
+<!-- <3 (♥-♥)  -->
 </template>
-
 <script>
 import Sidebar from './Sidebar.vue'
 import MenuPrincipal from '../views/Opciones/menuPrincipal.vue'
@@ -49,11 +49,17 @@ export default {
      MiCuenta,
     MisUsuarios
      },
-data(){
-   return{
-      comporenteMostrar: false,
+   data(){
+      return{
+         comporenteMostrar: false,
+      }
+   },
+   methods:{
+      redirigir(param){
+         console.log("se recibió los parametros");
+         console.log(param);
+      }
    }
-}
 }
 </script>
 
