@@ -20,6 +20,7 @@
           aria-describedby="login-email"
           autofocus=""
           tabindex="1"
+          v-model="user"
         />
       </div>
       <div class="form-group">
@@ -40,24 +41,9 @@
             placeholder=""
             aria-describedby="login-password"
             tabindex="2"
+            v-model="password"
           />
           <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="custom-control custom-checkbox">
-          <input
-            class="custom-control-input"
-            id="remember-me"
-            type="checkbox"
-            tabindex="3"
-          />
-          <label
-            class="custom-control-label position-left size-text-login"
-            for="remember-me"
-          >
-            Recordar Usuario</label
-          >
         </div>
       </div>
       <router-link to="/menu"
@@ -80,17 +66,12 @@ export default {
   data() {
     return {
       logo_v2: image,
+      user: null,
+      password:null,
     };
   },
   created() {
-    // $(window).on("load", function () {
-    // if (feather) {
-    //   feather.replace({
-    //     width: 14,
-    //     height: 14,
-    //   });
-    // }
-    // });
+    
   },
   computed: {
     login: {

@@ -25,9 +25,11 @@
      <div class="container container-full">
         <div v-if="comporenteMostrar">
              <MenuPrincipal />
+             
          </div>
          <div v-else>
-             <MiCuenta />
+             <MiCuenta /> 
+            <MisUsuarios /> 
          </div><br>
       
      </div>
@@ -39,14 +41,17 @@
 import Sidebar from './Sidebar.vue'
 import MenuPrincipal from '../views/Opciones/menuPrincipal.vue'
 import MiCuenta from '../views/Opciones/MiCuenta.vue'
+import MisUsuarios from '../views/Opciones/MisUsuarios.vue' 
 export default {
   components: { 
      Sidebar,
      MenuPrincipal,
-     MiCuenta},
+     MiCuenta,
+    MisUsuarios
+     },
 data(){
    return{
-      comporenteMostrar: true,
+      comporenteMostrar: false,
    }
 }
 }
@@ -71,7 +76,7 @@ data(){
 }
 .navPrincipal{
 background-color: #ffffff;
-box-shadow: 5px 10px 8px #c7c7c7;
+box-shadow: 3px 2px 10px #c7c7c7;
 }
 .buttonMenu{
    float: left;
