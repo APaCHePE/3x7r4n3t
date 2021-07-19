@@ -22,15 +22,19 @@
                     :key="b + 'lista'"
                     @click="enviarSelect(child)"
                   >
-                    <a>{{ child.name }}</a>
+                    <router-link :to="child.url" 
+                      ><span class="nav-item-text"
+                        >{{ child.name }}
+                      </span></router-link
+                    >
                   </li>
                 </ul>
               </li>
               <li v-else @click="enviarSelect(i)">
-                <a :title="i.name"
+                <router-link :to="i.url" 
                   ><img :src="i.icon" /><span class="nav-item-text"
                     >{{ i.name }}
-                  </span></a
+                  </span></router-link
                 >
               </li>
             </div>
@@ -55,24 +59,24 @@ export default {
         },
         {
           name: "Administracion",
-          url: "/components/licencias",
+          url: "/",
           icon: "../plugins/img/icons/ico-menu-inbox.png",
           children: [
             {
               name: "Mi cuenta",
-              url: "/components/licencias/bandejacertificado",
+              url: "/menu/micuenta",
               icon: "../plugins/img/icons/ico-menu-inbox.png",
             },
             {
               name: "Mis usuarios",
-              url: "/components/licencias/bandejacertificado",
+              url: "/misusuarios",
               icon: "fa fa-puzzle-piece",
             },
           ],
         },
         {
           name: "Cerrar Sesión",
-          url: "/auth/login",
+          url: "/",
           icon: "../plugins/img/icons/ico-menu-administracion-sistema.png",
         },
       ],
@@ -83,7 +87,7 @@ export default {
   },
   methods: {
     enviarSelect(param) {
-      this.$emit("cambio-component", param)
+      this.$emit("cambio-component", param);
       console.log(param);
     },
   },

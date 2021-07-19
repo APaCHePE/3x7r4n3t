@@ -2,9 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Menu from "../views/Menu.vue";
-import VueSwal from 'vue-swal'
+import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
+import MiCuenta from "../views/Opciones/MiCuenta.vue";
  
-Vue.use(VueSwal)
 Vue.use(VueRouter);
 
 const routes = [
@@ -12,7 +12,23 @@ const routes = [
     path: "/menu",
     name: "Menu",
     component: Menu,
-    props: true
+    props: true,
+    children:[
+      {
+        path: '/',
+        component: ()=>import('../views/Opciones/menuPrincipal.vue') 
+      },
+      {
+        path: '/misusuarios',
+        name: "Mis Usuarios",
+        component: MisUsuarios,
+      },
+      {
+        path: '/menu/micuenta',
+        name: "MiCuenta",
+        component: MiCuenta
+      }
+    ]
   },
   {
     path: "/",

@@ -104,7 +104,7 @@
 
 <script>
 export default {
-name: 'menuPrincipal',
+// name: 'menuPrincipal',
 }
 </script>
 
