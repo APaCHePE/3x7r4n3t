@@ -137,6 +137,6 @@ height: 70px;
 .añadir{
     color: #51c1ff;
     text-align: right;
-    margin-right: 370px;
+    margin-right: 290px;
 }
 </style>

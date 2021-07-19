@@ -56,7 +56,7 @@ export default {
   },
   data() {
     return {
-      comporenteMostrar: false,
+      comporenteMostrar: 3,
     };
   },
   methods: {
