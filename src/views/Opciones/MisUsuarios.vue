@@ -6,19 +6,23 @@
           <h2 class="titulo">Mis Usuarios</h2>
           <div id="cuentasBAncarias" class="textoCuenta2">
            <div class="row">
-                <div class="col-md-2">Cargo</div>
-                <div class="col-md-2">Correo</div>
-                <div class="col-md-2">Nombres</div>
-                <div class="col-md-2">Clave</div>
+                <!-- <div class="col-md-2">Cargo</div> -->
+                <div class="col-md-3">Nombres</div>
+                <div class="col-md-3">Correo</div>
+                
+                <div class="col-md-3">Clave</div>
             </div>
             <div class="row" v-for="(item, index) in Usuarios" :key="index">
-                <div class="col-md-2"><input class="form-control form-control-merge" v-model="item.cargo"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge" v-model="item.correo"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge" v-model="item.nombres"></div>
-                <div class="col-md-2"><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
+                <!-- <div class="col-md-3"><input class="form-control form-control-merge" v-model="item.cargo"></div> -->
+                <div class="col-md-3"><input class="form-control form-control-merge" v-model="item.nombres"></div>
+                <div class="col-md-3"><input class="form-control form-control-merge" v-model="item.correo"></div>
+                <div class="col-md-3" @click="cambiarContraseña()" ><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
             <br><br> 
             </div>
-            <div class="añadir">+ añadir cuenta</div>
+            <div class="añadir" >
+                <u @click="añadirCuenta()" style="text-decoration: none;">
+            + añadir usuario</u>
+                </div>
         </div>
       </div>
 </div></div></div> 
@@ -61,9 +65,32 @@ export default {
             
 
         }
+    },
+    methods:{
+        añadirCuenta(){
+        
+        this.$swal({
+                  title: "Nuevo Usuario",
+  text: "Espacio para anadir un nuevo usuario",
+  type: "input",
+  showCancelButton: true,
+  closeOnConfirm: false,
+  inputPlaceholder: "Write something"
+});
+    },
+
+    cambiarContraseña(){
+        this.$swal({
+                  title: "Cambiar Contraseña",
+                text: "Espacio para editar contraseña",
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                inputPlaceholder: "Write something"
+});
     }
 
-}
+}}
 </script>
 
 <style>

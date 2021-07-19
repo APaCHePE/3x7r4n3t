@@ -23,74 +23,58 @@
      <!-- INICIO: CUERPO CONTENIDO -->
   <div class="ball-scale-multiple top-bar-fixed left-sidebar-fixed page-footer boxed-layout">
      <div class="container container-full">
-        <div v-if="comporenteMostrar">
-             <MenuPrincipal />
-             
-         </div>
-         <div v-else>
-             <MiCuenta /> 
-            <MisUsuarios /> 
-         </div><br>
-      
-     </div>
+    
+  </div>
   </div>
   </div>
 <!-- <3 (♥-♥)  -->
 </template>
 <script>
-import Sidebar from './Sidebar.vue'
-import MenuPrincipal from '../views/Opciones/menuPrincipal.vue'
-import MiCuenta from '../views/Opciones/MiCuenta.vue'
-import MisUsuarios from '../views/Opciones/MisUsuarios.vue' 
+import Sidebar from "./Sidebar.vue";7777777777777
 export default {
-  components: { 
-     Sidebar,
-     MenuPrincipal,
-     MiCuenta,
-    MisUsuarios
-     },
-   data(){
-      return{
-         comporenteMostrar: false,
-      }
-   },
-   methods:{
-      redirigir(param){
-         console.log("se recibió los parametros");
-         console.log(param);
-      }
-   }
+  components: {
+    Sidebar
+  },
+  data() {
+    return {
+      comporenteMostrar: false,
+    };
+  },
+  methods: {
+    redirigir(param) {
+      console.log("se recibió los parametros");
+      console.log(param);
+    },
+  }
 }
 </script>
 
 <style>
+@import "../plugins/css/bootstrap/bootstrap.css";
+@import "../plugins/css/bootstrap/bootstrap-select.min.css";
+@import "../plugins/css/bootstrap/bootstrap-datetimepicker.min.css";
+@import "../plugins/css/bootstrap/bootstrap-multiselect.css";
+@import "../plugins/css/style.css";
+@import "../plugins/css/main.css";
+@import "../plugins/css/font-awesome.css";
+@import "../plugins/css/responsive.css";
 
-@import '../plugins/css/bootstrap/bootstrap.css'; 
- @import '../plugins/css/bootstrap/bootstrap-select.min.css';
-@import '../plugins/css/bootstrap/bootstrap-datetimepicker.min.css';
-@import '../plugins/css/bootstrap/bootstrap-multiselect.css';
- @import '../plugins/css/style.css'; 
-@import '../plugins/css/main.css';
-@import '../plugins/css/font-awesome.css';
-@import '../plugins/css/responsive.css';
-
-.contenedor-opciones{
-   position: absolute
+.contenedor-opciones {
+  position: absolute;
 }
-.options{
-   display: flex;
+.options {
+  display: flex;
 }
-.navPrincipal{
-background-color: #ffffff;
-box-shadow: 3px 2px 10px #c7c7c7;
+.navPrincipal {
+  background-color: #ffffff;
+  box-shadow: 3px 2px 10px #c7c7c7;
 }
-.buttonMenu{
-   float: left;
-   box-shadow: none;
+.buttonMenu {
+  float: left;
+  box-shadow: none;
 }
-.positionRight{
+.positionRight {
   margin-right: 0px;
   display: flex;
 }
-
 </style>

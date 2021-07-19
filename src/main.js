@@ -7,6 +7,7 @@ import api from './plugins/axios.js';
 import './plugins/bootstrap-vue.js';
 import '@/assets/style/element.scss';
 import '@/assets/style/stilo-responsive.scss';
+import '@/assets/style/stilo-responsive.scss';
 
 Vue.config.productionTip = false;
 
