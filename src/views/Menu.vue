@@ -23,18 +23,21 @@
      <!-- INICIO: CUERPO CONTENIDO -->
   <div class="ball-scale-multiple top-bar-fixed left-sidebar-fixed page-footer boxed-layout">
      <div class="container container-full">
-        <div v-if="comporenteMostrar">
+    
+        <div v-if="comporenteMostrar == 1">
              <MenuPrincipal />
              
          </div>
-         <div v-else>
+         
+         <div v-if="comporenteMostrar == 2">
+            
              <MiCuenta /> 
+         </div>
+         <div v-if="comporenteMostrar == 3">
             <MisUsuarios /> 
-         </div><br>
-      
-     </div>
+         </div>
   </div>
-  </div>
+  </div></div>
 </template>
 
 <script>
@@ -51,7 +54,7 @@ export default {
      },
 data(){
    return{
-      comporenteMostrar: false,
+      comporenteMostrar: 3,
    }
 }
 }
