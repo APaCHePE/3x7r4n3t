@@ -3,7 +3,7 @@
  <div class="content contentTG left-sidebar-toggle contenedor-opciones" style="min-height: 592px;">
   <div class="container" >
       <div id="miCuenta">
-        <h2 class="titulo">Mi cuenta</h2>
+        <h2 class="titulo">Mis Datos</h2>
         <div id="detalleCuenta" class="textoCuenta">
             <div class="row">
                 <div class="col-md-6">Razon Social: {{nombreRazonSocial}}</div>
@@ -15,6 +15,27 @@
             </div>
         </div>
       </div>
+
+        <div>
+          <h2 class="titulo2">Mis Contactos</h2>
+          <div id="cuentasBAncarias" class="textoCuenta2">
+           <div class="row">
+                <div class="col-md-2 ">Cargo</div>
+                <div class="col-md-2">Nombres</div>
+                <div class="col-md-2">Correo</div>
+                <div class="col-md-2">Teléfono</div>
+            </div>
+             <div class="row">
+                <div class="col-md-2"><input class="form-control form-control-merge"></div>
+                <div class="col-md-2"><input class="form-control form-control-merge"></div>
+                <div class="col-md-2"><input class="form-control form-control-merge"></div>
+                <div class="col-md-2"><input class="form-control form-control-merge"></div>
+            </div>
+        </div>
+        </div>
+
+
+
       <div>
           <h2 class="titulo2">Cuentas Bancarias</h2>
           <div id="cuentasBAncarias" class="textoCuenta2">
@@ -96,7 +117,7 @@ methods:{
 
     font-style: normal;
     font-weight: normal;
-    font-size: 17px;
+    font-size: 15px;
     line-height: 23px;
 
 }
@@ -105,7 +126,7 @@ methods:{
     margin-left: 65px;
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 23px;
 }
 .titulo{
@@ -135,9 +156,10 @@ font-size: 29px;
 line-height: 47px;
 
 color: #727272;
+width: 1020px;
+    height: 80px;
+    display: inline-flex;
 
-width: 350px;
-height: 70px;
 }
 .añadir{
     color: #51c1ff;

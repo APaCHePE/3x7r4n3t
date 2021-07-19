@@ -23,21 +23,39 @@
      <!-- INICIO: CUERPO CONTENIDO -->
   <div class="ball-scale-multiple top-bar-fixed left-sidebar-fixed page-footer boxed-layout">
      <div class="container container-full">
-    
-  </div>
+    <div v-if="comporenteMostrar">
+        <div v-if="comporenteMostrar == 1">
+             <MenuPrincipal />
+             
+         </div>
+         <div v-else>
+         <div v-if="comporenteMostrar == 2">
+            
+             <MiCuenta /> 
+         </div>
+         <div v-if="comporenteMostrar == 3">
+            <MisUsuarios /> 
+         </div><br>
+  </div></div></div>
   </div>
   </div>
 <!-- <3 (♥-♥)  -->
 </template>
 <script>
-import Sidebar from "./Sidebar.vue";7777777777777
+import MenuPrincipal from '../views/Opciones/menuPrincipal.vue'
+import MiCuenta from '../views/Opciones/MiCuenta.vue'
+import MisUsuarios from '../views/Opciones/MisUsuarios.vue'
+import Sidebar from "./Sidebar.vue";
 export default {
-  components: {
-    Sidebar
-  },
+   components: { 
+     Sidebar,
+     MenuPrincipal,
+     MiCuenta,
+    MisUsuarios
+     },
   data() {
     return {
-      comporenteMostrar: false,
+      comporenteMostrar: 3,
     };
   },
   methods: {
