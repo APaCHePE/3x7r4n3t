@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 import Menu from "../views/Menu.vue";
 import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
 import MiCuenta from "../views/Opciones/MiCuenta.vue";
- 
+import MisContactos from "../views/Opciones/MisContactos.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -22,6 +22,11 @@ const routes = [
         path: '/misusuarios',
         name: "Mis Usuarios",
         component: MisUsuarios,
+      },
+      {
+        path: '/miscontactos',
+        name: "Mis Contactos",
+        component: MisContactos,
       },
       {
         path: '/menu/micuenta',

@@ -15,85 +15,27 @@
                     </div>
                   <div class="row" style="display: center">
 
-                    <div class="card col-sm-2 offset-md-1" >
-                        <div class="card-header" style="color:#51c1ff2">
+                    <div v-for="(i, a) in itemsNav" :key="a + 'lista'" class="card col-sm-2 offset-md-1" >
+                        <div v-if="i.children" class="card-header" style="color:#51c1ff2">
                            Administración
                         </div>
                         <div class="card-body">
-                           
-                           <div class="options"><a href="estec-PV-Bandeja.html"><span style="color:#000000">Mi cuenta</span></a></div>
-                           <div class="options"><a href="estec-PV-Registro.html"><span style="color:#000000">Mis Usuarios</span></a></div>                           
-                           
+                           <ul role="menu">
+                              <li
+                              v-for="(child, b) in i.children"
+                              :key="b + 'lista'"
+                              @click="enviarSelect(child)"
+                              >
+                              <router-link :to="child.url" 
+                                 ><span class="options"
+                                    >{{ child.name }}
+                                 </span></router-link
+                              >
+                              </li>
+                           </ul>
                         </div>
-                        </div>
-                     
+                        </div>  
 
-                     <div class="card col-sm-2 offset-md-1" >
-                        <div class="card-header" style="color:#51c1ff2" > 
-                           Documentos Físicos
-                        </div>
-                        <div class="card-body">
-                         
-                           <div class="options"><a href="estec-DE-Bandeja.html"><span style="color:#000000">Bandeja</span></a></div>
-                           <div class="options"><a href="estec-DE-Registro.html"><span style="color:#000000">Registro</span></a></div>
-                         
-                        </div>
-                        </div>
-
-
-                     <div class="card col-sm-2 offset-md-1">
-                        <div class="card-header" style="color:#51c1ff2" >
-                           Documentos Electrónicos
-                        </div>
-                        <div class="card-body">
-                         
-                        <div class="options"><a href="estec-DF-Bandeja.html"><span style="color:#000000">Bandeja</span></a></div>
-                        <div class="options"><a href="estec-DF-Registro.html"><span style="color:#000000">Registro</span></a></div>
-                       
-                        </div>
-                        </div><p style="color: #ffffff"><br>salto<br></p>
-
-
-
-                    <div class="card col-sm-2 offset-md-1" >
-                        <div class="card-header" style="color:#51c1ff2">
-                           Administración
-                        </div>
-                        <div class="card-body">
-                           
-                           <div class="options"><a href="estec-PV-Bandeja.html"><span style="color:#000000">Mi cuenta</span></a></div>
-                           <div class="options"><a href="estec-PV-Registro.html"><span style="color:#000000">Mis Usuarios</span></a></div>                           
-                           
-                        </div>
-                        </div>
-                     
-
-                     <div class="card col-sm-2 offset-md-1" >
-                        <div class="card-header" style="color:#51c1ff2" > 
-                           Documentos Físicos
-                        </div>
-                        <div class="card-body">
-                         
-                           <div class="options"><a href="estec-DE-Bandeja.html"><span style="color:#000000">Bandeja</span></a></div>
-                           <div class="options"><a href="estec-DE-Registro.html"><span style="color:#000000">Registro</span></a></div>
-                         
-                        </div>
-                        </div>
-
-
-                     <div class="card col-sm-2 offset-md-1">
-                        <div class="card-header" style="color:#51c1ff2" >
-                           Documentos Electrónicos
-                        </div>
-                        <div class="card-body">
-                         
-                        <div class="options"><a href="estec-DF-Bandeja.html"><span style="color:#000000">Bandeja</span></a></div>
-                        <div class="options"><a href="estec-DF-Registro.html"><span style="color:#000000">Registro</span></a></div>
-                       
-                        </div>
-                        </div>
-
-                        
                   </div> 
                     
                  </div>
@@ -105,6 +47,54 @@
 <script>
 export default {
 // name: 'menuPrincipal',
+data(){
+   return{
+       itemsNav: [
+        
+        {
+          name: "Administracion",
+          url: "/",
+          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
+          children: [
+            {
+              name: "Cuenta",
+              url: "/menu/micuenta",
+              icon: "@/plugins/img/icons/ico-menu-inbox.png",
+            },
+            {
+              name: "Contactos",
+              url: "/miscontactos",
+              icon: "fa fa-puzzle-piece",
+            },{
+              name: "Usuarios",
+              url: "/misusuarios",
+              icon: "fa fa-puzzle-piece",
+            },
+          ],
+        },{
+          name: "Administracion",
+          url: "/",
+          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
+          children: [
+            {
+              name: "Cuenta",
+              url: "/menu/micuenta",
+              icon: "@/plugins/img/icons/ico-menu-inbox.png",
+            },
+            {
+              name: "Contactos",
+              url: "/miscontactos",
+              icon: "fa fa-puzzle-piece",
+            },{
+              name: "Usuarios",
+              url: "/misusuarios",
+              icon: "fa fa-puzzle-piece",
+            },
+          ],
+        },
+      ],
+   }
+}
 }
 </script>
 
