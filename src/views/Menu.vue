@@ -1,37 +1,19 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light navPrincipal">
-      <b-button
-        v-b-toggle.sidebar-1
-        variant="background-color: #ffffff;box-shadow: none"
-        class="buttonMenu"
-      >
-        <!-- <li class="sidebar-hide" style=" background-color: #ffffff "> -->
-        <a id="left-sidebar-hide" href="#">
-          <img
-            src="../plugins/img/icons/ico-navbar.png"
-            style="width: 25px; height: 25px"
-          />
-        </a>
-        <!-- </li> -->
-      </b-button>
+    <b-button
+      v-b-toggle.sidebar-1
+      variant="background-color: #ffffff;box-shadow: none"
+      class="buttonMenu"
+    >
+      <a id="left-sidebar-hide" href="#">
+        <img
+          src="../plugins/img/icons/ico-navbar.png"
+          style="width: 25px; height: 25px"
+        />
+      </a>
+    </b-button>
+    <Sidebar />
 
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a
-            ><img
-              class=""
-              src="../plugins/img/logo.png"
-              width="100"
-              height="30px"
-          /></a>
-          <a class="nav-item nav-link" href="#">Pago a Proveedores</a>
-        </div>
-      </div>
-    </nav>
-    <Sidebar @cambio-component="redirigir" />
-    <!-- FIN: MENU PRINCIPAL -->
-    <!-- INICIO: CUERPO CONTENIDO -->
     <div
       class="
         ball-scale-multiple
@@ -42,11 +24,10 @@
       "
     >
       <div class="container container-full">
-         <router-view/>
+        <router-view />
       </div>
     </div>
   </div>
-  <!-- <3 (♥-♥)  -->
 </template>
 <script>
 import Sidebar from "./Sidebar.vue";
@@ -55,15 +36,14 @@ export default {
     Sidebar,
   },
   data() {
-    return {
-      comporenteMostrar: 3,
-    };
+    return {};
   },
   methods: {
-    redirigir(param) {
-      console.log("se recibió los parametros");
-      console.log(param);
-    },
+    // changeLang(){
+    //     this.i18n = this.$i18n;
+    //     this.i18n.locale = 'ar';
+    //     this.$rtl.enableRTL();
+    // }
   },
 };
 </script>

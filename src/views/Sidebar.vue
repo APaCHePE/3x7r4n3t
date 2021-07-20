@@ -1,8 +1,27 @@
 <template>
-  <b-sidebar id="sidebar-1" shadow>
+  <b-sidebar
+    id="sidebar-1"
+    shadow
+    class="mt-3"
+    visible
+    noCloseOnRouteChange
+    noHeader
+    :backdrop-variant="variant"
+  >
     <div class="left-sidebar-wrapper">
       <div>
         <div class="scroll-area">
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a
+                ><img
+                  class=""
+                  src="../plugins/img/logo.png"
+                  width="100"
+                  height="30px"
+              /></a>
+            </div>
+          </div>
           <ul
             class="sidebar-nav"
             data-open-speed="250"
@@ -11,10 +30,10 @@
           >
             <div v-for="(i, a) in itemsNav" :key="a + 'lista'">
               <li v-if="i.children">
-                <a href="#" title="Administracion"
-                  ><img :src="i.icon + ''" /><span class="nav-item-text"
-                    >Administración</span
-                  ></a
+                <a :title="i.name"
+                  ><img :src="i.icon + ''" /><span class="nav-item-text">{{
+                    i.name
+                  }}</span></a
                 >
                 <ul role="menu">
                   <li
@@ -22,7 +41,7 @@
                     :key="b + 'lista'"
                     @click="enviarSelect(child)"
                   >
-                    <router-link :to="child.url" 
+                    <router-link :to="child.url"
                       ><span class="nav-item-text"
                         >{{ child.name }}
                       </span></router-link
@@ -31,7 +50,7 @@
                 </ul>
               </li>
               <li v-else @click="enviarSelect(i)">
-                <router-link :to="i.url" 
+                <router-link :to="i.url"
                   ><img :src="i.icon" /><span class="nav-item-text"
                     >{{ i.name }}
                   </span></router-link
@@ -51,6 +70,19 @@ export default {
   name: "sidebar",
   data() {
     return {
+      variant: "dark",
+      variants: [
+        "transparent",
+        "white",
+        "light",
+        "dark",
+        "primary",
+        "secondary",
+        "success",
+        "danger",
+        "warning",
+        "info",
+      ],
       itemsNav: [
         {
           name: "Inicio ",
