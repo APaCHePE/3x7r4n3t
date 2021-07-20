@@ -22,7 +22,8 @@
               /></a>
             </div>
           </div>
-        <div class="scroll-area" >
+        </div>
+        <div class="scroll-area">
           <ul
             class="sidebar-nav"
             data-open-speed="250"
@@ -35,7 +36,6 @@
                   ><img :src="i.icon + ''" /><span class="nav-item-text">{{
                     i.name
                   }}</span></a
-
                 >
                 <ul role="menu">
                   <li
@@ -57,8 +57,10 @@
                     >{{ i.name }}
                   </span></router-link
                 >
-              </li><br>
-            </div><br>
+              </li>
+              <br />
+            </div>
+            <br />
           </ul>
         </div>
       </div>
@@ -97,7 +99,7 @@ export default {
           icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
-              name: "Cuenta",
+              name: "Cuentas",
               url: "/menu/micuenta",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },
@@ -105,7 +107,8 @@ export default {
               name: "Contactos",
               url: "/miscontactos",
               icon: "fa fa-puzzle-piece",
-            },{
+            },
+            {
               name: "Usuarios",
               url: "/misusuarios",
               icon: "fa fa-puzzle-piece",
