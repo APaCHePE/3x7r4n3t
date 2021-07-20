@@ -5,10 +5,10 @@
         class="content contentTG left-sidebar-toggle contenedor-opciones"
         style="min-height: 592px"
       >
-        <titulo-header>Mis Datos</titulo-header>
+        <titulo-header>Mis Datos</titulo-header><br>
         <div class="container">
           <div id="miCuenta">
-            <h2 class="titulo">Mis Datos</h2>
+            <!-- <h2 class="titulo">Mis Datos</h2> -->
             <div id="detalleCuenta" class="textoCuenta">
               <div class="row">
                 <div class="col-md-6">
@@ -49,7 +49,66 @@
                   <input class="form-control form-control-merge" />
                 </div>
               </div>
-
+<div class="row">
+                <div class="col-md-2">Entidad Bancaria</div>
+                <div class="col-md-2">Moneda</div>
+                <div class="col-md-2">N° Cuenta</div>
+                <div class="col-md-2">CCI</div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">Entidad Bancaria</div>
+                <div class="col-md-2">Moneda</div>
+                <div class="col-md-2">N° Cuenta</div>
+                <div class="col-md-2">CCI</div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">Entidad Bancaria</div>
+                <div class="col-md-2">Moneda</div>
+                <div class="col-md-2">N° Cuenta</div>
+                <div class="col-md-2">CCI</div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+                <div class="col-md-2">
+                  <input class="form-control form-control-merge" />
+                </div>
+              </div>
               <div class="añadir">
                 <u @click="añadirCuenta()" style="text-decoration: none">
                   + añadir cuenta</u

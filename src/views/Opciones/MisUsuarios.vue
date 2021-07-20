@@ -2,22 +2,23 @@
 <div class="page-container positionRight" >
   <div class="main-content body-full positionRight" >
   <div class="content contentTG left-sidebar-toggle contenedor-opciones" style="min-height: 592px;">
+  <titulo-header>Mis Usuarios</titulo-header><br>
   <div class="container" >
       <div id="misUsuarios">
-          <h2 class="titulo">Mis Usuarios</h2>
+          <!-- <h2 class="titulo">Mis Usuarios</h2> -->
           <div id="cuentasBAncarias" class="textoCuenta2">
            <div class="row">
                 <!-- <div class="col-md-2">Cargo</div> -->
-                <div class="col-md-3">Nombres</div>
-                <div class="col-md-3">Correo</div>
+                <div class="col-md-4">Nombres</div>
+                <div class="col-md-4">Correo</div>
                 
-                <div class="col-md-3">Clave</div>
+                <div class="col-md-4">Clave</div>
             </div>
             <div class="row" v-for="(item, index) in Usuarios" :key="index">
-                <!-- <div class="col-md-3"><input class="form-control form-control-merge" v-model="item.cargo"></div> -->
-                <div class="col-md-3"><input class="form-control form-control-merge" v-model="item.nombres"></div>
-                <div class="col-md-3"><input class="form-control form-control-merge" v-model="item.correo"></div>
-                <div class="col-md-3" @click="cambiarContraseña()" ><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
+                <!-- <div class="col-md-4"><input class="form-control form-control-merge" v-model="item.cargo"></div> -->
+                <div class="col-md-4"><input class="form-control form-control-merge" v-model="item.nombres"></div>
+                <div class="col-md-4"><input class="form-control form-control-merge" v-model="item.correo"></div>
+                <div class="col-md-4" @click="cambiarContraseña()" ><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
             <br><br> 
             </div>
             <div class="añadir" >
@@ -30,7 +31,12 @@
 </template>
 
 <script>
+import TituloHeader from "@/components/utils/TituloHeader.vue";
+
 export default {
+    components: {
+    TituloHeader,
+  },
     data(){
         return{
             Usuarios:[
@@ -138,6 +144,6 @@ height: 70px;
 .añadir{
     color: #51c1ff;
     text-align: right;
-    margin-right: 290px;
+    margin-right: 0px;
 }
 </style>

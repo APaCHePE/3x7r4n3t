@@ -12,13 +12,13 @@
       <div>
         <div class="scroll-area">
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav" style="text-align: center;"><br>
               <a
                 ><img
                   class=""
                   src="../plugins/img/logo.png"
-                  width="100"
-                  height="30px"
+                  width="200"
+                  height="60px"
               /></a>
             </div>
           </div>

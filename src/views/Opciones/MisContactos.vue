@@ -2,9 +2,10 @@
 <div class="page-container positionRight" >
 <div class="main-content body-full positionRight" >
  <div class="content contentTG left-sidebar-toggle contenedor-opciones" style="min-height: 592px;">
+  <titulo-header>Mis Contactos</titulo-header><br>
   <div class="container" >
         <div>
-          <h2 class="titulo">Mis Contactos</h2>
+          <!-- <h2 class="titulo">Mis Contactos</h2> -->
           <div id="cuentasBAncarias" class="textoCuenta2">
                <!-- <div>
                 <b-table striped hover :items="items" :fields="fields"  style="width: 90%;"></b-table>
@@ -48,8 +49,13 @@
 </template>
 
 <script>
+import TituloHeader from "@/components/utils/TituloHeader.vue";
 
 export default {
+  
+  components: {
+    TituloHeader,
+  },
 data(){
     return{
         tableData: [{
