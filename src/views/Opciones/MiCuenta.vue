@@ -22,90 +22,64 @@
             </div>
           </div>
         </div>
-
-        <div>
-          <h2 class="titulo2">Mis Contactos</h2>
-          <div id="cuentasBAncarias" class="textoCuenta2">
-            <div class="row">
-              <div class="col-md-2">Cargo</div>
-              <div class="col-md-2">Nombres</div>
-              <div class="col-md-2">Correo</div>
-              <div class="col-md-2">Teléfono</div>
-            </div>
-            <div class="row">
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
+      </div>
+      <br />
+      <div>
+        <div id="cuentasBAncarias" class="textoCuenta2">
           <h2 class="titulo2">Cuentas Bancarias</h2>
-          <div id="cuentasBAncarias" class="textoCuenta2">
-            <div class="row">
-              <div class="col-md-2">Entidad Bancaria</div>
-              <div class="col-md-2">Moneda</div>
-              <div class="col-md-2">N° Cuenta</div>
-              <div class="col-md-2">CCI</div>
+          <div class="row">
+            <div class="col-md-2">Entidad Bancaria</div>
+            <div class="col-md-2">Moneda</div>
+            <div class="col-md-2">N° Cuenta</div>
+            <div class="col-md-2">CCI</div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <input class="form-control form-control-merge" />
             </div>
-            <div class="row">
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
+            <div class="col-md-2">
+              <input class="form-control form-control-merge" />
             </div>
-
-            <div class="añadir"> 
-              <u @click="añadirCuenta()" style="text-decoration: none">
-                + añadir cuenta</u
-              >
+            <div class="col-md-2">
+              <input class="form-control form-control-merge" />
+            </div>
+            <div class="col-md-2">
+              <input class="form-control form-control-merge" />
             </div>
           </div>
+
+          <div class="añadir">
+            <u @click="añadirCuenta()" style="text-decoration: none">
+              + añadir cuenta</u
+            >
+          </div>
         </div>
-        <div>
-          <h2 class="titulo2">Cuenta de Detraccíon</h2>
-          <div id="cuentasBAncarias" class="textoCuenta2">
-            <div class="row">
-              <div class="col-md-2">Entidad Bancaria</div>
-              <div class="col-md-2">Moneda</div>
-              <div class="col-md-2">N° Cuenta</div>
+      </div>
+      <div>
+        <h2 class="titulo2">Cuenta de Detraccíon</h2>
+        <div id="cuentasBAncarias" class="textoCuenta2">
+          <div class="row">
+            <div class="col-md-2">Entidad Bancaria</div>
+            <div class="col-md-2">Moneda</div>
+            <div class="col-md-2">N° Cuenta</div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <input
+                class="form-control form-control-merge"
+                v-model="entidadDetraccion"
+                disabled
+              />
             </div>
-            <div class="row">
-              <div class="col-md-2">
-                <input
-                  class="form-control form-control-merge"
-                  v-model="entidadDetraccion"
-                  disabled
-                />
-              </div>
-              <div class="col-md-2">
-                <input
-                  class="form-control form-control-merge"
-                  v-model="monedaDetraccion"
-                  disabled
-                />
-              </div>
-              <div class="col-md-2">
-                <input class="form-control form-control-merge" />
-              </div>
+            <div class="col-md-2">
+              <input
+                class="form-control form-control-merge"
+                v-model="monedaDetraccion"
+                disabled
+              />
+            </div>
+            <div class="col-md-2">
+              <input class="form-control form-control-merge" />
             </div>
           </div>
         </div>
@@ -115,8 +89,11 @@
 </template>
 
 <script>
-import TituloHeader from '@/components/utils/TituloHeader.vue'
+import TituloHeader from "@/components/utils/TituloHeader.vue";
 export default {
+  components: {
+    TituloHeader,
+  },
   data() {
     return {
       nombreRazonSocial: null,
@@ -126,9 +103,6 @@ export default {
       entidadDetraccion: "Banco de la Nacion",
       monedaDetraccion: "soles",
     };
-  },
-  components: {
-    TituloHeader,
   },
   methods: {
     añadirCuenta() {
@@ -173,22 +147,19 @@ export default {
 
   color: #727272;
 
-  width: 300px;
+  width: 280px;
   height: 70px;
 }
-/* .inputEntrada{
-border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
-    border-color: #b1b1b78c;
-} */
 .titulo2 {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 29px;
+  font-size: 25px;
   line-height: 47px;
+  color: #51c1ff;
+  width: 1020px;
+  height: 50px;
+  display: inline-flex;
 
   color: #727272;
   width: 1020px;

@@ -22,6 +22,7 @@
               /></a>
             </div>
           </div>
+        <div class="scroll-area" >
           <ul
             class="sidebar-nav"
             data-open-speed="250"
@@ -34,6 +35,7 @@
                   ><img :src="i.icon + ''" /><span class="nav-item-text">{{
                     i.name
                   }}</span></a
+
                 >
                 <ul role="menu">
                   <li
@@ -55,8 +57,8 @@
                     >{{ i.name }}
                   </span></router-link
                 >
-              </li>
-            </div>
+              </li><br>
+            </div><br>
           </ul>
         </div>
       </div>
@@ -87,20 +89,24 @@ export default {
         {
           name: "Inicio ",
           url: "/menu",
-          icon: "../plugins/img/icons/ico-menu-inbox.png",
+          icon: "@/plugins/img/icons/ico-menu-inbox.png",
         },
         {
           name: "Administracion",
           url: "/",
-          icon: "../plugins/img/icons/ico-menu-inbox.png",
+          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
-              name: "Mi cuenta",
+              name: "Cuenta",
               url: "/menu/micuenta",
-              icon: "../plugins/img/icons/ico-menu-inbox.png",
+              icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },
             {
-              name: "Mis usuarios",
+              name: "Contactos",
+              url: "/miscontactos",
+              icon: "fa fa-puzzle-piece",
+            },{
+              name: "Usuarios",
               url: "/misusuarios",
               icon: "fa fa-puzzle-piece",
             },
@@ -109,7 +115,7 @@ export default {
         {
           name: "Cerrar Sesión",
           url: "/",
-          icon: "../plugins/img/icons/ico-menu-administracion-sistema.png",
+          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
         },
       ],
     };
