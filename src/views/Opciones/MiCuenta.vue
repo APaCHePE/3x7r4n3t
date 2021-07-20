@@ -217,7 +217,7 @@ export default {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 15px;
   line-height: 47px;
   color: #51c1ff;
   width: 1020px;
