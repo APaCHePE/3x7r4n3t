@@ -17,7 +17,7 @@
 
                     <div v-for="(i, a) in itemsNav" :key="a + 'lista'" class="card col-sm-2 offset-md-1" >
                         <div v-if="i.children" class="card-header" style="color:#51c1ff2">
-                           Administración
+                           {{ i.name }}
                         </div>
                         <div class="card-body">
                            <ul role="menu">
@@ -72,24 +72,20 @@ data(){
             },
           ],
         },{
-          name: "Administracion",
+          name: "Pagos",
           url: "/",
           icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
-              name: "Cuenta",
-              url: "/menu/micuenta",
+              name: "Ordenes",
+              url: "/ordenes",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },
             {
-              name: "Contactos",
-              url: "/miscontactos",
+              name: "Facturas",
+              url: "/facturas",
               icon: "fa fa-puzzle-piece",
-            },{
-              name: "Usuarios",
-              url: "/misusuarios",
-              icon: "fa fa-puzzle-piece",
-            },
+            }
           ],
         },
       ],

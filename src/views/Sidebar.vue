@@ -11,9 +11,9 @@
           >
             <div v-for="(i, a) in itemsNav" :key="a + 'lista'" >
               <li v-if="i.children" >
-                <a href="#" title="Administracion" 
+                <a href="#"
                   ><span class="nav-item-text" 
-                    ><img :src="i.icon + ''" />Administración</span
+                    ><img :src="i.icon + ''" />{{ i.name }}</span
                   ></a
                 >
                 <ul role="menu">
@@ -30,6 +30,7 @@
                   </li>
                 </ul>
               </li>
+              
               <li v-else @click="enviarSelect(i)">
                 <router-link :to="i.url" 
                   ><span class="nav-item-text" style="float: left"
@@ -76,6 +77,24 @@ export default {
               url: "/misusuarios",
               icon: "fa fa-puzzle-piece",
             },
+          ],
+        },
+        
+        {
+          name: "Pagos",
+          url: "/",
+          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
+          children: [
+            {
+              name: "Ordenes",
+              url: "/ordenes",
+              icon: "@/plugins/img/icons/ico-menu-inbox.png",
+            },
+            {
+              name: "Facturas",
+              url: "/facturas",
+              icon: "fa fa-puzzle-piece",
+            }
           ],
         },
         {
