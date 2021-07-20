@@ -6,23 +6,39 @@
         <div>
           <h2 class="titulo">Mis Contactos</h2>
           <div id="cuentasBAncarias" class="textoCuenta2">
-               <div>
-                <b-table striped hover :items="items" :fields="fields"  style="width: 90%;">
-                    <button>sss</button>
-                </b-table>
-            </div>
-           <!-- <div class="row">
-                <div class="col-md-2 ">Cargo</div>
-                <div class="col-md-2">Nombres</div>
-                <div class="col-md-2">Correo</div>
-                <div class="col-md-2">Teléfono</div>
-            </div>
-             <div class="row">
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-                <div class="col-md-2"><input class="form-control form-control-merge"></div>
-            </div> -->
+               <!-- <div>
+                <b-table striped hover :items="items" :fields="fields"  style="width: 90%;"></b-table>
+            </div>  -->
+
+            <el-table
+      :data="tableData"
+      style="width: 90%">
+      <el-table-column
+        prop="cargo"
+        label="Cargo"
+        width="130">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="Nombre"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="correo"
+        label="Correo"
+        width="250">
+      </el-table-column>
+       <el-table-column
+        prop="number"
+        label="Teléfono"
+        width="100">
+      </el-table-column>
+      <el-table-column
+        prop="editar"
+        width="100">
+        <el-button>Editar</el-button>
+      </el-table-column>
+    </el-table>
         </div>
         </div>
   </div>
@@ -36,13 +52,29 @@
 export default {
 data(){
     return{
-        fields: ['Cargo', 'Nombres', 'Correo','Teléfono', ' Acccion '],
-        items: [
-          { isActive: true, Teléfono: 40, Cargo: 'Dickerson', Nombres: 'Macdonald' },
-          { isActive: false, Teléfono: 21, Cargo: 'Larsen', Nombres: 'Shaw' },
-          { isActive: false, Teléfono: 89, Cargo: 'Geneva', Nombres: 'Wilson' },
-          { isActive: true, Teléfono: 38, Cargo: 'Jami', Nombres: 'Carney' }
-        ],
+        tableData: [{
+          cargo: 'Director',
+          name: 'Tom',
+          correo: 'No. 189, Grove St, Los Angeles',
+          number: '987654321'
+        }, {
+          cargo: 'Director',
+          name: 'Tom',
+          correo: 'No. 189, Grove St, Los Angeles',
+          number: '987654321'
+        }, {
+          cargo: 'Director',
+          name: 'Tom',
+          correo: 'No. 189, Grove St, Los Angeles',
+          number: '987654321'
+        }, {
+          cargo: 'Director',
+          name: 'Tom',
+          correo: 'No. 189, Grove St, Los Angeles',
+          number: '987654321'
+        }],
+
+
         nombreRazonSocial:null,
         numeroRuc:null,
         cuenta:null,
@@ -52,7 +84,16 @@ data(){
     }
 },
 methods:{
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
+      },
     
+
+
+
     añadirCuenta(){
         
         this.$swal({
