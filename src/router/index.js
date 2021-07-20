@@ -5,6 +5,7 @@ import Menu from "../views/Menu.vue";
 import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
 import MiCuenta from "../views/Opciones/MiCuenta.vue";
 import MisContactos from "../views/Opciones/MisContactos.vue";
+
 Vue.use(VueRouter);
 
 const routes = [

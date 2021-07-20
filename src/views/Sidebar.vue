@@ -30,12 +30,13 @@
             data-close-speed="200"
             data-easing="linear"
           >
-            <div v-for="(i, a) in itemsNav" :key="a + 'lista'">
-              <li v-if="i.children">
-                <a :title="i.name"
-                  ><img :src="i.icon + ''" /><span class="nav-item-text">{{
-                    i.name
-                  }}</span></a
+
+            <div v-for="(i, a) in itemsNav" :key="a + 'lista'" >
+              <li v-if="i.children" >
+                <a href="#"
+                  ><span class="nav-item-text" 
+                    ><img :src="i.icon + ''" />{{ i.name }}</span
+                  ></a
                 >
                 <ul role="menu">
                   <li
@@ -51,6 +52,7 @@
                   </li>
                 </ul>
               </li>
+              
               <li v-else @click="enviarSelect(i)">
                 <router-link :to="i.url"
                   ><img :src="i.icon" /><span class="nav-item-text"
@@ -113,6 +115,24 @@ export default {
               url: "/misusuarios",
               icon: "fa fa-puzzle-piece",
             },
+          ],
+        },
+        
+        {
+          name: "Pagos",
+          url: "/",
+          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
+          children: [
+            {
+              name: "Ordenes",
+              url: "/ordenes",
+              icon: "@/plugins/img/icons/ico-menu-inbox.png",
+            },
+            {
+              name: "Facturas",
+              url: "/facturas",
+              icon: "fa fa-puzzle-piece",
+            }
           ],
         },
         {
