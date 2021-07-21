@@ -17,8 +17,8 @@
                 ><img
                   class=""
                   src="../plugins/img/logo.png"
-                  width="200"
-                  height="60px"
+                  width="300"
+                  height="80px"
               /></a>
             </div>
           </div>
@@ -33,8 +33,8 @@
 
             <div v-for="(i, a) in itemsNav" :key="a + 'lista'" >
               <li v-if="i.children" >
-                <a href="#"
-                  ><span class="nav-item-text" 
+                <a href="#" style="size: 20px"
+                  ><span class="nav-item-text" style="font-size: 20px"
                     ><img :src="i.icon + ''" />{{ i.name }}</span
                   ></a
                 >
@@ -45,7 +45,7 @@
                     @click="enviarSelect(child)"
                   >
                     <router-link :to="child.url"
-                      ><span class="nav-item-text"
+                      ><span class="nav-item-text" style="font-size: 20px"
                         >{{ child.name }}
                       </span></router-link
                     >
@@ -55,7 +55,7 @@
               
               <li v-else @click="enviarSelect(i)">
                 <router-link :to="i.url"
-                  ><img :src="i.icon" /><span class="nav-item-text"
+                  ><img :src="i.icon" /><span class="nav-item-text" style="font-size: 20px"
                     >{{ i.name }}
                   </span></router-link
                 >

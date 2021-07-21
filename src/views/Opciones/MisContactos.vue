@@ -13,7 +13,7 @@
 
             <el-table
       :data="tableData"
-      style="width: 90%">
+      style="width: 100%">
       <el-table-column
         prop="cargo"
         label="Cargo"
@@ -22,7 +22,7 @@
       <el-table-column
         prop="name"
         label="Nombre"
-        width="180">
+        width="250">
       </el-table-column>
       <el-table-column
         prop="correo"
@@ -32,11 +32,11 @@
        <el-table-column
         prop="number"
         label="Teléfono"
-        width="100">
+        width="150">
       </el-table-column>
       <el-table-column
         prop="editar"
-        width="100">
+        width="200">
         <el-button>Editar</el-button>
       </el-table-column>
     </el-table>
@@ -170,6 +170,6 @@ display: inline-flex;
 .añadir{
     color: #51c1ff;
     text-align: right;
-    margin-right: 370px;
+    margin-right: 0px;
 }
 </style>
