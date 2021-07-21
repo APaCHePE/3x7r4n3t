@@ -34,7 +34,11 @@
                   end-placeholder="End date">
                 </el-date-picker>
                 </div>
-               <div class="col-md-4"> <el-input style="width: 200px;"></el-input> </div>
+               <div class="col-md-4"> <el-select v-model="select" slot="prepend" placeholder="Select">
+      <el-option label="Restaurant" value="1"></el-option>
+      <el-option label="Order No." value="2"></el-option>
+      <el-option label="Tel" value="3"></el-option>
+    </el-select>  </div>
                 
                     
             

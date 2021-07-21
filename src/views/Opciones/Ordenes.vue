@@ -26,21 +26,20 @@
                   end-placeholder="End date">
                 </el-date-picker>
                 </div>
-               <div class="col-md-4"> <el-input style="width: 200px;"></el-input> </div>
+               <div class="col-md-4">  <el-select v-model="select" slot="prepend" placeholder="Select">
+      <el-option label="Restaurant" value="1"></el-option>
+      <el-option label="Order No." value="2"></el-option>
+      <el-option label="Tel" value="3"></el-option>
+    </el-select> </div>
                 
                     
             
 </div><br>
-<el-button style="background-color: #51C1FF; width: 980px" icon="el-icon-search">Buscar</el-button><br><br><br>
+<el-button style="background-color: #51C1FF; width: 990px" icon="el-icon-search">Buscar</el-button><br><br><br>
   </div>
       <el-table
       :data="tableData"
       style="width: 120%">
-      <el-table-column type="expand">
-      <template slot-scope="props">
-        <p>Detalle: {{ props.row.address }}</p>
-      </template>
-    </el-table-column>
       <el-table-column
         prop="date"
         label="Tipo">
@@ -68,6 +67,11 @@
       <el-table-column
         prop="numero"
         label="Estado">
+      </el-table-column>
+      <el-table-column
+        prop=""
+        label="">
+        <u>ver</u>
       </el-table-column>
     </el-table>
   

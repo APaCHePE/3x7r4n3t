@@ -65,40 +65,37 @@
                 </div>
               </div>
               <br>
-              <div class="row">
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-              </div>
-              <br>
-              <div class="row">
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-                <div class="col-md-3">
-                  <input class="form-control form-control-merge" />
-                </div>
-              </div><br>
               <div class="añadir">
-                <u @click="añadirCuenta()" style="text-decoration: none">
-                  + añadir cuenta</u
-                >
+                <el-button type="text" @click="dialogVisible = true">+ añadir cuenta</el-button> 
               </div>
+
+
+              <el-dialog
+                title="Nueva cuenta"
+                :visible.sync="dialogVisible"
+                width="30%"
+                :before-close="handleClose">
+                <!-- <span>Nueva cuenta</span> -->
+                <el-form >
+                <el-form-item label="Entidad Bancaria" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Moneda" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="N° de Cuenta" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="CCI" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisible = false">Cancel</el-button>
+                  <el-button type="primary" @click="dialogVisible = false">Guardar</el-button>
+                </span>
+              </el-dialog>
+
             </div>
           </div>
           <div>
@@ -144,6 +141,7 @@ export default {
   },
   data() {
     return {
+      dialogVisible: false,
       nombreRazonSocial: null,
       numeroRuc: null,
       cuenta: null,

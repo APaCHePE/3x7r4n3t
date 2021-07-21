@@ -35,7 +35,7 @@
               <li v-if="i.children" >
                 <a href="#" style="size: 20px"
                   ><span class="nav-item-text" style="font-size: 20px"
-                    ><img :src="i.icon + ''" />{{ i.name }}</span
+                    >{{ i.name }}</span
                   ></a
                 >
                 <ul role="menu">
@@ -55,7 +55,7 @@
               
               <li v-else @click="enviarSelect(i)">
                 <router-link :to="i.url"
-                  ><img :src="i.icon" /><span class="nav-item-text" style="font-size: 20px"
+                  ><span class="nav-item-text" style="font-size: 20px"
                     >{{ i.name }}
                   </span></router-link
                 >
@@ -101,17 +101,17 @@ export default {
           icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
-              name: "Cuentas",
+              name: "-Cuenta",
               url: "/micuenta",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },
             {
-              name: "Contactos",
+              name: "-Contactos",
               url: "/miscontactos",
               icon: "fa fa-puzzle-piece",
             },
             {
-              name: "Usuarios",
+              name: "-Usuarios",
               url: "/misusuarios",
               icon: "fa fa-puzzle-piece",
             },
@@ -124,12 +124,12 @@ export default {
           icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
           children: [
             {
-              name: "Ordenes",
+              name: "-Ordenes",
               url: "/ordenes",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },
             {
-              name: "Facturas",
+              name: "-Facturas",
               url: "/facturas",
               icon: "fa fa-puzzle-piece",
             }

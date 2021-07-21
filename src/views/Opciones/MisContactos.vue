@@ -32,12 +32,21 @@
        <el-table-column
         prop="number"
         label="Teléfono"
-        width="150">
+        width="150"
+        disabled>
       </el-table-column>
       <el-table-column
         prop="editar"
         width="200">
-        <el-button>Editar</el-button>
+<template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">Editar</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">Eliminar</el-button>
+      </template>      
       </el-table-column>
     </el-table>
         </div>

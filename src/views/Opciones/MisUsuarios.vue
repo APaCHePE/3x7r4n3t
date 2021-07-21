@@ -12,19 +12,64 @@
                 <div class="col-md-4">Nombres</div>
                 <div class="col-md-4">Correo</div>
                 
-                <div class="col-md-4">Clave</div>
-            </div>
+                <div class="col-md-3">Clave</div>
+            </div><br> 
             <div class="row" v-for="(item, index) in Usuarios" :key="index">
-                <!-- <div class="col-md-4"><input class="form-control form-control-merge" v-model="item.cargo"></div> -->
+                <!-- <div class="col-md-3"><input class="form-control form-control-merge" v-model="item.cargo"></div> -->
                 <div class="col-md-4"><input class="form-control form-control-merge" v-model="item.nombres"></div>
                 <div class="col-md-4"><input class="form-control form-control-merge" v-model="item.correo"></div>
-                <div class="col-md-4" @click="cambiarContraseña()" ><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
-            <br><br> 
+                <div class="col-md-2" ><input type="password" class="form-control form-control-merge" v-model="item.clave" disabled></div>
+                <div class="col-md-2" style="text-align: center" ><el-button  @click="dialogEdit = true">Editar</el-button> </div>
+
+            <br><br> <br> 
             </div>
-            <div class="añadir" >
-                <u @click="añadirCuenta()" style="text-decoration: none;">
-            + añadir usuario</u>
-                </div>
+             <div class="añadir">
+                <el-button type="text" @click="dialogVisible = true">+ añadir cuenta</el-button> 
+              </div>
+
+
+<el-dialog
+                title="Editar"
+                :visible.sync="dialogEdit"
+                width="30%"
+                :before-close="handleClose">
+                <!-- <span>Nueva cuenta</span> -->
+                <el-form >
+                <el-form-item label="Nueva Contraseña" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Confirmar Contraseña" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisible = false">Cancel</el-button>
+                  <el-button type="primary" @click="dialogVisible = false">Guardar</el-button>
+                </span>
+              </el-dialog>
+
+              <el-dialog
+                title="Nuevo Usuario"
+                :visible.sync="dialogVisible"
+                width="30%"
+                :before-close="handleClose">
+                <!-- <span>Nueva cuenta</span> -->
+                <el-form >
+                <el-form-item label="Nombres" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Correo" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Clave" >
+                  <el-input  autocomplete="off"></el-input>
+                </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisible = false">Cancel</el-button>
+                  <el-button type="primary" @click="dialogVisible = false">Guardar</el-button>
+                </span>
+              </el-dialog>
         </div>
       </div>
 </div></div></div></div>  
@@ -39,6 +84,9 @@ export default {
   },
     data(){
         return{
+            editarPass:true,
+            dialogEdit:false,
+            dialogVisible: false,
             Usuarios:[
                 {
                 idUsuario:1,
@@ -86,16 +134,7 @@ export default {
 });
     },
 
-    cambiarContraseña(){
-        this.$swal({
-                  title: "Cambiar Contraseña",
-                text: "Espacio para editar contraseña",
-                type: "input",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                inputPlaceholder: "Write something"
-});
-    }
+    
 
 }}
 </script>
