@@ -55,82 +55,146 @@
     </el-table-column>
       <el-table-column
         prop="date"
-        label="Tipo">
+        label="Fecha">
       </el-table-column>
       <el-table-column
         prop="name"
-        label="N° de Orden">
+        label="N° de factura">
       </el-table-column>
       <el-table-column
         prop="address"
-        label="Fecha">
+        label="Importe">
       </el-table-column>}
       <el-table-column
         prop="numero"
-        label="Importe">
+        label="Estado">
       </el-table-column>
        <el-table-column
         prop="numero"
-        label="Importe Facturado">
+        label="Subtotal">
       </el-table-column>
        <el-table-column
         prop="numero"
-        label="Saldo">
+        label="IGV">
       </el-table-column>
       <el-table-column
         prop="numero"
-        label="Estado">
+        label="Total">
       </el-table-column>
     </el-table>
 
               </el-tab-pane>
               <el-tab-pane>
                 <span slot="label" class="menu"><i class="el-icon-folder-opened"></i> Añadir</span>
-                Route2
+                <br>
+  <div class="row" >
+                <!-- <div class="col-md-2">Cargo</div> -->
+                <div class="col-md-4" style="float:left">Fecha de Vencimiento</div>
+                <div class="col-md-4" style="float:left">Fecha de Emisión</div>
+                <div class="col-md-4" style="float:left">Tipo Moneda </div>
+</div>
+<div class="row">
+  <div class="col-md-4" style="float:left">
+    <el-date-picker
+      v-model="value1"
+      type="date"
+      placeholder="Pick a day">
+    </el-date-picker></div>
+                <div class="col-md-4" style="float:left"><el-date-picker
+      v-model="value2"
+      type="date"
+      placeholder="Pick a day">
+    </el-date-picker></div>
+                <div class="col-md-4" style="float:left"><el-select v-model="select" slot="prepend" placeholder="Select">
+      <el-option label="Restaurant" value="1"></el-option>
+      <el-option label="Order No." value="2"></el-option>
+      <el-option label="Tel" value="3"></el-option>
+    </el-select> </div>
+    </div>
+    <div class="añadir">
+                <el-button type="text" @click="dialogVisible = true">+ añadir items</el-button> 
+              </div>
+    <br><br>
+
+
+<div v-if="dialogVisible">
+
+
+
+ <div class="row" >
+                <!-- <div class="col-md-2">Cargo</div> -->
+                <div class="col-md-4" style="float:left">Código</div>
+                <div class="col-md-4" style="float:left">Descripcion</div>
+                <div class="col-md-4" style="float:left">Valor Unitario</div>
+</div>
+<div class="row">
+  <div class="col-md-4" style="float:left">
+   <el-input  autocomplete="off"></el-input></div>
+    <div class="col-md-4" style="float:left">
+      <el-input  autocomplete="off"></el-input></div>
+    <div class="col-md-4" style="float:left">
+      <el-input  autocomplete="off"></el-input>
+    </div>
+    </div><br>
+
+
+
+     <div class="row" >
+                <!-- <div class="col-md-2">Cargo</div> -->
+                <div class="col-md-4" style="float:left">IGV</div>
+                <div class="col-md-4" style="float:left">Valor Venta</div>
+</div>
+<div class="row">
+  <div class="col-md-4" style="float:left">
+   <el-input  autocomplete="off"></el-input></div>
+    <div class="col-md-4" style="float:left">
+      <el-input  autocomplete="off"></el-input></div>
+    <div class="col-md-4" style="float:left">
+      <el-button>+ agregar</el-button>
+    </div>
+    </div><br><br>
+
+				
+<el-card class="box-card">
+  <div slot="header" class="clearfix">
+    <span><h2>ITEMS</h2></span>
+     <el-table
+      :data="tableData2"
+      style="width: 100%">
+      <el-table-column
+        prop="date"
+        label="ITEM"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="UNIDAD MEDIDA"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="CANTIDAD">
+      </el-table-column>
+       <el-table-column
+        prop="address"
+        label="CODIGO">
+      </el-table-column>
+       <el-table-column
+        prop="address"
+        label="DESCRIPCIÓN">
+      </el-table-column>
+       <el-table-column
+        prop="address"
+        label="VALOR UNITARIO">
+      </el-table-column>
+    </el-table>
+  </div>
+</el-card>
+</div>
+
               </el-tab-pane>
             </el-tabs>
-          <!-- <div>
-            <div class="row">
-              <div class="col-md-4">N° de Factura</div>
-              <div class="col-md-4">Fecha</div>
-              <div class="col-md-4">Estado</div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-4">
-                <el-input style="width: 200px"></el-input>
-              </div>
-              <div class="col-md-4">
-                <el-date-picker
-                  v-model="value1"
-                  type="daterange"
-                  range-separator="To"
-                  start-placeholder="Start date"
-                  end-placeholder="E|nd date"
-                >
-                </el-date-picker>
-              </div>
-
-              <div class="col-md-4">
-                <el-input style="width: 200px"></el-input>
-              </div>
-              <div></div>
-            </div>
-            <br />
-          </div> -->
-          <!-- <el-table :data="tableData" style="width: 120%">
-            <el-table-column prop="date" label="Fecha" width="180">
-            </el-table-column>
-            <el-table-column prop="name" label="Estado" width="230">
-            </el-table-column>
-            <el-table-column prop="address" width="500" label="Detalle">
-            </el-table-column>
-            <el-table-column prop="numero" label="N° de Factura">
-            </el-table-column>
-            <el-table-column prop="file" label="">
-              <el-button type="text">Ver</el-button>
-            </el-table-column>
-          </el-table> -->
+        
         </div>
       </div>
     </div>
@@ -146,7 +210,9 @@ export default {
   },
   data() {
     return {
-      
+      dialogVisible: false,
+      value1:null,
+      value2:null,
       tableData: [
         {
           date: "2016-05-03",
@@ -187,5 +253,10 @@ export default {
   margin-right: 205px;
     font-size: 18px;
     margin-left: 205px;
+}
+.añadir{
+    color: #51c1ff;
+    text-align: right;
+    margin-right: 60px;
 }
 </style>
