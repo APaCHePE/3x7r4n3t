@@ -5,6 +5,8 @@ import Menu from "../views/Menu.vue";
 import MisUsuarios from "../views/Opciones/MisUsuarios.vue";
 import MiCuenta from "../views/Opciones/MiCuenta.vue";
 import MisContactos from "../views/Opciones/MisContactos.vue";
+import Ordenes from "../views/Opciones/Ordenes.vue";
+import Facturas from "../views/Opciones/Facturas.vue";
 
 Vue.use(VueRouter);
 
@@ -30,9 +32,19 @@ const routes = [
         component: MisContactos,
       },
       {
-        path: '/menu/micuenta',
+        path: '/micuenta',
         name: "MiCuenta",
         component: MiCuenta
+      },
+      {
+        path: '/ordenes',
+        name: "Ordenes",
+        component: Ordenes
+      },
+      {
+        path: '/facturas',
+        name: "Facturas",
+        component: Facturas
       }
     ]
   },

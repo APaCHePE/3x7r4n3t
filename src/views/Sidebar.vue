@@ -102,7 +102,7 @@ export default {
           children: [
             {
               name: "Cuentas",
-              url: "/menu/micuenta",
+              url: "/micuenta",
               icon: "@/plugins/img/icons/ico-menu-inbox.png",
             },
             {
