@@ -29,6 +29,7 @@
             data-open-speed="250"
             data-close-speed="200"
             data-easing="linear"
+            style="text-align: left;"
           >
 
             <div v-for="(i, a) in itemsNav" :key="a + 'lista'" >
