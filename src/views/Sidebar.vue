@@ -12,7 +12,8 @@
       <div>
         <div class="scroll-area">
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav" style="text-align: center;"><br>
+            <div class="navbar-nav" style="text-align: center">
+              <br />
               <a
                 ><img
                   class=""
@@ -30,13 +31,12 @@
             data-close-speed="200"
             data-easing="linear"
           >
-
-            <div v-for="(i, a) in itemsNav" :key="a + 'lista'" >
-              <li v-if="i.children" >
+            <div v-for="(i, a) in itemsNav" :key="a + 'lista'">
+              <li v-if="i.children">
                 <a href="#" style="size: 20px"
-                  ><span class="nav-item-text" style="font-size: 20px"
-                    >{{ i.name }}</span
-                  ></a
+                  ><span class="nav-item-text" style="font-size: 20px">{{
+                    i.name
+                  }}</span></a
                 >
                 <ul role="menu">
                   <li
@@ -52,7 +52,7 @@
                   </li>
                 </ul>
               </li>
-              
+
               <li v-else @click="enviarSelect(i)">
                 <router-link :to="i.url"
                   ><span class="nav-item-text" style="font-size: 20px"
@@ -117,7 +117,7 @@ export default {
             },
           ],
         },
-        
+
         {
           name: "Pagos",
           url: "/",
@@ -132,7 +132,7 @@ export default {
               name: "-Facturas",
               url: "/facturas",
               icon: "fa fa-puzzle-piece",
-            }
+            },
           ],
         },
         {
@@ -155,6 +155,5 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
 <!---->

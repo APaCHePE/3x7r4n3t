@@ -5,7 +5,7 @@
         class="content contentTG left-sidebar-toggle contenedor-opciones"
         style="min-height: 592px"
       >
-        <titulo-header>Mis Datos</titulo-header><br>
+        <titulo-header>Mis Datos</titulo-header><br />
         <div class="container">
           <div id="miCuenta">
             <!-- <h2 class="titulo">Mis Datos</h2> -->
@@ -49,7 +49,7 @@
                   <input class="form-control form-control-merge" />
                 </div>
               </div>
-<br>
+              <br />
               <div class="row">
                 <div class="col-md-3">
                   <input class="form-control form-control-merge" />
@@ -64,38 +64,41 @@
                   <input class="form-control form-control-merge" />
                 </div>
               </div>
-              <br>
+              <br />
               <div class="añadir">
-                <el-button type="text" @click="dialogVisible = true">+ añadir cuenta</el-button> 
+                <el-button type="text" @click="dialogVisible = true"
+                  >+ añadir cuenta</el-button
+                >
               </div>
-
 
               <el-dialog
                 title="Nueva cuenta"
                 :visible.sync="dialogVisible"
                 width="30%"
-                :before-close="handleClose">
+                :before-close="handleClose"
+              >
                 <!-- <span>Nueva cuenta</span> -->
-                <el-form >
-                <el-form-item label="Entidad Bancaria" >
-                  <el-input  autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="Moneda" >
-                  <el-input  autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="N° de Cuenta" >
-                  <el-input  autocomplete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="CCI" >
-                  <el-input  autocomplete="off"></el-input>
-                </el-form-item>
+                <el-form>
+                  <el-form-item label="Entidad Bancaria">
+                    <el-input autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="Moneda">
+                    <el-input autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="N° de Cuenta">
+                    <el-input autocomplete="off"></el-input>
+                  </el-form-item>
+                  <el-form-item label="CCI">
+                    <el-input autocomplete="off"></el-input>
+                  </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="dialogVisible = false">Cancel</el-button>
-                  <el-button type="primary" @click="dialogVisible = false">Guardar</el-button>
+                  <el-button type="primary" @click="dialogVisible = false"
+                    >Guardar</el-button
+                  >
                 </span>
               </el-dialog>
-
             </div>
           </div>
           <div>
@@ -213,4 +216,4 @@ export default {
   margin-right: 0px;
 }
 </style>
-    >
+>
