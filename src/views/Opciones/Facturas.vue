@@ -52,33 +52,33 @@
                 </div>
                 <br />
                 <el-button
-                  style="background-color: #51c1ff; width: 990px; color: #ffffff"
+                  style="
+                    background-color: #51c1ff;
+                    width: 990px;
+                    color: #ffffff;
+                  "
                   icon="el-icon-search"
                   @click="BuscarFacturas()"
                   >Buscar</el-button
                 ><br /><br /><br />
               </div>
-              <el-table :data="tableData" style="width: 120%">
-                <el-table-column type="expand">
-                  <template slot-scope="props">
-                    <p>Ruc: {{ props.row.ruc }}</p>
-                    <p>Código Cliente: {{ props.row.codCliente }}</p>
-                    <p>Cliente: {{ props.row.cliente }}</p>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="fecha" label="Fecha"> </el-table-column>
-                <el-table-column prop="numFac" label="N° de factura">
-                </el-table-column>
-                <el-table-column prop="importe" label="Importe">
-                </el-table-column
-                >}
-                <el-table-column prop="estado" label="Estado">
-                </el-table-column>
-                <el-table-column prop="subTotal" label="Subtotal">
-                </el-table-column>
-                <el-table-column prop="igv" label="IGV"> </el-table-column>
-                <el-table-column prop="total" label="Total"> </el-table-column>
-              </el-table>
+              
+              <table id="example2" class="table table-hover table-sm mb-2">
+                <thead>
+                  <tr >
+                    <th width="7%">Ruc:</th>
+                    <th>Código Cliente: </th>
+                    <th class="text-center">Número Factura</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item of tableData" :key="'facturas '+item.idFactura">
+                    <td><template>{{item.idFactura}}</template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                  </tr>
+                </tbody>
+              </table>
             </el-tab-pane>
             <el-tab-pane>
               <span slot="label" class="menu"
@@ -200,7 +200,7 @@
 
 <script>
 import moment from "moment";
-
+import axios from "axios";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 
 export default {
@@ -224,20 +224,20 @@ export default {
           Estado: "estado",
         },
       ],
-
-      tableData: [
-        {
-        fecha: null,        
-        numFac: null,
-        importe: null,
-        estado: null,
-        subTotal: null,
-        igv:null,
-        ruc: null,
-        codCliente: null,
-        cliente: null,
-        },
-      ],
+      tableData:null,
+      // tableData: [
+      //   {
+      //     fechaF: null,
+      //     numFac: null,
+      //     importe: null,
+      //     estado: null,
+      //     subTotal: null,
+      //     igv: null,
+      //     ruc: null,
+      //     codCliente: null,
+      //     cliente: null,
+      //   },
+      // ],
     };
   },
   methods: {
@@ -248,6 +248,17 @@ export default {
         this.fecha == null ? "" : moment(this.fecha[1]).format("YYYY-MM-DD");
       console.log(fechaInicio);
       console.log(fechaFin);
+     axios
+        .get(
+          "http://localhost:8090/api/admin/getFacturas/"+this.numeroFac+"/"+fechaInicio+"/"+fechaFin+"/"+2
+        )
+        .then((response) => {
+          debugger
+          this.tableData = response.data.result
+          console.log(this.tableData);
+        //  alert( response.data.result[0].numeroFactura);
+        })
+        .catch((e) => console.log(e));
     },
   },
 };

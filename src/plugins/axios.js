@@ -1,9 +1,12 @@
 import axios from 'axios'
 
 const api  = axios.create({
-  baseURL: 'https://mz-services.miraflores.gob.pe:8090/api/',
+  baseURL: 'http://localhost:8780/',
   headers: {
-    'Content-Type': 'application/json'
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token',
+      'Content-Type': 'application/json'
   }
 })
 
