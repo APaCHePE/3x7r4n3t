@@ -63,7 +63,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item of tableData" :key="'facturas '+item.idFactura">
+              <tr v-for="(item, enumOrden) of tableData" :key="'orden '+enumOrden">
                 <td><template>{{item.tipoOrdenAbrev}}</template></td>
                 <td><template>{{item.idOrden}}</template></td>
                 <td><template>{{item.fecha}}</template></td>
@@ -80,7 +80,7 @@
                 title="Detalle"
                 :visible.sync="dialogVisible"
                 width="30%"
-                :before-close="handleClose" >
+                :before-close="mostrarDetalleOrdendialog" >
                 <el-form>
                   <el-form-item label="Importe">
                     <p><template v-if="detalleOrden != null">{{detalleOrden.idOrden}}</template></p>
@@ -125,6 +125,9 @@ export default {
     };
   },
   methods: {
+    handleClose(){
+
+    },
     mostrarDetalleOrdendialog(valores){
       this.dialogVisible = true
       this.detalleOrden = valores

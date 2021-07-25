@@ -154,6 +154,11 @@ export default {
     };
   },
   methods: {
+    handleClose(done){
+      thi.$confirm('Desea cerrar pop-up').then(_=>{
+        done();
+      }).catch(_=>{})
+    },
     añadirCuenta() {
       this.$swal({
         title: "Nuevo Usuario",

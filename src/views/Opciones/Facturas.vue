@@ -77,7 +77,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item of tableData" :key="'facturas '+item.idFactura">
+                  <tr v-for="(item, enumFact) of tableData" :key="'orden '+enumFact">
                     <td><template>{{item.idFactura}}</template></td>
                     <td><template>{{item.numeroFactura}}</template></td>
                     <td><template>{{item.importe}}</template></td>
@@ -86,7 +86,7 @@
                     <td><template>{{item.igv}}</template></td>
                     <td><template>{{item.total}}</template></td>
                     <td><template><el-button type="text">VER</el-button></template></td>
-                  </tr>
+                  </tr> 
                 </tbody>
               </table>
             </el-tab-pane>
