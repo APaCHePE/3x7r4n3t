@@ -71,7 +71,7 @@
                 <td><template>{{item.importeFacturado}}</template></td>
                 <td><template>{{item.saldo}}</template></td>
                 <td><template>{{item.estado}}</template></td>
-                <td><template><el-button type="text"></el-button>VER</template></td>
+                <td><template><el-button type="text">VER</el-button></template></td>
               </tr>
             </tbody>
           </table>
