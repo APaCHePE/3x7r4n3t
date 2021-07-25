@@ -65,13 +65,14 @@
               <table id="example2" class="table table-hover table-sm mb-2">
                 <thead>
                   <tr >
-                    <th class="text-center">FECHA </th>
-                    <th class="text-center">NRO DE FACTURA</th>
-                    <th class="text-center">IMPORTE </th>
-                    <th class="text-center">ESTADO</th>
-                    <th class="text-center">SUBTOTAL</th>
+                    <th class="text-center">Número Factura</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">N° de factura</th>
+                    <th class="text-center">Importe</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Subtotal</th>
                     <th class="text-center">IGV</th>
-                    <th class="text-center">TOTAL </th>
+                    <th class="text-center">Total</th>
                     <th class="text-center" width="7%"></th>
                   </tr>
                 </thead>
@@ -95,7 +96,6 @@
               >
               <br />
               <div class="row">
-                <!-- <div class="col-md-2">Cargo</div> -->
                 <div class="col-md-4" style="float: left">
                   Fecha de Vencimiento
                 </div>
@@ -261,10 +261,11 @@ export default {
         .get(
           "http://localhost:8090/api/admin/getFacturas", {
             params:{
-              numeroFac:this.numeroFac,
-              fecInicio: fechaInicio,
-              fecFin: fechaFin,
-              estado: 2
+              "numeroFac": this.numeroFac,
+              "fecInicio": fechaInicio,
+             "nroDocumento": localStorage.getItem('User'), 
+              "fecFin": fechaFin,
+              "estado": 2
             }
           }
         )
