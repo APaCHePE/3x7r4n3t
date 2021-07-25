@@ -12,7 +12,6 @@
               <span slot="label" class="menu"
                 ><i class="el-icon-search"></i> Busqueda</span
               >
-
               <div>
                 <div class="row">
                   <div class="col-md-4" style="float: left">N° de Factura</div>
@@ -69,6 +68,7 @@
                     <th width="7%">Ruc:</th>
                     <th>Código Cliente: </th>
                     <th class="text-center">Número Factura</th>
+                    <th class="text-center"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -76,6 +76,7 @@
                     <td><template>{{item.idFactura}}</template></td>
                     <td><template>{{item.numeroFactura}}</template></td>
                     <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template><el-button type="text"></el-button></template></td>
                   </tr>
                 </tbody>
               </table>
@@ -209,7 +210,7 @@ export default {
   },
   data() {
     return {
-      numeroFac: null,
+      numeroFac: '0000711',//null,
       fecha: null,
       fechaInicio: null,
       fechaFin: null,
@@ -243,14 +244,21 @@ export default {
   methods: {
     BuscarFacturas() {
       let fechaInicio =
-        this.fecha == null ? "" : moment(this.fecha[0]).format("YYYY-MM-DD");
+        this.fecha == null ? null : moment(this.fecha[0]).format("YYYY-MM-DD");
       let fechaFin =
-        this.fecha == null ? "" : moment(this.fecha[1]).format("YYYY-MM-DD");
+        this.fecha == null ? null : moment(this.fecha[1]).format("YYYY-MM-DD");
       console.log(fechaInicio);
       console.log(fechaFin);
      axios
         .get(
-          "http://localhost:8090/api/admin/getFacturas/"+this.numeroFac+"/"+fechaInicio+"/"+fechaFin+"/"+2
+          "http://localhost:8090/api/admin/getFacturas", {
+            params:{
+              numeroFac:this.numeroFac,
+              fecInicio: fechaInicio,
+              fecFin: fechaFin,
+              estado: 2
+            }
+          }
         )
         .then((response) => {
           debugger

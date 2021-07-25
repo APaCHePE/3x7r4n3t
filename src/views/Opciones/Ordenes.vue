@@ -49,45 +49,32 @@
               >Buscar</el-button
             ><br /><br /><br />
           </div>
-          <el-table :data="tableData" style="width: 120%">
-            <el-table-column type="expand">
-              <template slot-scope="props">
-                <p>Ruc: {{ props.row.Ruc }}</p>
-                <p>Proveedor: {{ props.row.Proveedor }}</p>
-                <p>Moneda: {{ props.row.Moneda }}</p>
-                <p>Forma de pago: {{ props.row.formaPago }}</p>
-                <p>Solicitante: {{ props.row.Solicitante }}</p>
-                <p>Observaciones: {{ props.row.Observaciones }}</p>
-                <p>Descripcion: {{ props.row.Descripcion }}</p>
-              </template>
-            </el-table-column>
-            <el-table-column prop="tipoDato" label="Tipo"> </el-table-column>
-            <el-table-column prop="tipoDato" label="Tipo"> </el-table-column>
-            <el-table-column
-              prop="numOrdenDato"
-              label="N° de Orden"
-            ></el-table-column>
-            <el-table-column prop="fechDato" label="Fecha"> </el-table-column>
-            <el-table-column
-              prop="importeDato"
-              label="Importe"
-            ></el-table-column>
-            <el-table-column
-              prop="imporFacDato"
-              label="Importe Facturado"
-            ></el-table-column>
-            <el-table-column prop="saldoDato" label="Saldo"> </el-table-column>
-            <el-table-column prop="estadoDato" label="Estado"></el-table-column>
-            <!-- <el-table-column
-              fixed="right"
-              label="Operaciones"
-              width="120">
-              <template slot-scope = "scope">
-                <el-button @click="mostrarDetalle(scope)" size="small">Detalle</el-button>
-                
-              </template>
-            </el-table-column> -->
-          </el-table>
+          <table id="example2" class="table table-hover table-sm mb-2">
+            <thead>
+              <tr >
+                <th width="7%">Tipo</th>
+                <th class="text-center">N° de Orden</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Importe</th>
+                <th class="text-center">Importe Facturado</th>
+                <th class="text-center">Saldo</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item of tableData" :key="'facturas '+item.idFactura">
+                <td><template>{{item.tipoOrdenAbrev}}</template></td>
+                <td><template>{{item.idOrden}}</template></td>
+                <td><template>{{item.fecha}}</template></td>
+                <td><template>{{item.importe}}</template></td>
+                <td><template>{{item.importeFacturado}}</template></td>
+                <td><template>{{item.saldo}}</template></td>
+                <td><template>{{item.estado}}</template></td>
+                <td><template><el-button type="text"></el-button>VER</template></td>
+              </tr>
+            </tbody>
+          </table>
           <!-- <el-dialog
                 title="Detalle"
                 :visible.sync="dialogVisible"
@@ -112,7 +99,7 @@
 <script>
 import moment from "moment";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
-
+import axios from "axios";
 export default {
   components: {
     TituloHeader,
@@ -131,35 +118,53 @@ export default {
           Estado: "estado",
         },
       ],
-
-      tableData: [
-        {
-          tipoDato: "Factura",
-          numOrdenDato: "123",
-          fechDato: "2016-05-03",
-          importeDato: "10",
-          imporFacDato: "100",
-          saldoDato: "30",
-          estadoDato: "Pagado",
-          Ruc: null,
-          Proveedor: null,
-          Moneda: null,
-          formaPago: null,
-          Solicitante: null,
-          Observaciones: null,
-          Descripcion: null,
-        },
-      ],
+      tableData: null,
+      // tableData: [
+      //   {
+      //     tipoDato: "Factura",
+      //     numOrdenDato: "123",
+      //     fechDato: "2016-05-03",
+      //     importeDato: "10",
+      //     imporFacDato: "100",
+      //     saldoDato: "30",
+      //     estadoDato: "Pagado",
+      //     Ruc: null,
+      //     Proveedor: null,
+      //     Moneda: null,
+      //     formaPago: null,
+      //     Solicitante: null,
+      //     Observaciones: null,
+      //     Descripcion: null,
+      //   },
+      // ],
     };
   },
   methods: {
     BuscarOrdenes() {
       let fechaInicio =
-        this.fecha == null ? "" : moment(this.fecha[0]).format("YYYY-MM-DD");
+        this.fecha == null ? null : moment(this.fecha[0]).format("YYYY-MM-DD");
       let fechaFin =
-        this.fecha == null ? "" : moment(this.fecha[1]).format("YYYY-MM-DD");
+        this.fecha == null ? null : moment(this.fecha[1]).format("YYYY-MM-DD");
       console.log(fechaInicio);
       console.log(fechaFin);
+       axios
+        .get(
+          "http://localhost:8090/api/admin/getOrdenes", {
+            params: {
+              "nroOrden": this.numeroOrden,
+              "fecInicio": fechaInicio,
+             "nroDocumento": "20503482020", 
+              "fecFin": fechaFin,
+              "estado": 2
+            }
+          }
+        )
+        .then((response) => {
+          this.tableData = response.data.result
+          console.log(this.tableData);
+        //  alert( response.data.result[0].numeroFactura);
+        })
+        .catch((e) => console.log(e));
     },
     mostrarDetalle(detalle) {
       (this.dialogVisible = true), (this.detalleData = detalle);
