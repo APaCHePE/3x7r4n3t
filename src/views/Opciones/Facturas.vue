@@ -66,8 +66,15 @@
                 <thead>
                   <tr >
                     <th width="7%">Ruc:</th>
-                    <th>Código Cliente: </th>
+                    <!-- <th>Código Cliente: </th> -->
                     <th class="text-center">Número Factura</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">N° de factura</th>
+                    <th class="text-center">Importe</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Subtotal</th>
+                    <th class="text-center">IGV</th>
+                    <th class="text-center">Total</th>
                     <th class="text-center"></th>
                   </tr>
                 </thead>
@@ -76,7 +83,13 @@
                     <td><template>{{item.idFactura}}</template></td>
                     <td><template>{{item.numeroFactura}}</template></td>
                     <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template><el-button type="text"></el-button></template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template>{{item.numeroFactura}}</template></td>
+                    <td><template><el-button type="text"></el-button>VER</template></td>
                   </tr>
                 </tbody>
               </table>
@@ -87,7 +100,6 @@
               >
               <br />
               <div class="row">
-                <!-- <div class="col-md-2">Cargo</div> -->
                 <div class="col-md-4" style="float: left">
                   Fecha de Vencimiento
                 </div>
@@ -253,10 +265,11 @@ export default {
         .get(
           "http://localhost:8090/api/admin/getFacturas", {
             params:{
-              numeroFac:this.numeroFac,
-              fecInicio: fechaInicio,
-              fecFin: fechaFin,
-              estado: 2
+              "numeroFac": this.numeroFac,
+              "fecInicio": fechaInicio,
+             "nroDocumento": localStorage.getItem('User'), 
+              "fecFin": fechaFin,
+              "estado": 2
             }
           }
         )

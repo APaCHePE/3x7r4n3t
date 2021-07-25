@@ -71,25 +71,27 @@
                 <td><template>{{item.importeFacturado}}</template></td>
                 <td><template>{{item.saldo}}</template></td>
                 <td><template>{{item.estado}}</template></td>
-                <td><template><el-button type="text"></el-button>VER</template></td>
+                <td><template><el-button type="text" @click="mostrarDetalleOrdendialog(item)">VER</el-button></template></td>
               </tr>
             </tbody>
           </table>
-          <!-- <el-dialog
+
+           <el-dialog
                 title="Detalle"
                 :visible.sync="dialogVisible"
                 width="30%"
                 :before-close="handleClose" >
                 <el-form>
-                  <el-form-item label="Detalle">
-                    <p>{{detalleData}}</p>
+                  <el-form-item label="Importe">
+                    <p><template v-if="detalleOrden != null">{{detalleOrden.idOrden}}</template></p>
                   </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
                   <el-button @click="dialogVisible = false">Cerrar</el-button>
                  
                 </span>
-              </el-dialog> -->
+              </el-dialog>
+
         </div>
       </div>
     </div>
@@ -106,6 +108,7 @@ export default {
   },
   data() {
     return {
+      detalleOrden: null,
       detalleData: null,
       dialogVisible: false,
       numeroOrden: null,
@@ -119,27 +122,13 @@ export default {
         },
       ],
       tableData: null,
-      // tableData: [
-      //   {
-      //     tipoDato: "Factura",
-      //     numOrdenDato: "123",
-      //     fechDato: "2016-05-03",
-      //     importeDato: "10",
-      //     imporFacDato: "100",
-      //     saldoDato: "30",
-      //     estadoDato: "Pagado",
-      //     Ruc: null,
-      //     Proveedor: null,
-      //     Moneda: null,
-      //     formaPago: null,
-      //     Solicitante: null,
-      //     Observaciones: null,
-      //     Descripcion: null,
-      //   },
-      // ],
     };
   },
   methods: {
+    mostrarDetalleOrdendialog(valores){
+      this.dialogVisible = true
+      this.detalleOrden = valores
+    },
     BuscarOrdenes() {
       let fechaInicio =
         this.fecha == null ? null : moment(this.fecha[0]).format("YYYY-MM-DD");
@@ -153,7 +142,7 @@ export default {
             params: {
               "nroOrden": this.numeroOrden,
               "fecInicio": fechaInicio,
-             "nroDocumento": "20503482020", 
+             "nroDocumento": localStorage.getItem('User'), 
               "fecFin": fechaFin,
               "estado": 2
             }
@@ -162,7 +151,6 @@ export default {
         .then((response) => {
           this.tableData = response.data.result
           console.log(this.tableData);
-        //  alert( response.data.result[0].numeroFactura);
         })
         .catch((e) => console.log(e));
     },

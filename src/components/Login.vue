@@ -47,7 +47,7 @@
         </div>
       </div>
       <router-link to="/menu"
-        ><button class="btn btn-primary btn-block" tabindex="4">
+        ><button class="btn btn-primary btn-block" tabindex="4" @click="guardarUser()">
           Ingresar
         </button></router-link
       >
@@ -86,7 +86,12 @@ export default {
       },
     },
   },
-  methods: {},
+  methods: {
+    guardarUser(){
+      localStorage.setItem("User", this.user);
+    }
+    
+  },
 };
 </script>
 
