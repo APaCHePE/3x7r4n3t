@@ -1,4 +1,5 @@
 <template>
+ <div class="page-container positionRight">
   <b-sidebar
     id="sidebar-1"
     shadow
@@ -68,7 +69,7 @@
         </div>
       </div>
     </div>
-  </b-sidebar>
+  </b-sidebar></div>
 </template>
 
 <script>
