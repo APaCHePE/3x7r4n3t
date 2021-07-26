@@ -57,7 +57,6 @@
                 title="Editar"
                 :visible.sync="dialogEdit"
                 width="30%"
-                :before-close="handleClose"
               >
                 <!-- <span>Nueva cuenta</span> -->
                 <el-form>
@@ -80,7 +79,6 @@
                 title="Nuevo Usuario"
                 :visible.sync="dialogVisible"
                 width="30%"
-                :before-close="handleClose"
               >
                 <!-- <span>Nueva cuenta</span> -->
                 <el-form>
