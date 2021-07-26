@@ -65,8 +65,6 @@
               <table id="example2" class="table table-hover table-sm mb-2">
                 <thead>
                   <tr >
-                    <th width="7%">Ruc:</th>
-                    <!-- <th>Código Cliente: </th> -->
                     <th class="text-center">Número Factura</th>
                     <th class="text-center">Fecha</th>
                     <th class="text-center">N° de factura</th>
@@ -75,21 +73,19 @@
                     <th class="text-center">Subtotal</th>
                     <th class="text-center">IGV</th>
                     <th class="text-center">Total</th>
-                    <th class="text-center"></th>
+                    <th class="text-center" width="7%"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="item of tableData" :key="'facturas '+item.idFactura">
                     <td><template>{{item.idFactura}}</template></td>
                     <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template>{{item.numeroFactura}}</template></td>
-                    <td><template><el-button type="text"></el-button>VER</template></td>
+                    <td><template>{{item.importe}}</template></td>
+                    <td><template>{{item.estado}}</template></td>
+                    <td><template>{{item.subTotal}}</template></td>
+                    <td><template>{{item.igv}}</template></td>
+                    <td><template>{{item.total}}</template></td>
+                    <td><template><el-button type="text">VER</el-button></template></td>
                   </tr>
                 </tbody>
               </table>
