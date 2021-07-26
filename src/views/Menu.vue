@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <b-button
+  <div >
+    <!-- <div > -->
+    <!-- <b-button
       v-b-toggle.sidebar-1
       variant="background-color: #ffffff;box-shadow: none"
       class="buttonMenu"
@@ -11,9 +12,9 @@
           style="width: 25px; height: 25px"
         />
       </a>
-    </b-button>
-    <Sidebar />
-
+    </b-button> -->
+    
+    <!-- </div> -->
     <div
       class="
         ball-scale-multiple
@@ -22,7 +23,12 @@
         page-footer
         boxed-layout
       "
+      style=" background-color: #ffffff; width: 100% !important;"
     >
+
+
+<Sidebar />
+
       <div class="container container-full">
         <router-view />
       </div>

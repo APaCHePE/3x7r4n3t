@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="navbar navbar-expand-lg navbar-light navPrincipal"
+    class="navbar navbar-expand-lg navbar-light  tamañoNav"
     style="position: relative"
   >
     <section class="content-header">
@@ -17,6 +17,11 @@ h1.title-top {
   padding-bottom: 10px;
   padding-top: 10px;
   font-size: 25px;
+}
+.tamañoNav{
+    background-color: #ffffff;
+    box-shadow: 3px 2px 10px #c7c7c7;
+    width: 1350px;
 }
 </style>
 <script>

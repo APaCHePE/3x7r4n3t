@@ -1,9 +1,9 @@
 <template>
   <div class="page-container positionRight">
-    <div class="main-content body-full positionRight">
+    <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px"
+        style="min-height: 592px; margin-left: 70px;"
       >
         <titulo-header>Mis Datos</titulo-header><br />
         <div class="container">
@@ -132,7 +132,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
