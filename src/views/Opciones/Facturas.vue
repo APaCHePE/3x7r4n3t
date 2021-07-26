@@ -61,7 +61,6 @@
                   <th class="text-center">Número Factura</th>
                   <th class="text-center">Fecha</th>
                   <th class="text-center">Moneda</th>
-                    <th class="text-center">Fecha</th>
                   <th class="text-center">IGV</th>
                   <th class="text-center">Subtotal</th>
                   <th class="text-center">Total</th>
@@ -146,20 +145,12 @@
                       </tr>
                     </tbody>
                   </table>
-              <el-dialog
-                title="Detalle"
-                :visible.sync="dialogVisible"
-                width="30%" >
-                <el-form>
-                  <el-form-item label="Importe">
-                    <p><template v-if="detalleOrden != null">{{detalleOrden.idOrden}}</template></p>
-                  </el-form-item>
-                </el-form>
-                <span slot="footer" class="dialog-footer">
-                  <el-button @click="dialogVisible = false">Cerrar</el-button>
-                 
-                </span>
-              </el-dialog>
+                </el-form-item>
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible = false">Cerrar</el-button>
+              </span>
+            </el-dialog>
           </el-tab-pane>
           <el-tab-pane>
             <span slot="label" class="menu"
@@ -308,10 +299,6 @@ export default {
     };
   },
   methods: {
-    mostrarDetalleOrdendialog(valores){
-      this.dialogVisible = true
-      this.detalleOrden = valores
-    },
     BuscarFacturas() {
       let fechaInicio =
         this.fecha == null ? null : moment(this.fecha[0]).format("YYYY-MM-DD");
@@ -334,6 +321,7 @@ export default {
           .then((response) => {
             this.tableData = response.data.result
             console.log(this.tableData);
+          //  alert( response.data.result[0].numeroFactura);
           })
           .catch((e) => console.log(e));
     },
