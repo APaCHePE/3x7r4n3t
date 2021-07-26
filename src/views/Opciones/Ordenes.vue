@@ -79,8 +79,7 @@
            <el-dialog
                 title="Detalle"
                 :visible.sync="dialogVisible"
-                width="30%"
-                :before-close="mostrarDetalleOrdendialog" >
+                width="30%" >
                 <el-form>
                   <el-form-item label="Importe">
                     <p><template v-if="detalleOrden != null">{{detalleOrden.idOrden}}</template></p>

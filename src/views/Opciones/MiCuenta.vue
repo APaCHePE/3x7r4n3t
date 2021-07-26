@@ -75,7 +75,6 @@
                 title="Nueva cuenta"
                 :visible.sync="dialogVisible"
                 width="30%"
-                :before-close="handleClose"
               >
                 <!-- <span>Nueva cuenta</span> -->
                 <el-form>
@@ -154,11 +153,6 @@ export default {
     };
   },
   methods: {
-    handleClose(done){
-      thi.$confirm('Desea cerrar pop-up').then(_=>{
-        done();
-      }).catch(_=>{})
-    },
     añadirCuenta() {
       this.$swal({
         title: "Nueva Cuenta",
