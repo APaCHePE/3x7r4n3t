@@ -123,8 +123,8 @@
                     </thead>
                     <tbody>
                       <tr
-                        v-for="item2 of detalleOrden"
-                        :key="'Ordenes ' + item2.codigo_producto"
+                        v-for="(item2, index2) of detalleOrden"
+                        :key="'Ordenes ' + index2"
                       >
                         <td>
                           <template>{{ item2.codigo_producto }}</template>
