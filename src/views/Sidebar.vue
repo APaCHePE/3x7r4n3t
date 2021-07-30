@@ -1,5 +1,5 @@
 <template>
- <div class="page-container positionRight">
+ <div class="page-container positionRight ">
   <b-sidebar
     id="sidebar-1"
     shadow
@@ -157,5 +157,7 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
 <!---->

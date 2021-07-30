@@ -4,73 +4,77 @@
       <div class="form-group">
         <label
           class="form-label position-left size-text-login"
-          for="login-email"
+          for="NomEmpresa"
           >Nombre Empresa</label
         >
         <input
           class="form-control"
-          id="login-email"
+          id="NomEmpresa"
           type="text"
-          name="login-email"
+          name="NomEmpresa"
           placeholder=""
-          aria-describedby="login-email"
+          aria-describedby="NomEmpresa"
           autofocus=""
           tabindex="1"
+          v-model="NombreEmpresa"
         />
       </div>
       <div class="form-group">
         <label
           class="form-label position-left size-text-login"
-          for="login-email"
+          for="ruc"
           >RUC</label
         >
         <input
           class="form-control"
-          id="login-email"
+          id="ruc"
           type="text"
-          name="login-email"
+          name="ruc"
           placeholder=""
-          aria-describedby="login-email"
+          aria-describedby="ruc"
           autofocus=""
           tabindex="1"
+          v-model="rucEmpresa"
         />
       </div>
       <div class="form-group">
         <label
           class="form-label position-left size-text-login"
-          for="login-email"
+          for="correo"
           >Correo de administrador</label
         >
         <input
           class="form-control"
-          id="login-email"
+          id="correo"
           type="text"
-          name="login-email"
+          name="correo"
           placeholder=""
-          aria-describedby="login-email"
+          aria-describedby="correo"
           autofocus=""
           tabindex="1"
+          v-model="correoEmpresa"
         />
       </div>
       <div class="form-group">
         <label
           class="form-label position-left size-text-login"
-          for="login-email"
+          for="telefono"
           >Teléfono / Celular</label
         >
         <input
           class="form-control"
-          id="login-email"
+          id="telefono"
           type="text"
-          name="login-email"
+          name="telefono"
           placeholder=""
-          aria-describedby="login-email"
+          aria-describedby="telefono"
           autofocus=""
           tabindex="1"
+          v-model="telefonoEmpresa"
         />
       </div>
 
-      <button class="btn btn-primary btn-block" tabindex="4">Solicitar</button>
+      <button class="btn btn-primary btn-block" tabindex="4" @click="generarSolicitud()">Solicitar</button>
     </form>
     <p class="text-center mt-2" style="color: #51c1ff">
       <a @click="login=false"><span>&nbsp;Ya tengo cuenta</span></a>
@@ -79,10 +83,15 @@
 </template>
 
 <script>
+import axios from "axios";
 import image from "@/assets/images/pages/login-v2.svg";
 export default {
   data() {
     return {
+      NombreEmpresa:null,
+      rucEmpresa:null,
+      correoEmpresa:null,
+      telefonoEmpresa:null,
       logo_v2: image,
     };
   },
@@ -99,6 +108,40 @@ export default {
       },
     },
   },
+  methods:{
+    generarSolicitud(){
+            axios
+        .get("http://localhost:8090/api/admin/validar-proveedor", {
+          params: {
+            nroDocumento: this.rucEmpresa,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          if(!response.data.resultado){
+            alert("no existe")
+          }
+          else{
+            this.$swal({
+                  icon: "info",
+                  title: "Aviso",
+                  text: 'La empresa ya ha sido registrada'
+                });
+
+            
+          }
+        })
+        .catch((e) => {
+          console.log(e)
+          this.$swal({
+              icon: 'error',
+              title: 'Error',
+              text:
+                "Sucedió un error. Favor vuelva a intentar en unos minutos. "
+            });
+        });
+    }
+  }
 };
 </script>
 
