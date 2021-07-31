@@ -5,8 +5,8 @@
         class="content contentTG left-sidebar-toggle contenedor-opciones"
         style="min-height: 592px; margin-left: 70px;"
       >
-        <div class="container">
-          <div class="row mb25 mt25">
+        <div class="container"><br><br><br>
+          <div class="row mb25 mt25 bienvenido">
             <div class="col-md-2">
               <img
                 src="../../plugins/img/icons/ico-etapa-gestion.png"
@@ -25,7 +25,7 @@
             <div
               v-for="(i, a) in itemsNav"
               :key="a + 'lista'"
-              class="card col-sm-2 offset-md-1"
+              class="card col-sm-2 offset-md-1 "
             >
               <div
                 v-if="i.children"
@@ -34,7 +34,7 @@
               >
                 {{ i.name }}
               </div>
-              <div class="card-body">
+              <div class="card-body" shadow="hover">
                 <ul role="menu">
                   <li
                     v-for="(child, b) in i.children"
@@ -117,7 +117,10 @@ export default {
 @import "../../plugins/css/main.css";
 @import "../../plugins/css/font-awesome.css";
 @import "../../plugins/css/responsive.css";
-
+.bienvenido{
+  border-radius: 28px !important;
+    background-color: #ffffff;
+}
 .contenedor-opciones {
   position: absolute;
 }
