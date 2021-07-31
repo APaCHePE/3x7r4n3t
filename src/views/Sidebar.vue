@@ -1,6 +1,82 @@
 <template>
- <div class="page-container positionRight ">
-  <b-sidebar
+  <div class="page-container positionRight" style="box-sizing: content-box">
+    <el-col
+      style="mt-3; width: 18%; position: fixed; height: 100%;
+    display: flex;"
+    >
+      <el-menu
+        style="size: 20px; background-color: #efeeee42"
+        default-active="2"
+        class="el-menu-vertical-demo"
+        ><br />
+
+        <a
+          >
+          <img
+            class=""
+            src="../plugins/img/logo.png"
+            width="280"
+            height="75px" />
+            
+            <br /><br /></a>
+            <br />
+
+        <el-menu-item
+          index="1"
+          style="font-size: 20px; padding: 30px 0px 0px 0px; color: black;"
+        >
+          <i class="el-icon-menu"></i>
+          <router-link :to="'/menu'"><span>Inicio</span></router-link>
+        </el-menu-item>
+
+        <el-submenu index="2" style="padding: 50px 0px 0px 0px">
+          <template slot="title">
+            <i class="el-icon-setting"></i>
+            <span style="font-size: 20px">Administración</span>
+          </template>
+          <el-menu-item-group @click="enviarSelect(ruta)">
+            <el-menu-item index="1-1">
+              <router-link :to="'/micuenta'"><span>Cuenta</span></router-link>
+            </el-menu-item>
+            <el-menu-item index="1-2">
+              <router-link :to="'/miscontactos'"
+                ><span>Contactos</span></router-link
+              >
+            </el-menu-item>
+            <el-menu-item index="1-3">
+              <router-link :to="'/misusuarios'"
+                ><span>Usuarios</span></router-link
+              >
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+
+        <el-submenu index="3" style="padding: 30px 0px 0px 0px">
+          <template slot="title">
+            <i class="el-icon-edit-outline"></i>
+            <span style="font-size: 20px">Pagos</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="1-1">
+              <router-link :to="'/ordenes'"><span>Ordenes</span></router-link>
+            </el-menu-item>
+            <el-menu-item index="1-2">
+              <router-link :to="'/facturas'"><span>Facturas</span></router-link>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+
+        <el-menu-item
+          index="4"
+          style="font-size: 20px; padding: 30px 0px 0px 0px; color: black;"
+        >
+          <i class="el-icon-circle-close"></i>
+          <router-link :to="'/'"><span>Cerrar Sesión</span></router-link>
+        </el-menu-item>
+      </el-menu>
+    </el-col>
+
+    <!-- <b-sidebar
     id="sidebar-1"
     shadow
     class="mt-3"
@@ -69,7 +145,8 @@
         </div>
       </div>
     </div>
-  </b-sidebar></div>
+  </b-sidebar> -->
+  </div>
 </template>
 
 <script>
@@ -78,6 +155,7 @@ export default {
   name: "sidebar",
   data() {
     return {
+      cuenta: "/micuenta",
       variant: "dark",
       variants: [
         "transparent",
@@ -91,58 +169,7 @@ export default {
         "warning",
         "info",
       ],
-      itemsNav: [
-        {
-          name: "Inicio ",
-          url: "/menu",
-          icon: "@/plugins/img/icons/ico-menu-inbox.png",
-        },
-        {
-          name: "Administracion",
-          url: "/",
-          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
-          children: [
-            {
-              name: "-Cuenta",
-              url: "/micuenta",
-              icon: "@/plugins/img/icons/ico-menu-inbox.png",
-            },
-            {
-              name: "-Contactos",
-              url: "/miscontactos",
-              icon: "fa fa-puzzle-piece",
-            },
-            {
-              name: "-Usuarios",
-              url: "/misusuarios",
-              icon: "fa fa-puzzle-piece",
-            },
-          ],
-        },
-
-        {
-          name: "Pagos",
-          url: "/",
-          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
-          children: [
-            {
-              name: "-Ordenes",
-              url: "/ordenes",
-              icon: "@/plugins/img/icons/ico-menu-inbox.png",
-            },
-            {
-              name: "-Facturas",
-              url: "/facturas",
-              icon: "fa fa-puzzle-piece",
-            },
-          ],
-        },
-        {
-          name: "Cerrar Sesión",
-          url: "/",
-          icon: "@/plugins/img/icons/ico-menu-administracion-sistema.png",
-        },
-      ],
+    
     };
   },
   mounted() {
@@ -157,7 +184,5 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
 <!---->
