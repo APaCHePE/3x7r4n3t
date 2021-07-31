@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <form class="auth-login-form mt-2" action="index.html" method="POST">
+  <div class="auth-login-form mt-2">
       <div class="form-group">
         <label
           class="form-label position-left size-text-login"
@@ -15,7 +14,6 @@
           placeholder=""
           aria-describedby="NomEmpresa"
           autofocus=""
-          tabindex="1"
           v-model="NombreEmpresa"
         />
       </div>
@@ -33,7 +31,6 @@
           placeholder=""
           aria-describedby="ruc"
           autofocus=""
-          tabindex="1"
           v-model="rucEmpresa"
         />
       </div>
@@ -51,7 +48,6 @@
           placeholder=""
           aria-describedby="correo"
           autofocus=""
-          tabindex="1"
           v-model="correoEmpresa"
         />
       </div>
@@ -69,13 +65,11 @@
           placeholder=""
           aria-describedby="telefono"
           autofocus=""
-          tabindex="1"
           v-model="telefonoEmpresa"
         />
       </div>
 
-      <button class="btn btn-primary btn-block" tabindex="4" @click="generarSolicitud()">Solicitar</button>
-    </form>
+      <button class="btn btn-primary btn-block"  @click="generarSolicitud()">Solicitar</button>
     <p class="text-center mt-2" style="color: #51c1ff">
       <a @click="login=false"><span>&nbsp;Ya tengo cuenta</span></a>
     </p>
@@ -126,9 +120,7 @@ export default {
                   icon: "info",
                   title: "Aviso",
                   text: 'La empresa ya ha sido registrada'
-                });
-
-            
+                }); 
           }
         })
         .catch((e) => {
