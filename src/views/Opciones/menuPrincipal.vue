@@ -1,11 +1,11 @@
 <template>
-  <div class="page-container positionRight">
+  <div class="page-container ">
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
         style="min-height: 592px; margin-left: 70px;"
       >
-        <div class="container"><br><br><br>
+        <div class="contenedor-principal"><br><br><br>
           <div class="row mb25 mt25 bienvenido">
             
             <div class="col-md-6">
@@ -26,7 +26,7 @@
             <div
               v-for="(i, a) in itemsNav"
               :key="a + 'lista'"
-              class="card col-sm-2 offset-md-1 "
+              class="card col-sm-3 offset-md-1 "
             >
               <div
                 v-if="i.children"
@@ -122,6 +122,10 @@ export default {
   box-shadow: 3px 2px 10px #c7c7c7;
   border-radius: 28px !important;
     background-color: #ffffff;
+}
+.contenedor-principal{
+  width: auto;
+    float: right;
 }
 .contenedor-opciones {
   position: absolute;

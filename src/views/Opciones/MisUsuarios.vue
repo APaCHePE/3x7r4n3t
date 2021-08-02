@@ -3,7 +3,7 @@
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px; margin-left: 70px;"
+        style="min-height: 592px; margin-left: 100px;"
       >
         <titulo-header>Mis Usuarios</titulo-header><br />
         <div class="container">
