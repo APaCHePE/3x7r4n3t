@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container positionRight">
+  <div class="page-container">
     <!-- <div class="main-content body-full positionRight"> -->
     <div
       class="content contentTG left-sidebar-toggle contenedor-opciones"
