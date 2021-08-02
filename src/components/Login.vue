@@ -46,11 +46,11 @@
           <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
         </div>
       </div>
-      <router-link to="/menu"
-        ><button class="btn btn-primary btn-block" tabindex="4" @click="guardarUser()">
+     <button class="btn btn-primary btn-block" tabindex="4" @click="guardarUser()">
           Ingresar
-        </button></router-link
-      >
+        </button>
+      <div v-if="continuar">
+      <router-link to="/menu"></router-link></div>
     </form>
     <p class="text-center mt-2" style="color: #51c1ff">
       <a @click="login=false"><span>&nbsp;Solicitar Cuenta</span></a>
@@ -69,6 +69,8 @@ export default {
       logo_v2: image,
       user: null,
       password:null,
+      usuarioRespuesta:null,
+      continuar:null
     };
   },
   created() {
@@ -99,10 +101,28 @@ export default {
             }
           )
           .then((response) => {
-            console.log(response) 
-            localStorage.setItem("User", this.user);
+            this.usuarioRespuesta = response.data;
+            if (this.usuarioRespuesta.esCorrecto){
+              localStorage.setItem("User", this.usuarioRespuesta.resultado.persona.nroDocumento);
+              this.continuar = true
+            }
+            else{
+              this.$swal({
+              icon: 'error',
+              title: 'Error',
+              text: "La cuenta no existe"
+            });
+            }
+            
           })
-          .catch((e) => console.log(e));
+          .catch((e) => {
+            console.log(e)
+            this.$swal({
+              icon: 'error',
+              title: 'Error',
+              text: "Intentelo más tarde"
+            });
+            });
      
     }
     
