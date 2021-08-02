@@ -70,7 +70,7 @@ export default {
       user: null,
       password:null,
       usuarioRespuesta:null,
-      continuar:null
+      continuar:false
     };
   },
   created() {
