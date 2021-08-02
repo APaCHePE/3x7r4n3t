@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container positionRight">
+  <div class="page-container">
     <!-- <div class="main-content body-full positionRight"> -->
     <div
       class="content contentTG left-sidebar-toggle contenedor-opciones"
@@ -336,9 +336,9 @@ export default {
 
 <style>
 .menu {
-  margin-right: 205px;
+  margin-right: 105px;
   font-size: 18px;
-  margin-left: 205px;
+  margin-left: 105px;
 }
 .añadir {
   color: #51c1ff;

@@ -1,12 +1,12 @@
 <template>
-  <div class="page-container positionRight">
+  <div class="page-container ">
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px; margin-left: 70px;"
+        style="min-height: 592px; margin-left: 30px;"
       >
         <titulo-header>Mis Datos</titulo-header><br />
-        <div class="container">
+        <div class="container miCuenta">
           <div id="miCuenta">
             <!-- <h2 class="titulo">Mis Datos</h2> -->
             <div id="detalleCuenta" class="textoCuenta">
@@ -27,7 +27,7 @@
           </div>
           <br />
           <div>
-            <div id="cuentasBAncarias" class="textoCuenta2">
+            <div id="cuentasBAncarias" class="textoCuenta">
               <h2 class="titulo2">Cuentas Bancarias</h2>
               <div class="row">
                 <div class="col-md-3">Entidad Bancaria</div>
@@ -101,8 +101,9 @@
             </div>
           </div>
           <div>
-            <h2 class="titulo2">Cuenta de Detraccíon</h2>
-            <div id="cuentasBAncarias" class="textoCuenta2">
+            
+            <div id="cuentasBAncarias" class="textoCuenta">
+              <h2 class="titulo2">Cuenta de Detraccíon</h2>
               <div class="row">
                 <div class="col-md-3">Entidad Bancaria</div>
                 <div class="col-md-3">Moneda</div>
@@ -168,6 +169,9 @@ export default {
 </script>
 
 <style>
+.miCuenta{
+
+}
 .textoCuenta {
   text-align: left;
   width: 950px;

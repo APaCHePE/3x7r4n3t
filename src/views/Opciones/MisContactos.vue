@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container positionRight">
+  <div class="page-container ">
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
@@ -9,7 +9,7 @@
         <div class="container">
           <div>
             <!-- <h2 class="titulo">Mis Contactos</h2> -->
-            <div id="cuentasBAncarias" class="textoCuenta2">
+            <!-- <div id="cuentasBAncarias" class="textoCuenta2"> -->
               <!-- <div>
                 <b-table striped hover :items="items" :fields="fields"  style="width: 90%;"></b-table>
             </div>  -->
@@ -35,12 +35,7 @@
                       @click="handleEdit(scope.$index, scope.row)"
                       >Editar</el-button
                     >
-                    <el-button
-                      size="mini"
-                      type="danger"
-                      @click="handleDelete(scope.$index, scope.row)"
-                      >Eliminar</el-button
-                    >
+                   
                   </template>
                 </el-table-column>
               </el-table>
@@ -49,7 +44,7 @@
         </div>
       </div>
     <!-- </div> -->
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>

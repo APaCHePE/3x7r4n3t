@@ -7,18 +7,19 @@
       >
         <div class="container"><br><br><br>
           <div class="row mb25 mt25 bienvenido">
-            <div class="col-md-2">
-              <img
-                src="../../plugins/img/icons/ico-etapa-gestion.png"
-                alt=""
-                style="width: 140px; height: 154px"
-                data-themekey="#"
-              />
-            </div>
+            
             <div class="col-md-6">
               <h2 class="t1">Bievenido(a)</h2>
               <span class="t2" id="NombreCompleto"></span
-              ><span class="t3">al aplicativo <b>Pago a proveedores</b></span>
+              ><span class="t3">Plataforma de<b> proveedores</b></span>
+            </div>
+            <div class="col-md-2">
+              <img
+                src="https://www.transfiriendo.com/wp-content/uploads/2020/06/c03417ebf4f447610528b07a704e0540.gif"
+                alt=""
+                style="width: 290px; height: 150px"
+                data-themekey="#"
+              />
             </div>
           </div>
           <div class="row" style="display: center">
@@ -118,6 +119,7 @@ export default {
 @import "../../plugins/css/font-awesome.css";
 @import "../../plugins/css/responsive.css";
 .bienvenido{
+  box-shadow: 3px 2px 10px #c7c7c7;
   border-radius: 28px !important;
     background-color: #ffffff;
 }

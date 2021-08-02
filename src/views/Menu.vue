@@ -23,7 +23,7 @@
         page-footer
         boxed-layout
       "
-      style="background-color: #efeeeea1; width: 100% !important"
+      style="background-color: #ffffff; width: 100% !important"
     >
       <div class="menuDesplegar">
         <Sidebar />
