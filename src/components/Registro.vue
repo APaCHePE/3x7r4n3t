@@ -105,11 +105,17 @@ export default {
   methods:{
     generarSolicitud(){
             axios
-        .get("http://localhost:8090/api/admin/validar-proveedor", {
-          params: {
-            nroDocumento: this.rucEmpresa,
-          },
-        })
+        .post("http://localhost:8090/api/admin/guardar-proveedor",
+            {
+                "nroDocumento": this.rucEmpresa,
+                "tipoDocumento": this.tipoDocumento,
+                "nombreProveedor": this.NombreEmpresa,
+                "direccion": "Sin direccion",
+                "correo": this.correoEmpresa,
+                "telefono": this.telefono,
+                "idSistema": 3
+            }
+        )
         .then((response) => {
           console.log(response);
           if(!response.data.resultado){
@@ -128,8 +134,7 @@ export default {
           this.$swal({
               icon: 'error',
               title: 'Error',
-              text:
-                "Sucedió un error. Favor vuelva a intentar en unos minutos. "
+              text: e.resultado
             });
         });
     }
