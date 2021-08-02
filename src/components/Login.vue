@@ -60,6 +60,7 @@
 
 <script>
 import image from "@/assets/images/pages/login-v2.svg";
+import axios from 'axios';
 
 export default {
   name: "Login",
@@ -88,7 +89,21 @@ export default {
   },
   methods: {
     guardarUser(){
-      localStorage.setItem("User", this.user);
+      axios
+          .get(
+            "http://localhost:8090/api/admin/login-externos", {
+              params:{
+                "user": this.user,
+                "clave": this.password,
+              }
+            }
+          )
+          .then((response) => {
+            console.log(response) 
+            localStorage.setItem("User", this.user);
+          })
+          .catch((e) => console.log(e));
+     
     }
     
   },

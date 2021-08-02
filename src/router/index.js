@@ -7,7 +7,9 @@ import MiCuenta from "../views/Opciones/MiCuenta.vue";
 import MisContactos from "../views/Opciones/MisContactos.vue";
 import Ordenes from "../views/Opciones/Ordenes.vue";
 import Facturas from "../views/Opciones/Facturas.vue";
-
+import VueSwal from 'vue-swal';
+ 
+Vue.use(VueSwal);
 Vue.use(VueRouter);
 
 const routes = [
