@@ -48,7 +48,7 @@
               </div>
               <br />
               <el-button
-                style="background-color: #51c1ff; width: 990px; color: #ffffff"
+                style="background-color: #51c1ff; width: 900px; color: #ffffff"
                 icon="el-icon-search"
                 @click="BuscarFacturas()"
                 >Buscar</el-button
@@ -192,12 +192,19 @@
                   </el-option>
                 </el-select>
               </div>
-            </div>
-            <div class="añadir">
+            </div><br>
+
+            <el-button
+            type="fileS"
+                style="background-color: #51c1ff; width: 900px; color: #ffffff"
+                icon="el-icon-search"
+                >Agregar ZIP</el-button
+              >
+            <!-- <div class="añadir">
               <el-button type="text" @click="dialogVisible = true"
                 >+ añadir items</el-button
               >
-            </div>
+            </div> -->
             <br /><br />
 
             <div v-if="dialogVisible">
