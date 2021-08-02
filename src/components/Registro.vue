@@ -68,6 +68,21 @@
           v-model="telefonoEmpresa"
         />
       </div>
+      <div class="form-group">
+        <label
+          class="form-label position-left size-text-login"
+          for="telefono"
+          >Dirección</label
+        >
+        <input
+          class="form-control"
+          id="direccion"
+          type="text"
+          placeholder="Dirección"
+          autofocus=""
+          v-model="direccion"
+        />
+      </div>
 
       <button class="btn btn-primary btn-block"  @click="generarSolicitud()">Solicitar</button>
     <p class="text-center mt-2" style="color: #51c1ff">
@@ -86,6 +101,8 @@ export default {
       rucEmpresa:null,
       correoEmpresa:null,
       telefonoEmpresa:null,
+      tipoDocumento: 4,
+      direccion:null,
       logo_v2: image,
     };
   },
@@ -107,13 +124,17 @@ export default {
             axios
         .post("http://localhost:8090/api/admin/guardar-proveedor",
             {
-                "nroDocumento": this.rucEmpresa,
-                "tipoDocumento": this.tipoDocumento,
-                "nombreProveedor": this.NombreEmpresa,
-                "direccion": "Sin direccion",
-                "correo": this.correoEmpresa,
-                "telefono": this.telefono,
-                "idSistema": 3
+              "usuario": this.correoEmpresa,
+              "tipoCuenta":   6,
+              "persona": 
+                {
+                  "nroDocumento": this.rucEmpresa,
+                  "tipoDocumento": this.tipoDocumento,
+                  "nombreProveedor": this.NombreEmpresa,
+                  "telefonoPrincipal":  this.telefono,
+                  "direccion": this.direccion,
+                  "idSistema": 9,
+                }
             }
         )
         .then((response) => {

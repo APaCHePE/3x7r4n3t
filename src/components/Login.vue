@@ -1,10 +1,5 @@
 <template>
-  <div>
-    <form
-      class="auth-login-form mt-2"
-      action="maqueta/estec-DE-Bandeja.html"
-      method=""
-    >
+  <div class="auth-login-form mt-2">
       <div class="form-group">
         <label
           class="form-label position-left size-text-login"
@@ -28,7 +23,7 @@
           <label class="size-text-login" for="login-password"
             >Contrase&ntilde;a</label
           >
-           <a href="RecuperarLogin.html"
+           <a 
             ><small>Olvidaste tu contrase&ntilde;a?</small></a
           > 
         </div>
@@ -49,9 +44,7 @@
      <button class="btn btn-primary btn-block" tabindex="4" @click="guardarUser()">
           Ingresar
         </button>
-      <div v-if="continuar">
-      <router-link to="/menu"></router-link></div>
-    </form>
+      <router-link v-if="continuar" to="/menu"></router-link>
     <p class="text-center mt-2" style="color: #51c1ff">
       <a @click="login=false"><span>&nbsp;Solicitar Cuenta</span></a>
     </p>
@@ -102,8 +95,10 @@ export default {
           )
           .then((response) => {
             this.usuarioRespuesta = response.data;
-            if (this.usuarioRespuesta.esCorrecto){
+            if (response.data.esCorrecto){ 
               localStorage.setItem("User", this.usuarioRespuesta.resultado.persona.nroDocumento);
+             this.$router.replace("/menu");
+            //  router.push("/menu")
               this.continuar = true
             }
             else{
