@@ -3,7 +3,7 @@
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px; margin-left: 70px;"
+        style="min-height: 592px; "
       >
         <div class="contenedor-principal"><br><br><br>
           <div class="row mb25 mt25 bienvenido">

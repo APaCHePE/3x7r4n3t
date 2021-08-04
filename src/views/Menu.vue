@@ -28,71 +28,52 @@
       <div class="menuDesplegar">
         <Sidebar />
       </div>
-      <div class="container container-full position">
+      <div class="">
         <div class="menuMobil">
-        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-          <el-radio-button :label="false">expand</el-radio-button>
-          <el-radio-button :label="true">collapse</el-radio-button>
-        </el-radio-group>
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-          :collapse="isCollapse"
-        >
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span slot="title">Navigator One</span>
-            </template>
-            <el-menu-item-group>
-              <span slot="title">Group One</span>
-              <el-menu-item index="1-1">item one</el-menu-item>
-              <el-menu-item index="1-2">item two</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="Group Two">
-              <el-menu-item index="1-3">item three</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <span slot="title">item four</span>
-              <el-menu-item index="1-4-1">item one</el-menu-item>
+          <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+            <el-radio-button :label="false">expand</el-radio-button>
+            <el-radio-button :label="true">collapse</el-radio-button>
+          </el-radio-group>
+          <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
+            @close="handleClose"
+            :collapse="isCollapse"
+          >
+            <el-submenu index="1">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span slot="title">Navigator One</span>
+              </template>
+              <el-menu-item-group>
+                <span slot="title">Group One</span>
+                <el-menu-item index="1-1">item one</el-menu-item>
+                <el-menu-item index="1-2">item two</el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="Group Two">
+                <el-menu-item index="1-3">item three</el-menu-item>
+              </el-menu-item-group>
+              <el-submenu index="1-4">
+                <span slot="title">item four</span>
+                <el-menu-item index="1-4-1">item one</el-menu-item>
+              </el-submenu>
             </el-submenu>
-          </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">Navigator Two</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">Navigator Three</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">Navigator Four</span>
-          </el-menu-item>
-        </el-menu>
-</div>
-        <!-- <div class="menuMobil">
-          <br><br><br><br>
-          <b-navbar type="dark" variant="dark">
-            <b-navbar-nav>
-              <b-nav-item href="#">Menu</b-nav-item>
-              <b-nav-item-dropdown text="Administraion" left>
-                <b-dropdown-item href="#">EN</b-dropdown-item>
-                <b-dropdown-item href="#">ES</b-dropdown-item>
-                <b-dropdown-item href="#">RU</b-dropdown-item>
-                <b-dropdown-item href="#">FA</b-dropdown-item>
-              </b-nav-item-dropdown>
-              <b-nav-item-dropdown text="Pagos" left>
-                <b-dropdown-item href="#">Account</b-dropdown-item>
-                <b-dropdown-item href="#">Settings</b-dropdown-item>
-              </b-nav-item-dropdown>
-              <b-nav-item href="#">Cerrar</b-nav-item>
-            </b-navbar-nav>
-          </b-navbar>
-        </div> -->
-        <div>
+            <el-menu-item index="2">
+              <i class="el-icon-menu"></i>
+              <span slot="title">Navigator Two</span>
+            </el-menu-item>
+            <el-menu-item index="3" disabled>
+              <i class="el-icon-document"></i>
+              <span slot="title">Navigator Three</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-setting"></i>
+              <span slot="title">Navigator Four</span>
+            </el-menu-item>
+          </el-menu>
+        </div>
+        <div class="contenido-dinamico">
           <router-view />
         </div>
       </div>
@@ -126,7 +107,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+
 @import "../plugins/css/bootstrap/bootstrap.css";
 @import "../plugins/css/bootstrap/bootstrap-select.min.css";
 @import "../plugins/css/bootstrap/bootstrap-datetimepicker.min.css";
@@ -135,7 +117,10 @@ export default {
 @import "../plugins/css/main.css";
 @import "../plugins/css/font-awesome.css";
 @import "../plugins/css/responsive.css";
-
+.contenido-dinamico{
+  max-width: 85%;
+  margin-left: 15%;
+}
 .contenedor-opciones {
   position: absolute;
 }
@@ -158,13 +143,15 @@ export default {
   display: block;
 }
 .menuMobil {
+  max-width: 15%;
   display: none !important;
-} 
+  position: static;
+}
 @media (max-width: 606px) {
   .menuDesplegar {
     display: none !important;
   }
-   .menuMobil {
+  .menuMobil {
     display: block !important;
   }
   /*

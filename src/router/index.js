@@ -7,6 +7,7 @@ import MiCuenta from "../views/Opciones/MiCuenta.vue";
 import MisContactos from "../views/Opciones/MisContactos.vue";
 import Ordenes from "../views/Opciones/Ordenes.vue";
 import Facturas from "../views/Opciones/Facturas.vue";
+import NeoFacturaDigital from "../components/Facturas/NeoFacturaDigital.vue";
 import VueSwal from 'vue-swal';
  
 Vue.use(VueSwal);
@@ -42,6 +43,11 @@ const routes = [
         path: '/ordenes',
         name: "Ordenes",
         component: Ordenes
+      },
+      {
+        path: '/neo-digital',
+        name: "neo-digital",
+        component: NeoFacturaDigital
       },
       {
         path: '/facturas',
