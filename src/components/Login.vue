@@ -41,7 +41,7 @@
           <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
         </div>
       </div>
-     <button class="btn btn-primary btn-block" tabindex="4" @click="guardarUser()">
+     <button class="btn btn-primary btn-block" tabindex="4" @click="validarLogin()">
           Ingresar
         </button>
       <router-link v-if="continuar" to="/menu"></router-link>
@@ -83,6 +83,26 @@ export default {
     },
   },
   methods: {
+    validarLogin(){
+      if(this.password == null || this.password.length <=5){
+            this.$swal({
+              icon: 'info',
+              title: 'info',
+              text: "Debe ingresar una contraseña"
+            });
+          return;
+      }else if(this.user == null || this.user.length <=5){
+            this.$swal({
+              icon: 'info',
+              title: 'info',
+              text: "Debe ingresar un usuario"
+            });
+          return;
+      }else {
+        this.guardarUser()
+      }
+
+    },
     guardarUser(){
       axios
           .get(
@@ -96,6 +116,11 @@ export default {
           .then((response) => {
             this.usuarioRespuesta = response.data;
             if (response.data.esCorrecto){ 
+              this.$swal({
+              icon: 'success',
+              title: '',
+              text: ""
+            });
               localStorage.setItem("User", this.usuarioRespuesta.resultado.persona.nroDocumento);
              this.$router.replace("/menu");
             //  router.push("/menu")
@@ -103,19 +128,20 @@ export default {
             }
             else{
               this.$swal({
-              icon: 'error',
-              title: 'Error',
-              text: "La cuenta no existe"
+              icon: 'info',
+              title: 'info',
+              text: this.usuarioRespuesta.mensajeError
             });
             }
             
           })
           .catch((e) => {
-            console.log(e)
+            console.log("error al logear ");
+            console.log(e.response.data.mensajeError)
             this.$swal({
               icon: 'error',
               title: 'Error',
-              text: "Intentelo más tarde"
+              text: e.response.data.mensajeError
             });
             });
      

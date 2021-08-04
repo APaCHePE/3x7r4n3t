@@ -12,7 +12,6 @@
             <div class="col-md-4" style="float: left">N° de Orden</div>
             <div class="col-md-4" style="float: left">Fecha</div>
             <div class="col-md-4" style="float: left">Estado</div>
-            <div class="col-md-4" style="float: left"></div>
           </div>
 
           <div class="row">
@@ -56,8 +55,6 @@
               <th class="text-center">N° de Orden</th>
               <th class="text-center">Fecha</th>
               <th class="text-center">Importe</th>
-              <th class="text-center">Importe Facturado</th>
-              <th class="text-center">Saldo</th>
               <th class="text-center">Estado</th>
               <th class="text-center">Forma de pago</th>
               <th class="text-center"></th>
@@ -76,12 +73,6 @@
               </td>
               <td>
                 <template>{{ item.importe }}</template>
-              </td>
-              <td>
-                <template>{{ item.importeFacturado }}</template>
-              </td>
-              <td>
-                <template>{{ item.saldo }}</template>
               </td>
               <td>
                 <template>{{ item.estado }}</template>
@@ -188,8 +179,12 @@ export default {
       Estado: null,
       options: [
         {
-          Estado: "estado",
-        },
+          name: "Consolidado",
+          valor: 'c'
+        },{
+          name: "RE-PROCESADA",
+          valor: 'R'
+        }
       ],
       tableData: null,
     };

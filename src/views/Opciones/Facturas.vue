@@ -35,12 +35,12 @@
                   </el-date-picker>
                 </div>
                 <div class="col-md-4">
-                  <el-select v-model="Estado" placeholder="Select">
+                  <el-select v-model="Estado" placeholder="TODOS">
                     <el-option
                       v-for="item in options"
                       :key="item.Estado"
-                      :label="item.Estado"
-                      :value="item.Estado"
+                      :label="item.nombre"
+                      :value="item.valor"
                     >
                     </el-option>
                   </el-select>
@@ -62,10 +62,10 @@
                   <th class="text-center">Fecha</th>
                   <th class="text-center">Moneda</th>
                   <th class="text-center">IGV</th>
-                  <th class="text-center">Subtotal</th>
-                  <th class="text-center">Total</th>
-                  <th class="text-center">Cod Vendedor</th>
-                  <th class="text-center" width="7%"></th>
+                  <th class="text-center">Importe</th>
+                  <th class="text-center">Saldo</th>
+                  <th class="text-center">estado</th>
+                  <!-- <th class="text-center" width="7%"></th> -->
                 </tr>
               </thead>
               <tbody>
@@ -74,7 +74,7 @@
                     <template>{{ item.numeroFactura }}</template>
                   </td>
                   <td>
-                    <template>{{ item.fecha }}</template>
+                    <template>{{ item.fechaDocumento }}</template>
                   </td>
                   <td>
                     <template>{{ item.moneda }}</template>
@@ -83,15 +83,15 @@
                     <template>{{ item.igv }}</template>
                   </td>
                   <td>
-                    <template>{{ item.subTotal }}</template>
+                    <template>{{ item.importeSoles }}</template>
                   </td>
                   <td>
-                    <template>{{ item.total }}</template>
+                    <template>{{ item.saldo }}</template>
                   </td>
                   <td>
-                    <template>{{ item.vendedor }}</template>
+                    <template>{{ item.estado }}</template>
                   </td>
-                  <td>
+                  <!-- <td>
                     <template
                       ><el-button
                         type="text"
@@ -99,7 +99,7 @@
                         >VER</el-button
                       ></template
                     >
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>
@@ -299,8 +299,12 @@ export default {
 
       options: [
         {
-          Estado: "estado",
-        },
+          nombre: "CONSOLIDADO",
+          valor: 'C'
+        },{
+          nombre: "RE-PROCESADA",
+          valor: 'R'
+        }
       ],
       tableData: null,
     };

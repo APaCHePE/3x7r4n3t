@@ -71,7 +71,6 @@
       <div class="form-group">
         <label
           class="form-label position-left size-text-login"
-          for="telefono"
           >Dirección</label
         >
         <input
@@ -130,8 +129,8 @@ export default {
                 {
                   "nroDocumento": this.rucEmpresa,
                   "tipoDocumento": this.tipoDocumento,
-                  "nombreProveedor": this.NombreEmpresa,
-                  "telefonoPrincipal":  this.telefono,
+                  "nombreCompleto": this.NombreEmpresa,
+                  "telefonoPrincipal":  this.telefonoEmpresa,
                   "direccion": this.direccion,
                   "idSistema": 9,
                 }
@@ -139,24 +138,30 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          if(!response.data.resultado){
-            alert("no existe")
+          if(response.data.esCorrecto){
+            this.$swal({
+                  icon: "success",
+                  title: "",
+                  text: 'Se ha registrado con éxito.'
+                }); 
+            this.login=false;
           }
           else{
             this.$swal({
                   icon: "info",
                   title: "Aviso",
-                  text: 'La empresa ya ha sido registrada'
+                  text: 'La empresa ya ha sido registrada.'
                 }); 
           }
         })
         .catch((e) => {
+          debugger
           console.log(e)
           this.$swal({
-              icon: 'error',
-              title: 'Error',
-              text: e.resultado
-            });
+            icon: 'error',
+            title: 'Error',
+            text: "No se ha podido registrar, intente mas tarde."
+          });
         });
     }
   }

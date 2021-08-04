@@ -2,7 +2,7 @@
   <div class="page-container positionRight" style="box-sizing: content-box">
     <el-col
       style="mt-3; width: 18%; position: fixed; height: 100%;
-    display: flex;"
+    display: flex; text-align: left"
     >
       <el-menu
         style="size: 20px; background-color: #efeeee8a"
@@ -23,13 +23,13 @@
 
        <router-link :to="'/menu'"> <el-menu-item
           index="1"
-          style="font-size: 20px; padding: 30px 0px 0px 0px; color: black;"
+          style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
         >
           <i class="el-icon-menu"></i>
           <span>Inicio</span>
         </el-menu-item></router-link>
 
-        <el-submenu index="2" style="padding: 50px 0px 0px 0px">
+        <el-submenu index="2" style="padding: 50px 0px 0px 0px; text-align: left">
           <template slot="title">
             <i class="el-icon-setting"></i>
             <span style="font-size: 20px">Administración</span>
@@ -64,7 +64,7 @@
 
         <router-link :to="'/'"><el-menu-item
           index="4"
-          style="font-size: 20px; padding: 30px 0px 0px 0px; color: black;"
+          style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
         >
           <i class="el-icon-circle-close"></i>
           <span>Cerrar Sesión</span>
