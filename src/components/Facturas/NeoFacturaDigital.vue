@@ -3,17 +3,44 @@
     <div>
       <titulo-header>Registre su factura digital</titulo-header>
     </div>
+    <div class="ml-5" style="text-align: left">
+      <h3 class="mb-2">Documento PDF</h3>
+      <el-upload
+        class="upload-demo"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :limit="1"
+        :on-exceed="handleExceed"
+        :file-list="fileList"
+      >
+      </el-upload>
+      <h3 class="mb-2">Documento ZIP</h3>
+      <el-upload
+        class="upload-demo"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :on-preview="handlePreview"
+        :on-exceed="handleExceed"
+        :file-list="fileListZIP"
+      >
+      </el-upload>
+    </div>
     <div
       style="display: flex; justify-content: space-around; margin-bottom: 20px"
     >
-      <el-button type="primary" @click="dialogFormVisible = true"
-        >Cargar archivos
+      <el-button type="primary" @click="mostrarFactura = true"
+        >Cargar Factura
       </el-button>
     </div>
     <div v-if="mostrarFactura">
+      <div class="ml-5"
+      style="display: flex; justify-content: left; margin-bottom: 20px"
+    >
+    <h2><b>Vista previa</b></h2>
+    </div>
       <div
-        class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px; margin-left: 70px"
+        class="content contentTG left-sidebar-toggle contenedor-opciones ml-5"
+        style="min-height: 592px"
       >
         <div class="body-registro">
           <br />
@@ -168,23 +195,14 @@
     </div>
     <div>
       <el-dialog title="Cargar documentos" :visible.sync="dialogFormVisible">
-        <el-upload
-          class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          multiple
-          :limit="3"
-          :on-exceed="handleExceed"
-          :file-list="fileList"
-        >
-          <div slot="tip" class="el-upload__tip">
-            Solo archivos jpg/png con un tamaño menor de 500kb
-          </div>
-        </el-upload>
         <span slot="footer" class="dialog-footer">
           <el-button @click="dialogFormVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="dialogFormVisible = false; mostrarFactura=true"
+          <el-button
+            type="primary"
+            @click="
+              dialogFormVisible = false;
+              mostrarFactura = true;
+            "
             >Confirm</el-button
           >
         </span>
@@ -206,8 +224,8 @@ export default {
       dialogFormVisible: false,
       mostrarFactura: null,
       tableData: null,
-      fileList: [
-      ],
+      fileList: [],
+      fileListZIP: [],
     };
   },
   methods: {
@@ -241,7 +259,6 @@ export default {
   box-sizing: border-box;
   border-radius: 10px;
   background-color: white;
-  margin-left: 20px;
 }
 .cabecera {
   margin-left: 30px;

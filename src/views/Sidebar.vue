@@ -47,20 +47,20 @@
           </el-menu-item-group>
         </el-submenu>
 
-        <el-submenu index="3" style="padding: 30px 0px 0px 0px">
+        <!-- <el-submenu index="3" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
             <span style="font-size: 20px">Ordenes</span>
           </template>
           <el-menu-item-group>
             <router-link :to="'/ordenes'"><el-menu-item index="1-1">
-              <span>Consulta</span>
+              <span>Listado</span>
             </el-menu-item></router-link>
              <router-link :to="'/nueva-orden'"><el-menu-item index="1-2">
              <span>Nuevo</span>
             </el-menu-item></router-link>
           </el-menu-item-group>
-        </el-submenu>
+        </el-submenu> -->
 
         <el-submenu index="4" style="padding: 30px 0px 0px 0px">
           <template slot="title">
@@ -69,10 +69,10 @@
           </template>
           <el-menu-item-group>
             <router-link :to="'/facturas'"><el-menu-item index="1-1">
-              <span>Consulta</span>
+              <span>Listado</span>
             </el-menu-item></router-link>
              <router-link :to="'/neo-digital'"><el-menu-item index="1-2">
-             <span>Nueva Digital</span>
+             <span>Nueva</span>
             </el-menu-item></router-link>
           </el-menu-item-group>
         </el-submenu>

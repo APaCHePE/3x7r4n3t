@@ -8,7 +8,13 @@ import api from './plugins/axios.js';
 import './plugins/bootstrap-vue.js';
 import '@/assets/style/element.scss';
 import '@/assets/style/stilo-responsive.scss';
+// main.js 
+import  VueSweetalert2  from  'vue-sweetalert2' ;
 
+// Si no necesita los estilos, no conecte 
+// import  'sweetalert2/dist/sweetalert2.min.css' ;
+
+Vue . use ( VueSweetalert2 ) ;
 // axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded'
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 

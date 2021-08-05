@@ -7,11 +7,9 @@
     >
       <titulo-header>Facturas</titulo-header><br />
       <div class="container">
-        <el-tabs type="border-card">
-          <el-tab-pane>
-            <span slot="label" class="menu"
+            <!-- <span slot="label" class="menu"
               ><i class="el-icon-search"></i> Busqueda</span
-            >
+            > -->
             <div>
               <div class="row">
                 <div class="col-md-4" style="float: left">N° de Factura</div>
@@ -151,125 +149,6 @@
                 <el-button @click="dialogVisible = false">Cerrar</el-button>
               </span>
             </el-dialog>
-          </el-tab-pane>
-          <el-tab-pane>
-            <span slot="label" class="menu"
-              ><i class="el-icon-folder-opened"></i> Añadir</span
-            >
-            <br />
-            <div class="row">
-              <div class="col-md-4" style="float: left">
-                Fecha de Vencimiento
-              </div>
-              <div class="col-md-4" style="float: left">Fecha de Emisión</div>
-              <div class="col-md-4" style="float: left">Tipo Moneda</div>
-            </div>
-            <div class="row">
-              <div class="col-md-4" style="float: left">
-                <el-date-picker
-                  v-model="value1"
-                  type="date"
-                  placeholder="Pick a day"
-                >
-                </el-date-picker>
-              </div>
-              <div class="col-md-4" style="float: left">
-                <el-date-picker
-                  v-model="value2"
-                  type="date"
-                  placeholder="Pick a day"
-                >
-                </el-date-picker>
-              </div>
-              <div class="col-md-4" style="float: left">
-                <el-select v-model="Estado" placeholder="Select">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.Estado"
-                    :label="item.Estado"
-                    :value="item.Estado"
-                  >
-                  </el-option>
-                </el-select>
-              </div>
-            </div><br>
-
-            <el-button
-            type="fileS"
-                style="background-color: #51c1ff; width: 900px; color: #ffffff"
-                icon="el-icon-search"
-                >Agregar ZIP</el-button
-              >
-            <!-- <div class="añadir">
-              <el-button type="text" @click="dialogVisible = true"
-                >+ añadir items</el-button
-              >
-            </div> -->
-            <br /><br />
-
-            <div v-if="dialogVisible">
-              <div class="row">
-                <!-- <div class="col-md-2">Cargo</div> -->
-                <div class="col-md-4" style="float: left">Código</div>
-                <div class="col-md-4" style="float: left">Descripcion</div>
-                <div class="col-md-4" style="float: left">Valor Unitario</div>
-              </div>
-              <div class="row">
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-              </div>
-              <br />
-
-              <div class="row">
-                <div class="col-md-4" style="float: left">IGV</div>
-                <div class="col-md-4" style="float: left">Valor Venta</div>
-              </div>
-              <div class="row">
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-input autocomplete="off"></el-input>
-                </div>
-                <div class="col-md-4" style="float: left">
-                  <el-button>+ agregar</el-button>
-                </div>
-              </div>
-              <br /><br />
-
-              <el-card class="box-card">
-                <div slot="header" class="clearfix">
-                  <span><h2>ITEMS</h2></span>
-                  <el-table :data="tableData2" style="width: 100%">
-                    <el-table-column prop="date" label="ITEM" width="180">
-                    </el-table-column>
-                    <el-table-column
-                      prop="name"
-                      label="UNIDAD MEDIDA"
-                      width="180"
-                    >
-                    </el-table-column>
-                    <el-table-column prop="address" label="CANTIDAD">
-                    </el-table-column>
-                    <el-table-column prop="address" label="CODIGO">
-                    </el-table-column>
-                    <el-table-column prop="address" label="DESCRIPCIÓN">
-                    </el-table-column>
-                    <el-table-column prop="address" label="VALOR UNITARIO">
-                    </el-table-column>
-                  </el-table>
-                </div>
-              </el-card>
-            </div>
-          </el-tab-pane>
-        </el-tabs>
       </div>
     </div>
     <!-- </div> -->
@@ -308,6 +187,9 @@ export default {
       ],
       tableData: null,
     };
+  },
+  created(){
+    this.BuscarFacturas();
   },
   methods: {
     BuscarFacturas() {

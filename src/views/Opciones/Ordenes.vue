@@ -189,6 +189,9 @@ export default {
       tableData: null,
     };
   },
+  created(){
+    this.BuscarOrdenes();
+  },
   methods: {
     mostrarDetalleOrdendialog(valores) {
       this.dialogVisible = true;

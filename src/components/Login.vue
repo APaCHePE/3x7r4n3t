@@ -1,59 +1,68 @@
 <template>
   <div class="auth-login-form mt-2">
-      <div class="form-group">
-        <label
-          class="form-label position-left size-text-login"
-          for="login-email"
-          >Usuario</label
+    <div class="form-group">
+      <label class="form-label position-left size-text-login" for="login-email"
+        >Usuario</label
+      >
+      <input
+        class="form-control"
+        id="login-email"
+        type="text"
+        name="login-email2"
+        placeholder=""
+        aria-describedby="login-email"
+        autofocus=""
+        tabindex="1"
+        v-model="user"
+      />
+    </div>
+    <div class="form-group">
+      <div class="d-flex justify-content-between">
+        <label class="size-text-login" for="login-password"
+          >Contrase&ntilde;a</label
         >
+        <a><small>Olvidaste tu contrase&ntilde;a?</small></a>
+      </div>
+      <div class="input-group input-group-merge form-password-toggle">
         <input
-          class="form-control"
-          id="login-email"
-          type="text"
-          name="login-email2"
+          class="form-control form-control-merge"
+          id="login-password"
+          type="password"
+          name="login-password"
           placeholder=""
-          aria-describedby="login-email"
-          autofocus=""
-          tabindex="1"
-          v-model="user"
+          aria-describedby="login-password"
+          tabindex="2"
+          v-model="password"
         />
+        <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
       </div>
-      <div class="form-group">
-        <div class="d-flex justify-content-between">
-          <label class="size-text-login" for="login-password"
-            >Contrase&ntilde;a</label
-          >
-           <a 
-            ><small>Olvidaste tu contrase&ntilde;a?</small></a
-          > 
-        </div>
-        <div class="input-group input-group-merge form-password-toggle">
-          <input
-            class="form-control form-control-merge"
-            id="login-password"
-            type="password"
-            name="login-password"
-            placeholder=""
-            aria-describedby="login-password"
-            tabindex="2"
-            v-model="password"
-          />
-          <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
-        </div>
+    </div>
+    <el-dialog :visible.sync="cargando" width="30%">
+      <div
+        class="spinner-border"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
       </div>
-     <button class="btn btn-primary btn-block" tabindex="4" @click="validarLogin()">
-          Ingresar
-        </button>
-      <router-link v-if="continuar" to="/menu"></router-link>
+    </el-dialog>
+    <button
+      class="btn btn-primary btn-block"
+      tabindex="4"
+      @click="validarLogin()"
+    >
+      Ingresar
+    </button>
+    <router-link v-if="continuar" to="/menu"></router-link>
     <p class="text-center mt-2" style="color: #51c1ff">
-      <a @click="login=false"><span>&nbsp;Solicitar Cuenta</span></a>
+      <a @click="login = false"><span>&nbsp;Solicitar Cuenta</span></a>
     </p>
   </div>
 </template>
 
 <script>
 import image from "@/assets/images/pages/login-v2.svg";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "Login",
@@ -61,14 +70,13 @@ export default {
     return {
       logo_v2: image,
       user: null,
-      password:null,
-      usuarioRespuesta:null,
-      continuar:false
+      password: null,
+      usuarioRespuesta: null,
+      continuar: false,
+      cargando: false,
     };
   },
-  created() {
-    
-  },
+  created() {},
   computed: {
     login: {
       // getter
@@ -78,75 +86,71 @@ export default {
       // setter
       set: function () {
         console.log("enviando parametro ");
-        this.$emit('cambiar-registro')
+        this.$emit("cambiar-registro");
       },
     },
   },
   methods: {
-    validarLogin(){
-      if(this.password == null || this.password.length <=5){
-            this.$swal({
-              icon: 'info',
-              title: 'info',
-              text: "Debe ingresar una contraseña"
-            });
-          return;
-      }else if(this.user == null || this.user.length <=5){
-            this.$swal({
-              icon: 'info',
-              title: 'info',
-              text: "Debe ingresar un usuario"
-            });
-          return;
-      }else {
+    validarLogin() {
+      this.cargando= true;
+      if (this.password == null || this.password.length <= 5) {
+        this.$swal({
+          icon: "info",
+          title: "info",
+          text: "Debe ingresar una contraseña",
+        });
+        this.cargando=false;
+        return;
+      } else if (this.user == null || this.user.length <= 5) {
+        this.$swal({
+          icon: "info",
+          title: "info",
+          text: "Debe ingresar un usuario",
+        });
+        this.cargando=false;
+        return;
+      } else {
         this.guardarUser()
       }
-
     },
-    guardarUser(){
+    guardarUser() {
       axios
-          .get(
-            "http://localhost:8090/api/admin/login-externos", {
-              params:{
-                "user": this.user,
-                "clave": this.password,
-              }
-            }
-          )
-          .then((response) => {
-            this.usuarioRespuesta = response.data;
-            if (response.data.esCorrecto){ 
-              this.$swal({
-              icon: 'success',
-              title: '',
-              text: ""
-            });
-              localStorage.setItem("User", this.usuarioRespuesta.resultado.persona.nroDocumento);
-             this.$router.replace("/menu");
+        .get("http://localhost:8090/api/admin/login-externos", {
+          params: {
+            user: this.user,
+            clave: this.password,
+          },
+        })
+        .then((response) => {
+          this.usuarioRespuesta = response.data;
+          if (response.data.esCorrecto) {
+            localStorage.setItem(
+              "User",
+              this.usuarioRespuesta.resultado.persona.nroDocumento
+            );
+            this.$router.replace("/menu");
             //  router.push("/menu")
-              this.continuar = true
-            }
-            else{
-              this.$swal({
-              icon: 'info',
-              title: 'info',
-              text: this.usuarioRespuesta.mensajeError
-            });
-            }
-            
-          })
-          .catch((e) => {
-            console.log("error al logear ");
-            console.log(e.response.data.mensajeError)
+            this.cargando=false;
+            this.continuar = true;
+          } else {
             this.$swal({
-              icon: 'error',
-              title: 'Error',
-              text: e.response.data.mensajeError
+              icon: "info",
+              title: "info",
+              text: this.usuarioRespuesta.mensajeError,
             });
-            });
-     
-    }
-    
+          }
+        })
+        .catch((e) => {
+          this.cargando= false
+          console.log("error al logear ");
+          console.log(e.response.data.mensajeError);
+          this.$swal({
+            icon: "error",
+            title: "Error",
+            text: e.response.data.mensajeError,
+          });
+        });
+    },
   },
 };
 </script>
