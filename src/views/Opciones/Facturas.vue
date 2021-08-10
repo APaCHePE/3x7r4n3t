@@ -201,13 +201,13 @@ export default {
       console.log(fechaFin);
        axios
           .get(
-            "http://localhost:8090/api/admin/getFacturas", {
+            "http://localhost:8090/api/admin/consultar-comprobante", {
               params:{
                 "numeroFac": this.numeroFac,
                 "fecInicio": fechaInicio,
-               "nroDocumento": localStorage.getItem('User'),
+                "nroDocumento": localStorage.getItem('User'),
                 "fecFin": fechaFin,
-                "estado": 2
+                // "estado": 9
               }
             }
           )

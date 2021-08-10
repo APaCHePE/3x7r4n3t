@@ -15,13 +15,6 @@
         <el-button slot="trigger" size="small" type="primary"
           >Selecciona un archivo</el-button
         >
-        <el-button
-          style="margin-left: 10px"
-          size="small"
-          type="success"
-          @click="submitUpload"
-          >Cargar al servidor</el-button
-        >
         <div slot="tip" class="el-upload__tip">
           Solo archivos PDF con un tamaño menor de 500kb
         </div>
@@ -37,13 +30,6 @@
         <el-button slot="trigger" size="small" type="primary"
           >Selecciona un archivo</el-button
         >
-        <el-button
-          style="margin-left: 10px"
-          size="small"
-          type="success"
-          @click="submitUploadZip"
-          >Cargar al servidor</el-button
-        >
         <div slot="tip" class="el-upload__tip">
           Solo archivos .ZIP con un tamaño menor de 500kb
         </div>
@@ -52,7 +38,7 @@
     <div
       style="display: flex; justify-content: space-around; margin-bottom: 20px"
     >
-      <el-button type="primary" @click="mostrarFactura = true"
+      <el-button type="primary" v-on:click="submitUploadZip" @click="submitUpload"
         >Cargar Factura
       </el-button>
     </div>
@@ -351,6 +337,7 @@ export default {
             ];
             this.$refs.uploadZip.clearFiles()
             this.$emit('reloadList')
+            this.mostrarFactura = true
         })
     },
     handleRemove(file, fileList) {
