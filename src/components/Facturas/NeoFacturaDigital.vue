@@ -14,7 +14,7 @@ t<template>
                   ref="uploadPdf"
                   :auto-upload="false"
                   accept=".pdf"
-                  limit="1"
+                  :limit="1"
                   action="https://jsonplaceholder.typicode.com/posts/"
                 >
                   <el-button slot="trigger" size="small" type="primary"
@@ -33,7 +33,7 @@ t<template>
                   ref="uploadZip"
                   :auto-upload="false"
                   accept=".zip"
-                  limit="1"
+                  :limit="1"
                   action="https://jsonplaceholder.typicode.com/posts/"
                 >
                   <el-button slot="trigger" size="small" type="primary"
@@ -50,24 +50,22 @@ t<template>
       </table>
     </div>
     <hr />
-    <div style="
-        width: 70vw;
-        text-align: right">
+    <div style="width: 70vw; text-align: right">
       <div class="mx-5">
         <el-button type="primary" @click="validarCargaFiles"
           >Cargar Factura
         </el-button>
-          <el-button
-            :disabled="btnEnviar"
-            type="success"
-            @click="validacionCargaFactura"
-            >Enviar</el-button
-          >
+        <el-button
+          :disabled="btnEnviar"
+          type="success"
+          @click="validacionCargaFactura"
+          >Enviar</el-button
+        >
       </div>
     </div>
     <hr />
     <div class="pie-factura mx-5" style="max-width: 60vw; display: flex">
-      <table >
+      <table>
         <thead>
           <tr>
             <td><label class="mr-5">Orden de Compra</label></td>
@@ -372,6 +370,8 @@ export default {
   },
   methods: {
     validarCargaFiles() {
+      this.mostrarFactura = false;
+      this.facturaJson = {};
       this.cargando = true;
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
         console.log("lista de zip vacia");
@@ -437,16 +437,14 @@ export default {
         })
         .catch()
         .finally(() => {
-          this.$refs.uploadZip.clearFiles();
+          // this.$refs.uploadZip.clearFiles();
+          // this.$refs.uploadPdf.clearFiles();
           this.cargando = false;
           this.btnEnviar = true;
         });
     },
 
     rellenarJsonFactura(facturaRecibida) {
-      debugger
-      console.log("para saber si es un array ");
-      console.log(facturaRecibida["cac:InvoiceLine"].isArray())
       // CABECERA
       this.facturaJson["proveedorId003TipoDocumento"] = 1;
       this.facturaJson["id007TipoComprobante"] = 17;
@@ -521,19 +519,44 @@ export default {
         this.inputContrato = true;
       }
       // LIST ITEMS
-      this.facturaJson["listaComprobanteDetalle"] = [
-        {
-          cantidad:
-            facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"].content,
-          unidadMedida: "UNIDAD",
-          codigo: facturaRecibida["cac:InvoiceLine"]["cbc:ID"],
-          descripcion:
-            facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cbc:Description"],
-          valorUnitario:
-            facturaRecibida["cac:InvoiceLine"]["cac:Price"]["cbc:PriceAmount"]
-              .content,
-        },
-      ];
+      this.facturaJson["listaComprobanteDetalle"] = [];
+      if (Array.isArray(facturaRecibida["cac:InvoiceLine"])) {
+
+        const arrayItems = facturaRecibida["cac:InvoiceLine"];
+        arrayItems.forEach((item)=>{
+          let obj = {
+            cantidad:
+              item["cbc:InvoicedQuantity"]
+                .content,
+  
+            unidadMedida: "UNIDAD",
+            codigo: item["cbc:ID"],
+            descripcion:
+              item["cac:Item"]["cbc:Description"],
+  
+            valorUnitario:
+              item["cac:Price"]["cbc:PriceAmount"]
+                .content
+          };
+          this.facturaJson["listaComprobanteDetalle"].push(obj);
+        })
+
+      } else {
+        this.facturaJson["listaComprobanteDetalle"].push(
+          {
+            cantidad:
+              facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"]
+                .content,
+            unidadMedida: "UNIDAD",
+            codigo: facturaRecibida["cac:InvoiceLine"]["cbc:ID"],
+            descripcion:
+              facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cbc:Description"],
+            valorUnitario:
+              facturaRecibida["cac:InvoiceLine"]["cac:Price"]["cbc:PriceAmount"]
+                .content,
+          },
+        );
+      }
       // PIE FACTURA
       this.facturaJson["descripcionImporte"] =
         facturaRecibida["cbc:Note"].content;
@@ -631,5 +654,6 @@ hr {
 .total-detalle {
   border: 1px solid #b0b0b0;
   align-content: center;
+  padding-bottom: 10px;
 }
 </style>>
