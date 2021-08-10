@@ -4,38 +4,89 @@ t<template>
       <titulo-header>Registre su factura digital</titulo-header>
     </div>
     <div class="ml-5" style="text-align: left">
-      <h3 class="mb-2">Documento PDF</h3>
-      <el-upload
-        ref="uploadPdf"
-        :auto-upload="false"
-        accept=".pdf"
-        action="https://jsonplaceholder.typicode.com/posts/"
-      >
-        <el-button slot="trigger" size="small" type="primary"
-          >Selecciona un archivo</el-button
-        >
-      </el-upload>
-      <h3 class="mb-2">Documento ZIP</h3>
-      <el-upload
-        ref="uploadZip"
-        :auto-upload="false"
-        accept=".zip"
-        action="https://jsonplaceholder.typicode.com/posts/"
-      >
-        <el-button slot="trigger" size="small" type="primary"
-          >Selecciona un archivo</el-button
-        >
-        <div slot="tip" class="el-upload__tip">
-          Solo archivos con un tamaño menor de 500kb
-        </div>
-      </el-upload>
+      <table width="80%">
+        <tbody>
+          <tr>
+            <td>
+              <div>
+                <h3 class="mb-2">Documento PDF</h3>
+                <el-upload
+                  ref="uploadPdf"
+                  :auto-upload="false"
+                  accept=".pdf"
+                  limit="1"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                >
+                  <el-button slot="trigger" size="small" type="primary"
+                    >Selecciona un archivo</el-button
+                  >
+                  <div slot="tip" class="el-upload__tip">
+                    Solo archivos con un tamaño menor de 500kb
+                  </div>
+                </el-upload>
+              </div>
+            </td>
+            <td>
+              <div>
+                <h3 class="mb-2">Documento ZIP</h3>
+                <el-upload
+                  ref="uploadZip"
+                  :auto-upload="false"
+                  accept=".zip"
+                  limit="1"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                >
+                  <el-button slot="trigger" size="small" type="primary"
+                    >Selecciona un archivo</el-button
+                  >
+                  <div slot="tip" class="el-upload__tip">
+                    Solo archivos con un tamaño menor de 500kb
+                  </div>
+                </el-upload>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div
-      style="display: flex; justify-content: space-around; margin-bottom: 20px"
-    >
-      <el-button type="primary" @click="validarCargaFiles"
-        >Cargar Factura
-      </el-button>
+    <hr />
+    <div style="
+        width: 70vw;
+        text-align: right">
+      <div class="mx-5">
+        <el-button type="primary" @click="validarCargaFiles"
+          >Cargar Factura
+        </el-button>
+          <el-button
+            :disabled="btnEnviar"
+            type="success"
+            @click="validacionCargaFactura"
+            >Enviar</el-button
+          >
+      </div>
+    </div>
+    <hr />
+    <div class="pie-factura mx-5" style="max-width: 60vw; display: flex">
+      <table >
+        <thead>
+          <tr>
+            <td><label class="mr-5">Orden de Compra</label></td>
+            <td>
+              <el-input
+                :disabled="inputOrden"
+                v-model="facturaJson.ordenNumero"
+              ></el-input>
+            </td>
+            <td><label class="mx-5">Nro. de Contrato</label></td>
+            <td>
+              <el-input
+                :disabled="inputContrato"
+                v-model="facturaJson.ordenContrato"
+              ></el-input>
+            </td>
+          </tr>
+        </thead>
+      </table>
     </div>
     <div v-if="mostrarFactura">
       <div
@@ -52,57 +103,18 @@ t<template>
           <br />
           <div id="cabecera" class="cabecera">
             <div style="text-align: left">
+              <p><b> </b>{{ facturaJson.proveedorNombre }}</p>
               <p>
-                <b> </b
-                >{{
-                  facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-                    "cac:PartyName"
-                  ]["cbc:Name"]
-                }}
+                <b>{{ facturaJson.proveedorNombreComercial }} </b>
               </p>
-              <p>
-                <b
-                  >{{
-                    facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-                      "cac:PartyLegalEntity"
-                    ]["cbc:RegistrationName"]
-                  }}
-                </b>
-              </p>
-              <p>
-                <b> </b
-                >{{
-                  facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-                    "cac:PartyLegalEntity"
-                  ]["cac:RegistrationAddress"]["cac:AddressLine"]["cbc:Line"]
-                }}
-              </p>
-              <p>
-                <b> </b
-                >{{
-                  facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-                    "cac:PartyLegalEntity"
-                  ]["cac:RegistrationAddress"]["cbc:District"]
-                }}-
-                {{
-                  facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-                    "cac:PartyLegalEntity"
-                  ]["cac:RegistrationAddress"]["cbc:CityName"]
-                }}
-                -
-                {{
-                  facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-                    "cac:PartyLegalEntity"
-                  ]["cac:RegistrationAddress"]["cbc:CountrySubentity"]
-                }}
-              </p>
+              <p><b> </b>{{ facturaJson.proveedorDireccion }}</p>
+              <p><b> </b>{{ facturaJson.proveedorZona }}</p>
             </div>
             <br />
             <div class="cabecera-detalle">
               <p><b>FACTURA</b></p>
-              |
-              <p><b>RUC : </b>{{ facturaRecibida.codigoCliente }}</p>
-              <p><b></b>{{ facturaRecibida["cbc:ID"] }}</p>
+              <p><b>RUC : </b>{{ facturaJson.codigoCliente }}</p>
+              <p><b></b>{{ facturaJson.serie + " - " + facturaJson.numero }}</p>
             </div>
             <br />
           </div>
@@ -134,7 +146,7 @@ t<template>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ facturaRecibida["cbc:DueDate"] }}
+                                      {{ facturaJson.fechaVencimiento }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -143,7 +155,7 @@ t<template>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ facturaRecibida["cbc:IssueDate"] }}
+                                      {{ facturaJson.fechaEmision }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -152,13 +164,7 @@ t<template>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{
-                                        facturaRecibida[
-                                          "cac:AccountingCustomerParty"
-                                        ]["cac:Party"]["cac:PartyLegalEntity"][
-                                          "cbc:RegistrationName"
-                                        ]
-                                      }}
+                                      {{ facturaJson.clienteEmitido }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -214,29 +220,21 @@ t<template>
                 </tr>
               </thead>
               <tbody>
-                <!-- <tr v-for="(item,index) of " :key="'items'+index"> -->
-                <tr>
+                <tr
+                  v-for="(itemJ, index) of facturaJson.listaComprobanteDetalle"
+                  :key="'items' + index"
+                >
+                  <!-- <tr> -->
                   <td>
-                    {{
-                      facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"]
-                        .content
-                    }}
+                    {{ itemJ.cantidad }}
                   </td>
-                  <td>Unidad Medida</td>
-                  <td>{{ facturaRecibida["cac:InvoiceLine"]["cbc:ID"] }}</td>
+                  <td>{{ itemJ.unidadMedida }}</td>
+                  <td>{{ itemJ.codigo }}</td>
                   <td>
-                    {{
-                      facturaRecibida["cac:InvoiceLine"]["cac:Item"][
-                        "cbc:Description"
-                      ]
-                    }}
+                    {{ itemJ.descripcion }}
                   </td>
                   <td>
-                    {{
-                      facturaRecibida["cac:InvoiceLine"]["cac:Price"][
-                        "cbc:PriceAmount"
-                      ]
-                    }}
+                    {{ itemJ.valorUnitario }}
                   </td>
                 </tr>
               </tbody>
@@ -246,40 +244,74 @@ t<template>
           <div id="detalle" class="detalle">
             <div class="detalle-izquierda">
               <br /><br /><br />
-              <label>{{ facturaRecibida["cbc:Note"].content }}</label>
+              <label>{{ facturaJson.descripcionImporte }}</label>
               <br /><br /><br /><br /><br /><br /><br /><br />
             </div>
             <div class="total-detalle">
-              <p>
-                <b>Sub total Ventas: </b>{{ facturaRecibida.subTotalVentas }}
-              </p>
-              <p><b>Anticipios: </b>{{ facturaRecibida.anticipios }}</p>
-              <p><b>Descuentos: </b>{{ facturaRecibida.descuentos }}</p>
-              <p>
-                <b>Valor de Ventas: </b>{{ facturaRecibida["valorVentas"] }}
-              </p>
-              <p><b>IGV: </b>{{ facturaRecibida.igv }}</p>
-              <p><b>Otros Cargos: </b>{{ facturaRecibida["otrosTributos"] }}</p>
-              <p><b>Importe Total: </b>{{ facturaRecibida.importeTotal }}</p>
+              <br />
+              <table width="60%" style="margin: auto">
+                <tbody>
+                  <tr>
+                    <td class="alinieado-izquierda">
+                      <div><b>Sub total Ventas </b></div>
+                    </td>
+                    <td><b> : </b></td>
+                    <td class="alinieado-derecha">
+                      <div>{{ facturaJson.importeSubTotal }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="alinieado-izquierda">
+                      <div><b>Anticipios </b></div>
+                    </td>
+                    <td><b> : </b></td>
+                    <td class="alinieado-derecha">
+                      <div>{{ facturaJson.importeAnticipios }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="alinieado-izquierda">
+                      <div><b>Descuentos </b></div>
+                    </td>
+                    <td><b> : </b></td>
+                    <td class="alinieado-derecha">
+                      <div>{{ facturaJson.importeAnticipios }}</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="alinieado-izquierda"><b>Valor de Ventas </b></td>
+                    <td><b> : </b></td>
+                    <td class="alinieado-derecha">
+                      {{ facturaJson.importeValorVenta }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="alinieado-izquierda"><b>IGV </b></td>
+                    <td><b> : </b></td>
+                    <td class="alinieado-derecha">
+                      {{ facturaJson.importeIgv }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="alinieado-izquierda"><b>Otros Cargos </b></td>
+                    <td><b> : </b></td>
+                    <td class="alinieado-derecha">
+                      {{ facturaJson.importeOtrosTributos }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="alinieado-izquierda"><b>Importe Total </b></td>
+                    <td><b> : </b></td>
+                    <td class="alinieado-derecha">
+                      {{ facturaJson.importeTotal }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-        <div style="display: flex">
-          <div>
-            <label>Orden de Compra</label>
-            <el-input v-model="orden"></el-input>
-          </div>
-          <div>
-            <label>Nro. de Contrato</label>
-            <el-input v-model="factura"></el-input>
-          </div>
-          <div>
-            <label>.</label>
-            <el-button type="primary" @click="guardarFacturaJson"
-              >Guardar</el-button
-            >
-          </div>
-        </div>
+        <br />
       </div>
     </div>
     <div>
@@ -292,9 +324,20 @@ t<template>
               dialogFormVisible = false;
               mostrarFactura = true;
             "
-            >Confirm</el-button
+            >Confirmar</el-button
           >
         </span>
+      </el-dialog>
+    </div>
+    <div>
+      <el-dialog :visible.sync="cargando" width="30%">
+        <div
+          class="spinner-border"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
       </el-dialog>
     </div>
   </div>
@@ -310,6 +353,8 @@ export default {
   },
   data() {
     return {
+      cargando: false,
+      factura: null,
       dialogFormVisible: false,
       mostrarFactura: null,
       tableData: null,
@@ -319,18 +364,21 @@ export default {
       contrato: null,
       facturaRecibida: {},
       facturaEnvio: {},
-
+      inputOrden: true,
+      inputContrato: true,
       facturaJson: {},
+      btnEnviar: true,
     };
   },
   methods: {
     validarCargaFiles() {
+      this.cargando = true;
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
         console.log("lista de zip vacia");
-        alert("Seleccione archivo .zip");
+        return alert("Seleccione archivo .zip");
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
         console.log("lista de pdf vacia");
-        alert("Seleccione archivo .pdf");
+        return alert("Seleccione archivo .pdf");
       } else {
         console.log("lista de llena");
         this.guardarArchivosAdjuntos();
@@ -347,148 +395,198 @@ export default {
         .post(url, dataPost)
         .then((response) => {
           facRecibida = response.data.resultado.Invoice;
+          this.facturaRecibida = response.data.resultado.Invoice;
+          this.btnEnviar = false;
         })
         .catch((e) => {
           console.log("errro" + e);
           facRecibida = e.response.data;
+        })
+        .finally(() => {
+          this.cargando = false;
         });
       this.rellenarJsonFactura(facRecibida);
     },
+    validacionCargaFactura() {
+      if (this.$refs.uploadZip.uploadFiles.length == 0) {
+        console.log("lista de zip vacia");
+        return alert("Seleccione archivo .zip");
+      } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
+        console.log("lista de pdf vacia");
+        return alert("Seleccione archivo .pdf");
+      } else if (
+        (this.facturaJson.ordenNumero == null ||
+          this.facturaJson.ordenNumero.length == 0) &&
+        (this.facturaJson.ordenContrato == null ||
+          this.facturaJson.ordenContrato.length == 0)
+      ) {
+        return alert("Ingrese nro. de orden y/o contrato");
+      } else {
+        this.btnEnviar = true;
+        this.cargando = true;
+        this.guardarFacturaJson();
+      }
+    },
+    guardarFacturaJson() {
+      const url = "http://localhost:8090/api/admin/guardar-comprobante";
+      axios
+        .post(url, this.facturaJson)
+        .then((response) => {
+          console.log("Comprobante detalle exitoso");
+          console.log(response.data);
+        })
+        .catch()
+        .finally(() => {
+          this.$refs.uploadZip.clearFiles();
+          this.cargando = false;
+          this.btnEnviar = true;
+        });
+    },
+
     rellenarJsonFactura(facturaRecibida) {
+      debugger
+      console.log("para saber si es un array ");
+      console.log(facturaRecibida["cac:InvoiceLine"].isArray())
       // CABECERA
-      this.facturaJson.nombreComercial =
+      this.facturaJson["proveedorId003TipoDocumento"] = 1;
+      this.facturaJson["id007TipoComprobante"] = 17;
+      this.facturaJson["codigoCliente"] =
+        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+          "cac:PartyIdentification"
+        ]["cbc:ID"].content;
+      this.facturaJson["proveedorNumeroDocumento"] =
+        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+          "cac:PartyIdentification"
+        ]["cbc:ID"].content;
+
+      this.facturaJson.proveedorNombre =
         facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
           "cac:PartyName"
-        ]["cbc:Name"];
-      this.facturaJson.nombreProveedor =
+        ]["cbc:Name"].length == 0
+          ? facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+              "cac:PartyLegalEntity"
+            ]["cbc:RegistrationName"]
+          : facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+              "cac:PartyName"
+            ]["cbc:Name"];
+      this.facturaJson.proveedorNombreComercial =
         facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
           "cac:PartyLegalEntity"
-        ]["cbc:RegistrationName"];
-      this.facturaRecibida["fecha_emision"] =
-        this.facturaRecibida["cbc:IssueDate"];
-      this.facturaRecibida["fecha_vencimiento"] =
-        this.facturaRecibida["cbc:DueDate"];
-      this.facturaRecibida["id_006_tipo_moneda"] = 15;
-      // LIST ITEMS
+        ]["cbc:RegistrationName"].length == 0
+          ? this.facturaJson.proveedorNombre
+          : facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+              "cac:PartyLegalEntity"
+            ]["cbc:RegistrationName"];
 
-        
-       
+      this.facturaJson["id006TipoMoneda"] = 15;
+      this.facturaJson["proveedorDireccion"] =
+        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+          "cac:PartyLegalEntity"
+        ]["cac:RegistrationAddress"]["cac:AddressLine"]["cbc:Line"];
+      this.facturaJson["proveedorZona"] =
+        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+          "cac:PartyLegalEntity"
+        ]["cac:RegistrationAddress"]["cbc:District"] +
+        " - " +
+        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+          "cac:PartyLegalEntity"
+        ]["cac:RegistrationAddress"]["cbc:CityName"] +
+        " - " +
+        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
+          "cac:PartyLegalEntity"
+        ]["cac:RegistrationAddress"]["cbc:CountrySubentity"];
+
+      const guion = facturaRecibida["cbc:ID"].indexOf("-");
+      this.facturaJson["serie"] = facturaRecibida["cbc:ID"].substring(0, guion);
+      this.facturaJson["numero"] = facturaRecibida["cbc:ID"].substring(
+        guion + 1,
+        facturaRecibida["cbc:ID"].length
+      );
+      // SUB-CABECERA
+      this.facturaJson["fechaEmision"] = facturaRecibida["cbc:IssueDate"];
+      this.facturaJson["fechaVencimiento"] = facturaRecibida["cbc:DueDate"];
+      this.facturaJson["clienteEmitido"] =
+        facturaRecibida["cac:AccountingCustomerParty"]["cac:Party"][
+          "cac:PartyLegalEntity"
+        ]["cbc:RegistrationName"];
+      this.facturaJson["ordenNumero"] =
+        facturaRecibida["cac:OrderReference"] != null
+          ? facturaRecibida["cac:OrderReference"]["cbc:ID"]
+          : null;
+      if (this.facturaJson["ordenNumero"] == null) {
+        this.inputOrden = false;
+        this.inputContrato = false;
+      } else {
+        this.inputOrden = true;
+        this.inputContrato = true;
+      }
+      // LIST ITEMS
+      this.facturaJson["listaComprobanteDetalle"] = [
+        {
+          cantidad:
+            facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"].content,
+          unidadMedida: "UNIDAD",
+          codigo: facturaRecibida["cac:InvoiceLine"]["cbc:ID"],
+          descripcion:
+            facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cbc:Description"],
+          valorUnitario:
+            facturaRecibida["cac:InvoiceLine"]["cac:Price"]["cbc:PriceAmount"]
+              .content,
+        },
+      ];
       // PIE FACTURA
-      this.facturaJson["importe_sub_total"] =
+      this.facturaJson["descripcionImporte"] =
+        facturaRecibida["cbc:Note"].content;
+      this.facturaJson["importeSubTotal"] =
         facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"]
           .content +
         facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"].content +
         facturaRecibida["cac:LegalMonetaryTotal"]["cbc:AllowanceTotalAmount"]
           .content;
-      this.facturaRecibida["importe_anticipios"] = 0.0;
-      this.facturaJson["importe_descuentos"] =
+      this.facturaJson["importeAnticipios"] = 0.0;
+      this.facturaJson["importeDescuentos"] =
         facturaRecibida["cac:LegalMonetaryTotal"][
           "cbc:AllowanceTotalAmount"
         ].content;
-      this.facturaJson["importe_valor_venta"] =
+      this.facturaJson["importeValorVenta"] =
         facturaRecibida["cac:LegalMonetaryTotal"][
           "cbc:LineExtensionAmount"
         ].content;
-      this.facturaRecibida["importe_isc"] =
-        this.facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
-            "cbc:TaxAmount"
-          ].content;
-      this.facturaJson["importe_igv"] =
+      this.facturaJson["importeIsc"] =
         facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
           "cbc:TaxAmount"
         ].content;
-      this.facturaJson["proveedor_id_003_tipo_documento"] = 1;
-      this.facturaJson["id_007_tipo_comprobante"] = 17;
-      const guion = facturaRecibida["cbc:ID"].indexOf("-");
-      this.facturaJson["serie"] = facturaRecibida["cbc:ID"].substring(0, guion);
-      this.facturaJson["numero"] = facturaRecibida["cbc:ID"].substring(
-        guion,
-        facturaRecibida["cbc:ID"].length
-      );
-      this.facturaJson["codigoCliente"] =
-        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-          "cac:PartyIdentification"
-        ]["cbc:ID"].content;
-      this.facturaJson["proveedor_numero_documento"] =
-        facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-          "cac:PartyIdentification"
-        ]["cbc:ID"].content;
+      this.facturaJson["importeIgv"] =
+        facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
+          "cbc:TaxAmount"
+        ].content;
 
-      
-        this.facturaJson["importe_otros_cargos"] = 0.0;
-        this.facturaJson["importe_otros_tributos"] = 0.0;
-        this.facturaJson["importe_total"] =
-          facturaRecibida["cac:LegalMonetaryTotal"][
-            "cbc:PayableAmount"
-          ].content;
-        this.facturaJson["listaComprobanteDetalle"] = [
-          {
-            Cantidad:
-              facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"]
-                .content,
-            "Unidad Medida": "UNIDAD",
-            Código: facturaRecibida["cac:InvoiceLine"]["cbc:ID"],
-            Descripción:
-              facturaRecibida["cac:InvoiceLine"]["cac:Item"][
-                "cbc:Description"
-              ],
-            "Valor Unitario":
-              facturaRecibida["cac:InvoiceLine"]["cac:Price"][
-                "cbc:PriceAmount"
-              ],
-          },
-        ];
-    },
-    guardarFacturaJson() {
-      const url = "http://localhost:8090/api/admin/guardar-comprobante";
-      axios
-        .post(url, this.facturaEnvio)
-        .then((response) => {
-          console.log("Comprobante detalle exitoso");
-          console.log(response.data);
-        })
-        .catch();
-    },
-    previsualizacionXML() {
-      const url = "http://localhost:8090/api/admin/cargar-zip";
-      let datos = {};
-      datos.idDocumento = "1254";
-      let dataPost = new FormData();
-      dataPost.append("idDocumento", 12456);
-      dataPost.append("documento", this.$refs.uploadZip.uploadFiles[0].raw);
-      console.log(dataPost);
-      axios.post(url, dataPost).then((response) => {
-        console.log("RESPUESTA SERVICIO");
-        console.log(response.data.resultado.Invoice);
+      this.facturaJson["importeOtrosCargos"] = 0.0;
+      this.facturaJson["importeOtrosTributos"] = 0.0;
+      this.facturaJson["importeTotal"] =
+        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PayableAmount"].content;
 
-        // this.facturaRecibida = response.data.resultado.Invoice;
-
-        this.$refs.uploadZip.clearFiles();
-        this.$emit("reloadList");
-        this.mostrarFactura = true;
-      });
-    },
-    handleRemove(file, fileList) {
-      console.log("handle handleRemove");
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log("handle preview");
-      console.log(file);
-    },
-    handleExceed(files, fileList) {
-      console.log("handle handleExceed");
-      this.$message.warning(
-        `El límite es 3, haz seleccionado ${
-          files.length
-        } archivos esta vez, añade hasta ${files.length + fileList.length}`
-      );
+      this.mostrarFactura = true;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+hr {
+  width: 70vw !important;
+  position: relative;
+}
+.alinieado-derecha {
+  text-align: right;
+}
+.alinieado-izquierda {
+  text-align: left;
+}
+.pie-factura {
+  display: flex;
+  margin: 15px 15px 30px 15px;
+}
 .cabecera-factura {
   td {
     margin-top: 10px;
@@ -496,16 +594,19 @@ export default {
 }
 .contenedor-principal {
   width: 100%;
+  margin: auto;
   align-content: center;
 }
 
 .body-registro {
-  width: 90%;
+  width: 60%;
   box-shadow: 3px 2px 10px #c7c7c7;
   /* border: 1px solid #b0b0b0; */
   box-sizing: border-box;
   border-radius: 10px;
   background-color: white;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
 }
 .cabecera {
   margin-left: 30px;
@@ -515,6 +616,7 @@ export default {
 }
 .cabecera-detalle {
   border: 3px solid #b0b0b0;
+  margin-bottom: 30px;
 }
 .cuerpo {
   margin-left: 30px;
@@ -528,5 +630,6 @@ export default {
 }
 .total-detalle {
   border: 1px solid #b0b0b0;
+  align-content: center;
 }
 </style>>
