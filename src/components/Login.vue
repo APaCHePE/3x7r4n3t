@@ -125,7 +125,7 @@ export default {
           this.usuarioRespuesta = response.data;
           if (response.data.esCorrecto) {
             localStorage.setItem(
-              "nroDocumento",
+              "User",
               this.usuarioRespuesta.resultado.persona.nroDocumento
             );
             this.$router.replace("/menu");
