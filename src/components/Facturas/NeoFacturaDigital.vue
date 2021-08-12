@@ -20,9 +20,6 @@ t<template>
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
-                  <div slot="tip" class="el-upload__tip">
-                    Solo archivos con un tamaño menor de 500kb
-                  </div>
                 </el-upload>
               </div>
             </td>
@@ -39,9 +36,6 @@ t<template>
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
-                  <div slot="tip" class="el-upload__tip">
-                    Solo archivos con un tamaño menor de 500kb
-                  </div>
                 </el-upload>
               </div>
             </td>
@@ -64,22 +58,24 @@ t<template>
       </div>
     </div>
     <hr />
-    <div class="pie-factura mx-5" style="max-width: 60vw; display: flex">
+    <div  v-if="mostrarFactura" class="pie-factura mx-5" style="max-width: 60vw; display: flex">
       <table>
         <thead>
           <tr>
             <td><label class="mr-5">Orden de Compra</label></td>
             <td>
               <el-input
-                :disabled="inputOrden"
-                v-model="facturaJson.ordenNumero"
+                :disabled="disabledOrden"
+                v-model="ordenNumeroInput"
+                @change="btnEnviar = true"
               ></el-input>
             </td>
             <td><label class="mx-5">Nro. de Contrato</label></td>
             <td>
               <el-input
-                :disabled="inputContrato"
-                v-model="facturaJson.ordenContrato"
+                :disabled="disabledContrato"
+                v-model="ordenContratoInput"
+                @change="btnEnviar = false"
               ></el-input>
             </td>
           </tr>
@@ -362,25 +358,28 @@ export default {
       contrato: null,
       facturaRecibida: {},
       facturaEnvio: {},
-      inputOrden: true,
-      inputContrato: true,
+      disabledOrden: true,
+      disabledContrato: true,
       facturaJson: {},
       btnEnviar: true,
+      ordenNumeroInput: null,
+      ordenContratoInput: null,
     };
   },
   methods: {
     validarCargaFiles() {
       this.mostrarFactura = false;
+      this.ordenNumeroInput = null;
+      this.ordenContratoInput = null;
       this.facturaJson = {};
-      this.cargando = true;
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
-        console.log("lista de zip vacia");
-        return alert("Seleccione archivo .zip");
+        alert("Seleccione archivo .zip");
+        return; 
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
-        console.log("lista de pdf vacia");
-        return alert("Seleccione archivo .pdf");
+        alert("Seleccione archivo .pdf");
+        return; 
       } else {
-        console.log("lista de llena");
+        this.cargando = true;
         this.guardarArchivosAdjuntos();
       }
     },
@@ -401,6 +400,7 @@ export default {
         .catch((e) => {
           console.log("errro" + e);
           facRecibida = e.response.data;
+
         })
         .finally(() => {
           this.cargando = false;
@@ -408,19 +408,22 @@ export default {
       this.rellenarJsonFactura(facRecibida);
     },
     validacionCargaFactura() {
+      this.facturaJson.ordenNumero = this.ordenNumeroInput
+      this.facturaJson.ordenContrato = this.ordenContratoInput
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
-        console.log("lista de zip vacia");
-        return alert("Seleccione archivo .zip");
+        alert("Seleccione archivo .zip");
+        return;
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
-        console.log("lista de pdf vacia");
-        return alert("Seleccione archivo .pdf");
+        alert("Seleccione archivo .pdf");
+        return; 
       } else if (
         (this.facturaJson.ordenNumero == null ||
           this.facturaJson.ordenNumero.length == 0) &&
         (this.facturaJson.ordenContrato == null ||
           this.facturaJson.ordenContrato.length == 0)
       ) {
-        return alert("Ingrese nro. de orden y/o contrato");
+        alert("Ingrese nro. de orden y/o contrato");
+        return; 
       } else {
         this.btnEnviar = true;
         this.cargando = true;
@@ -432,10 +435,19 @@ export default {
       axios
         .post(url, this.facturaJson)
         .then((response) => {
+          this.$swal({
+            icon: "success",
+            title: "Registro exitoso",
+          });
           console.log("Comprobante detalle exitoso");
           console.log(response.data);
         })
-        .catch()
+        .catch((e)=>{
+          this.$swal({
+          icon: "info",
+          title: e.response.data.mensajeError,
+        });
+        })
         .finally(() => {
           // this.$refs.uploadZip.clearFiles();
           // this.$refs.uploadPdf.clearFiles();
@@ -507,16 +519,16 @@ export default {
         facturaRecibida["cac:AccountingCustomerParty"]["cac:Party"][
           "cac:PartyLegalEntity"
         ]["cbc:RegistrationName"];
-      this.facturaJson["ordenNumero"] =
-        facturaRecibida["cac:OrderReference"] != null
+      this.ordenNumeroInput =
+        (facturaRecibida["cac:OrderReference"] != null)
           ? facturaRecibida["cac:OrderReference"]["cbc:ID"]
           : null;
-      if (this.facturaJson["ordenNumero"] == null) {
-        this.inputOrden = false;
-        this.inputContrato = false;
+      if (this.ordenNumeroInput == null) {
+        this.disabledOrden = false;
+        this.disabledContrato = false;
       } else {
-        this.inputOrden = true;
-        this.inputContrato = true;
+        this.disabledOrden = true;
+        this.disabledContrato = true;
       }
       // LIST ITEMS
       this.facturaJson["listaComprobanteDetalle"] = [];
@@ -559,35 +571,42 @@ export default {
       }
       // PIE FACTURA
       this.facturaJson["descripcionImporte"] =
-        facturaRecibida["cbc:Note"].content;
+        (facturaRecibida["cbc:Note"] != null )?facturaRecibida["cbc:Note"].content: "";
       this.facturaJson["importeSubTotal"] =
-        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"]
-          .content +
-        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"].content +
-        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:AllowanceTotalAmount"]
-          .content;
+        (facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"]!=null)?facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"].content:0.0 +
+        (facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"]!= null)?facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"].content:0.0 +
+        (facturaRecibida["cac:LegalMonetaryTotal"]["cbc:AllowanceTotalAmount"]!=null)?facturaRecibida["cac:LegalMonetaryTotal"]["cbc:AllowanceTotalAmount"]
+          .content:0.0;
       this.facturaJson["importeAnticipios"] = 0.0;
       this.facturaJson["importeDescuentos"] =
-        facturaRecibida["cac:LegalMonetaryTotal"][
+        (facturaRecibida["cac:LegalMonetaryTotal"][
           "cbc:AllowanceTotalAmount"
-        ].content;
+        ]!=null)?facturaRecibida["cac:LegalMonetaryTotal"][
+          "cbc:AllowanceTotalAmount"
+        ].content:0.0;
       this.facturaJson["importeValorVenta"] =
-        facturaRecibida["cac:LegalMonetaryTotal"][
+        ( facturaRecibida["cac:LegalMonetaryTotal"][
           "cbc:LineExtensionAmount"
-        ].content;
+        ]!=null)?facturaRecibida["cac:LegalMonetaryTotal"][
+          "cbc:LineExtensionAmount"
+        ].content: 0.0;
       this.facturaJson["importeIsc"] =
+       ( facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
+          "cbc:TaxAmount"
+        ]!=null)? facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
+          "cbc:TaxAmount"
+        ].content: 0.0 ;
+      this.facturaJson["importeIgv"] = (facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
+          "cbc:TaxAmount"
+        ]!= null)?
         facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
           "cbc:TaxAmount"
-        ].content;
-      this.facturaJson["importeIgv"] =
-        facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
-          "cbc:TaxAmount"
-        ].content;
+        ].content:0.0;
 
       this.facturaJson["importeOtrosCargos"] = 0.0;
       this.facturaJson["importeOtrosTributos"] = 0.0;
-      this.facturaJson["importeTotal"] =
-        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PayableAmount"].content;
+      this.facturaJson["importeTotal"] = ( facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PayableAmount"])?
+        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PayableAmount"].content:0.0;
 
       this.mostrarFactura = true;
     },
