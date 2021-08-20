@@ -118,8 +118,8 @@ export default {
 @import "../plugins/css/font-awesome.css";
 @import "../plugins/css/responsive.css";
 .contenido-dinamico{
-  max-width: 85%;
-  margin-left: 15%;
+  max-width: 80%;
+  margin-left: 20%;
 }
 .contenedor-opciones {
   position: absolute;

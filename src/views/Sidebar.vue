@@ -76,9 +76,23 @@
             </el-menu-item></router-link>
           </el-menu-item-group>
         </el-submenu>
+        <el-submenu index="5" style="padding: 30px 0px 0px 0px">
+          <template slot="title">
+            <i class="el-icon-edit-outline"></i>
+            <span style="font-size: 20px">Recibo por Honorarios</span>
+          </template>
+          <el-menu-item-group>
+            <router-link :to="'/facturas'"><el-menu-item index="1-1">
+              <span>Listado</span>
+            </el-menu-item></router-link>
+             <router-link :to="'/neo-rxh'"><el-menu-item index="1-2">
+             <span>Nuevo</span>
+            </el-menu-item></router-link>
+          </el-menu-item-group>
+        </el-submenu>
 
         <router-link :to="'/'"><el-menu-item
-          index="5"
+          index="6"
           style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
         >
           <i class="el-icon-circle-close"></i>

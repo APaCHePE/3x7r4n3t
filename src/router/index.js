@@ -8,6 +8,7 @@ import MisContactos from "../views/Opciones/MisContactos.vue";
 import Ordenes from "../views/Opciones/Ordenes.vue";
 import Facturas from "../views/Opciones/Facturas.vue";
 import NeoFacturaDigital from "../components/Facturas/NeoFacturaDigital.vue";
+import ReciboHonorarios from "../components/RecibosH/ReciboHonorarios.vue";
 import VueSwal from 'vue-swal';
  
 Vue.use(VueSwal);
@@ -53,6 +54,11 @@ const routes = [
         path: '/facturas',
         name: "Facturas",
         component: Facturas
+      },
+      {
+        path: '/neo-rxh',
+        name: "ReciboHonorarios",
+        component: ReciboHonorarios
       }
     ]
   },
