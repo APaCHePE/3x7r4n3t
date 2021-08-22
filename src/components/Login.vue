@@ -123,14 +123,13 @@ export default {
         })
         .then((response) => {
           this.usuarioRespuesta = response.data;
+          this.cargando=false;
           if (response.data.esCorrecto) {
             localStorage.setItem(
               "User",
               this.usuarioRespuesta.resultado.persona.nroDocumento
             );
             this.$router.replace("/menu");
-            //  router.push("/menu")
-            this.cargando=false;
             this.continuar = true;
           } else {
             this.$swal({
