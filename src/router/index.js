@@ -15,6 +15,7 @@ Vue.use(VueSwal);
 Vue.use(VueRouter);
 
 const routes = [
+ 
   {
     path: "/menu",
     name: "Menu",
@@ -59,7 +60,9 @@ const routes = [
         path: '/neo-rxh',
         name: "ReciboHonorarios",
         component: ReciboHonorarios
-      }
+      },
+       
+  
     ]
   },
   {
@@ -67,7 +70,13 @@ const routes = [
     name: "Home",
     component: Home,
     props: true
+  },{
+    path: "/pass/:hash",
+    name: "Contraseña",
+    component: () =>
+    import(/* webpackChunkName: "about" */ "../views/Contraseña.vue"), 
   },
+
   {
     path: "/about",
     name: "About",
