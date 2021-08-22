@@ -36,12 +36,11 @@ export default {
         axios
           .post(
             "http://localhost:8090/api/admin/modificar-pass-proveedor", {
-              params:{
                 "user": this.$route.params.hash,
                 "contrasena": this.pass,
                 "estado": 1
               }
-            }
+            
           )
           .then((response) => {
             this.tableData = response.data.result
