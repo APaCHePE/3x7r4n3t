@@ -38,6 +38,22 @@
                   </el-upload>
                 </div>
               </td>
+              <td>
+                <div>
+                  <h3 class="mb-2">Informe técnico</h3>
+                  <el-upload
+                    ref="uploadInforme"
+                    :auto-upload="false"
+                    accept=".pdf"
+                    :limit="1"
+                    action="https://jsonplaceholder.typicode.com/posts/"
+                  >
+                    <el-button slot="trigger" size="small" type="primary"
+                      >Selecciona un archivo</el-button
+                    >
+                  </el-upload>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>

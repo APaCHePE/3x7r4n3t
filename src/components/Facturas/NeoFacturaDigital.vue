@@ -44,6 +44,49 @@ t<template>
       </table>
     </div>
     <hr />
+    <div class="ml-5" style="text-align: left">
+      <table width="80%">
+        <tbody>
+          <tr>
+            <td>
+              <div>
+                <h3 class="mb-2">Adjuntar Guía*</h3>
+                <el-upload
+                  ref="uploadGuia"
+                  :auto-upload="false"
+                  accept=".pdf"
+                  :limit="1"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                >
+                  <el-button slot="trigger" size="small" type="primary"
+                    >Selecciona un archivo</el-button
+                  >
+                </el-upload>
+              </div>
+            </td>
+            <td>
+              <div>
+                <h3 class="mb-2">Informe técnico**</h3>
+                <el-upload
+                  ref="uploadInforme"
+                  :auto-upload="false"
+                  accept=".zip"
+                  :limit="1"
+                  action="https://jsonplaceholder.typicode.com/posts/"
+                >
+                  <el-button slot="trigger" size="small" type="primary"
+                    >Selecciona un archivo</el-button
+                  >
+                </el-upload>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <spam style="color: red">*Si el producto entregado es un bien adjunte guia</spam><br/>
+      <spam style="color: red">**Si el producto es un servixio adjutnar informe tecnico</spam>
+    </div>
+    <hr />
     <div style="width: 70vw; text-align: right">
       <div class="mx-5">
         <el-button type="primary" @click="validarCargaFiles"
@@ -373,15 +416,26 @@ export default {
       this.ordenContratoInput = null;
       this.facturaJson = {};
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
-        alert("Seleccione archivo .zip");
+        this.modal("info", "Seleccione archivo .zip", "");
         return; 
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
-        alert("Seleccione archivo .pdf");
+        this.modal("info", "Seleccione archivo .pdf", "");
+        return; 
+      } else if (this.$refs.uploadInforme.uploadFiles.length == 0 && this.$refs.uploadGuia.uploadFiles.length == 0) {
+        this.modal("info", "Debe ingresar Informe técnico o Guía", "");
         return; 
       } else {
         this.cargando = true;
         this.guardarArchivosAdjuntos();
       }
+    },
+    modal(icono, titulo, texto){
+      this.$swal({
+          icon: icono,
+          title: titulo,
+          text: texto,
+        });
+      if(this.cargando)this.cargando=false;
     },
     async guardarArchivosAdjuntos() {
       const url =
