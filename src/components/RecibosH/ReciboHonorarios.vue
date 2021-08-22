@@ -86,12 +86,12 @@
           <table width="100%">
             <tr style="margin-top: 15px" >
               <td>
-                <h3>{{jsonFormulario["proveedorNombreCompleto"]}}</h3>
-                <p>{{jsonFormulario.proveedorDireccionCompleta}}</p>
+                <h3>{{jsonFormulario.proveedorNombre}}</h3>
+                <p>{{jsonFormulario.proveedorDireccion}}</p>
                 <p><b>TELEFONO</b> {{jsonFormulario.proveedorTelefono}}</p>
               </td>
               <td style="border: solid">
-                <h3><b>RUC</b> {{jsonFormulario.proveedorRuc}}</h3>
+                <h3><b>RUC</b> {{jsonFormulario.proveedorNumeroDocumento}}</h3>
                 <h3><b>RECIBO POR HONORARIOS ELECTRONICO</b></h3>
                 <h2>Nro: {{jsonFormulario.serie+" - "+jsonFormulario.numero}}</h2>
               </td>
@@ -113,9 +113,9 @@
                 <br/> 
               </td>
               <td>
-                <h4><b>Total por honorarios: </b> {{jsonFormulario.montoTotal}}</h4>
-                <h4><b>Retención (8 %) IR:</b> {{jsonFormulario.montoRetencion}}</h4>
-                <h4><b>Total Neto Recibido:</b> {{jsonFormulario.montoTotalNeto}}</h4>
+                <h4><b>Total por honorarios: </b> {{jsonFormulario.importeSubTotal}}</h4>
+                <h4><b>Retención (8 %) IR:</b> {{jsonFormulario.importeIgv}}</h4>
+                <h4><b>Total Neto Recibido:</b> {{jsonFormulario.importeTotal}}</h4>
               </td>
             </tr>
           </table>

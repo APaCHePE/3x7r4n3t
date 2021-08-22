@@ -459,7 +459,7 @@ export default {
     rellenarJsonFactura(facturaRecibida) {
       // CABECERA
       this.facturaJson["proveedorId003TipoDocumento"] = 1;
-      this.facturaJson["id007TipoComprobante"] = 17;
+      this.facturaJson["id007TipoComprobante"] = 24;
       this.facturaJson["codigoCliente"] =
         facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
           "cac:PartyIdentification"
