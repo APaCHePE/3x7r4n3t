@@ -1,5 +1,5 @@
 module.exports = {
-    publicPath: '/ESTEC/',
+    publicPath: '/estec-proveedores/',
     devServer: {
         proxy: 'https://localhost:8780'
     }

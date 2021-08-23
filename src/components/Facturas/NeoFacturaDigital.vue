@@ -70,7 +70,7 @@ t<template>
                 <el-upload
                   ref="uploadInforme"
                   :auto-upload="false"
-                  accept=".zip"
+                  accept=".pdf"
                   :limit="1"
                   action="https://jsonplaceholder.typicode.com/posts/"
                 >
@@ -83,8 +83,8 @@ t<template>
           </tr>
         </tbody>
       </table>
-      <spam style="color: red">*Si el producto entregado es un bien adjunte guia</spam><br/>
-      <spam style="color: red">**Si el producto es un servixio adjutnar informe tecnico</spam>
+      <span style="color: red">*Si el producto entregado es un bien adjunte guia</span><br/>
+      <span style="color: red">**Si el producto es un servixio adjutnar informe tecnico</span>
     </div>
     <hr />
     <div style="width: 70vw; text-align: right">
@@ -97,6 +97,11 @@ t<template>
           type="success"
           @click="validacionCargaFactura"
           >Enviar</el-button
+        >
+        <el-button
+          type="success"
+          @click="guardarArchivosAdjuntos(1031)"
+          >files</el-button
         >
       </div>
     </div>
@@ -437,12 +442,17 @@ export default {
         });
       if(this.cargando)this.cargando=false;
     },
-    async guardarArchivosAdjuntos() {
+    async guardarArchivosAdjuntos(idFacturaGenerada) {
+      debugger
       const url =
         "http://localhost:8090/api/admin/crear-documento-comprobante-proveedor";
       let dataPost = new FormData();
-      dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null)dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null)dataPost.append("archivoInforme", this.$refs.uploadInforme.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null)dataPost.append("archivoGuia", this.$refs.uploadGuia.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null)dataPost.append("idDocumento", idFacturaGenerada);
+
       let facRecibida = null;
       await axios
         .post(url, dataPost)
@@ -465,10 +475,13 @@ export default {
       this.facturaJson.ordenNumero = this.ordenNumeroInput
       this.facturaJson.ordenContrato = this.ordenContratoInput
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
-        alert("Seleccione archivo .zip");
-        return;
+        this.modal("info", "Seleccione archivo .zip", "");
+        return; 
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
-        alert("Seleccione archivo .pdf");
+        this.modal("info", "Seleccione archivo .pdf", "");
+        return; 
+      } else if (this.$refs.uploadInforme.uploadFiles.length == 0 && this.$refs.uploadGuia.uploadFiles.length == 0) {
+        this.modal("info", "Debe ingresar Informe técnico o Guía", "");
         return; 
       } else if (
         (this.facturaJson.ordenNumero == null ||
@@ -476,7 +489,7 @@ export default {
         (this.facturaJson.ordenContrato == null ||
           this.facturaJson.ordenContrato.length == 0)
       ) {
-        alert("Ingrese nro. de orden y/o contrato");
+        this.modal("info","Ingrese nro. de orden y/o contrato", "");
         return; 
       } else {
         this.btnEnviar = true;
@@ -494,7 +507,8 @@ export default {
             title: "Registro exitoso",
           });
           console.log("Comprobante detalle exitoso");
-          console.log(response.data);
+          console.log(response.data.resultado);
+          this.guardarArchivosAdjuntos(response.data.resultado);
         })
         .catch((e)=>{
           this.$swal({
