@@ -97,6 +97,7 @@
           </thead>
         </table>
       </div>
+      <br/><br/>
       <div class="recibo-honorarios" v-if="mostrarFactura">
         <div class="cabecera">
           <table width="100%">
@@ -182,13 +183,16 @@ export default {
       let dataPost = new FormData();
       dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
+      dataPost.append("archivoInforme", this.$refs.uploadZip.uploadFiles[0].raw);
       await axios
         .post(url, dataPost)
         .then((response) => {
           this.jsonFormulario= {};
-          this.facturaRecibida = response.data.resultado.Invoice;
-          this.btnEnviar = false;
           this.jsonFormulario = response.data.resultado;
+          if(this.jsonFormulario.proveedorNumeroDocumento!=localStorage.getItem("numeroDocumento")){
+            return this.modal("info", "El recibo ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
+          }
+          this.btnEnviar = false;
           this.mostrarFactura = true;
         })
         .catch((e) => {
@@ -246,6 +250,14 @@ export default {
           this.cargando = false;
           this.btnEnviar = true;
         });
+    },
+    modal(icono, titulo, texto){
+      this.$swal({
+          icon: icono,
+          title: titulo,
+          text: texto,
+        });
+      if(this.cargando)this.cargando=false;
     },
   },
 };

@@ -1,7 +1,7 @@
 t<template>
   <div class="contenedor-principal">
     <div>
-      <titulo-header>Registre su factura digital</titulo-header>
+      <titulo-header>Registre su factura electrónica</titulo-header>
     </div>
     <div class="ml-5" style="text-align: left">
       <table width="80%">
@@ -98,11 +98,6 @@ t<template>
           @click="validacionCargaFactura"
           >Enviar</el-button
         >
-        <el-button
-          type="success"
-          @click="guardarArchivosAdjuntos(1031)"
-          >files</el-button
-        >
       </div>
     </div>
     <hr />
@@ -110,7 +105,7 @@ t<template>
       <table>
         <thead>
           <tr>
-            <td><label class="mr-5">Orden de Compra</label></td>
+            <td><label class="mr-5">Nro. de Orden</label></td>
             <td>
               <el-input
                 :disabled="disabledOrden"
@@ -443,7 +438,6 @@ export default {
       if(this.cargando)this.cargando=false;
     },
     async guardarArchivosAdjuntos(idFacturaGenerada) {
-      debugger
       const url =
         "http://localhost:8090/api/admin/crear-documento-comprobante-proveedor";
       let dataPost = new FormData();
@@ -475,13 +469,13 @@ export default {
       this.facturaJson.ordenNumero = this.ordenNumeroInput
       this.facturaJson.ordenContrato = this.ordenContratoInput
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
-        this.modal("info", "Seleccione archivo .zip", "");
+        this.modal("info", "Seleccione archivo zip", "");
         return; 
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
-        this.modal("info", "Seleccione archivo .pdf", "");
+        this.modal("info", "Seleccione archivo pdf", "");
         return; 
       } else if (this.$refs.uploadInforme.uploadFiles.length == 0 && this.$refs.uploadGuia.uploadFiles.length == 0) {
-        this.modal("info", "Debe ingresar Informe técnico o Guía", "");
+        this.modal("info", "Debe ingresar informe técnico o guía", "");
         return; 
       } else if (
         (this.facturaJson.ordenNumero == null ||
@@ -489,7 +483,7 @@ export default {
         (this.facturaJson.ordenContrato == null ||
           this.facturaJson.ordenContrato.length == 0)
       ) {
-        this.modal("info","Ingrese nro. de orden y/o contrato", "");
+        this.modal("info","Ingrese número de orden y/o contrato", "");
         return; 
       } else {
         this.btnEnviar = true;
@@ -517,14 +511,19 @@ export default {
         });
         })
         .finally(() => {
-          // this.$refs.uploadZip.clearFiles();
-          // this.$refs.uploadPdf.clearFiles();
+          this.$refs.uploadZip.clearFiles();
+          this.$refs.uploadPdf.clearFiles();
+          this.$refs.uploadInforme.clearFiles();
+          this.$refs.uploadGuia.clearFiles();
           this.cargando = false;
           this.btnEnviar = true;
         });
     },
 
     rellenarJsonFactura(facturaRecibida) {
+      if(facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"]["cac:PartyIdentification"]["cbc:ID"].content != localStorage.getItem("User")){
+        return this.modal("info", "La factura ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
+      }
       // CABECERA
       this.facturaJson["proveedorId003TipoDocumento"] = 1;
       this.facturaJson["id007TipoComprobante"] = 24;
@@ -539,14 +538,8 @@ export default {
 
       this.facturaJson.proveedorNombre =
         facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-          "cac:PartyName"
-        ]["cbc:Name"].length == 0
-          ? facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-              "cac:PartyLegalEntity"
-            ]["cbc:RegistrationName"]
-          : facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
-              "cac:PartyName"
-            ]["cbc:Name"];
+          "cac:PartyLegalEntity"
+        ]["cbc:RegistrationName"];
       this.facturaJson.proveedorNombreComercial =
         facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"][
           "cac:PartyLegalEntity"

@@ -2,7 +2,7 @@
   <div class="auth-login-form mt-2">
     <div class="form-group">
       <label class="form-label position-left size-text-login" for="NomEmpresa"
-        >Nombre Empresa</label
+        >Razón social</label
       >
       <input
         class="form-control"
@@ -12,7 +12,9 @@
         placeholder=""
         aria-describedby="NomEmpresa"
         autofocus=""
+        maxlength="100"
         v-model="NombreEmpresa"
+        v-uppercase
       />
     </div>
     <div class="form-group">
@@ -25,14 +27,16 @@
         type="text"
         name="ruc"
         placeholder=""
+        maxlength="11"
         aria-describedby="ruc"
         autofocus=""
         v-model="rucEmpresa"
+        @keypress="soloNumeros"
       />
     </div>
     <div class="form-group">
       <label class="form-label position-left size-text-login" for="correo"
-        >Correo de administrador</label
+        >Correo electrónico</label
       >
       <input
         class="form-control"
@@ -42,7 +46,9 @@
         placeholder=""
         aria-describedby="correo"
         autofocus=""
+        maxlength="30"
         v-model="correoEmpresa"
+        v-uppercase
       />
     </div>
     <div class="form-group">
@@ -50,6 +56,7 @@
         >Teléfono / Celular</label
       >
       <input
+        @keypress="soloNumeros"
         class="form-control"
         id="telefono"
         type="text"
@@ -57,6 +64,7 @@
         placeholder=""
         aria-describedby="telefono"
         autofocus=""
+        maxlength="9"
         v-model="telefonoEmpresa"
       />
     </div>
@@ -66,9 +74,11 @@
         class="form-control"
         id="direccion"
         type="text"
-        placeholder="Dirección"
+        placeholder=""
         autofocus=""
+        maxlength="50"
         v-model="direccion"
+        v-uppercase
       />
     </div>
 
@@ -120,19 +130,35 @@ export default {
     },
   },
   methods: {
+    soloNumeros(event){
+      var key = window.event ? event.which : event.keyCode;
+      if(key == 8){
+        console.log("solo numeros ");
+      }else if (key < 48 || key > 57) {
+        event.preventDefault();
+      }
+    },
     validacionFormulario() {
       this.cargando = true;
       if (!this.NombreEmpresa || this.NombreEmpresa.length <= 2) {
-        this.modal("info","info","Ingresar nombre de la empresa");
+        this.modal("info","Ingrese razón social" ,"");
         return ;
-      }else if(!this.rucEmpresa || this.rucEmpresa.trim().length != 11){
-        this.modal("info","info","Ingrese su ruc");
+      }else if(!this.rucEmpresa){
+        this.modal("info","Ingrese su número de RUC" ,"");
+        return ;
+      }else if(this.rucEmpresa.trim().length != 11){
+        this.modal("info","Verifique el número de RUC" ,"");
         return ;
       }else if(!this.correoEmpresa || this.correoEmpresa.length <= 2){
-        this.modal("info","info","Ingrese su correo");
+        this.modal("info","Ingrese su correo electrónico" ,"");
         return ;
-      }else if(!this.telefonoEmpresa || this.telefonoEmpresa.length <= 2){
-        this.modal("info","info","Ingrese telefono/celular");
+      }else if ( !this.correoEmpresa.includes("@") || !this.correoEmpresa.includes(".")) {
+				return this.modal('info','Verifique el campo de correo','');
+			}else if(!this.telefonoEmpresa || this.telefonoEmpresa.length <= 2){
+        this.modal("info","Ingrese teléfono/celular" ,"");
+        return ;
+			}else if(!this.direccion || this.direccion.length <= 2){
+        this.modal("info","Ingrese dirección" ,"");
         return ;
       }else{
         this.generarSolicitud()
@@ -166,14 +192,14 @@ export default {
               this.$swal({
                 icon: "success",
                 title: "",
-                text: "Se ha registrado con éxito.",
+                text: "Se ha registrado su solicitud con éxito",
               });
               this.login = false;
             } else {
               this.$swal({
                 icon: "info",
                 title: "Aviso",
-                text: "La empresa ya ha sido registrada.",
+                text: "El proveedor ya ha sido registrada",
               });
             }
           })
@@ -181,10 +207,12 @@ export default {
             console.log(e);
             this.$swal({
               icon: "error",
-              title: "Error",
+              title: "",
               text: "No se ha podido registrar, intente mas tarde.",
             });
-          });
+          }).finally(()=>{
+          this.cargando=false;
+        });;
     },
   },
 };

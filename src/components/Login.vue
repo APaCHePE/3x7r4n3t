@@ -14,6 +14,7 @@
         autofocus=""
         tabindex="1"
         v-model="user"
+        v-uppercase
       />
     </div>
     <div class="form-group">
@@ -32,7 +33,9 @@
           placeholder=""
           aria-describedby="login-password"
           tabindex="2"
+          maxlength="30"
           v-model="password"
+          v-uppercase
         />
         <!-- <div class="input-group-append"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span></div> -->
       </div>
@@ -129,6 +132,10 @@ export default {
               "User",
               this.usuarioRespuesta.resultado.persona.nroDocumento
             );
+            localStorage.setItem("nombrePersona",this.usuarioRespuesta.resultado.persona.nombreCompleto);
+            localStorage.setItem("numeroDocumento",this.usuarioRespuesta.resultado.persona.nroDocumento);
+            localStorage.setItem("telefonoPrincipal",this.usuarioRespuesta.resultado.persona.telefonoPrincipal);
+            localStorage.setItem("usuario",this.usuarioRespuesta.resultado.usuario);
             this.$router.replace("/menu");
             this.continuar = true;
           } else {
@@ -148,6 +155,8 @@ export default {
             title: "Error",
             text: e.response.data.mensajeError,
           });
+        }).finally(()=>{
+          this.cargando=false;
         });
     },
   },

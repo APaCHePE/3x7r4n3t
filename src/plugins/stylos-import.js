@@ -7,5 +7,3 @@
 // import 'app-assets/css/themes/semi-dark-layout.css'
 // import 'app-assets/css/core/menu/menu-types/vertical-menu.css'
 // import 'app-assets/css/plugins/forms/form-validation.css'
-// import 'app-assets/css/pages/page-auth.css'
-
