@@ -132,7 +132,7 @@ export default {
               "User",
               this.usuarioRespuesta.resultado.persona.nroDocumento
             );
-            localStorage.setItem("nombrePersona",this.usuarioRespuesta.resultado.persona.nombreCompleto);
+            localStorage.setItem("nombreUsuario",this.usuarioRespuesta.resultado.persona.nombreCompleto);
             localStorage.setItem("numeroDocumento",this.usuarioRespuesta.resultado.persona.nroDocumento);
             localStorage.setItem("telefonoPrincipal",this.usuarioRespuesta.resultado.persona.telefonoPrincipal);
             localStorage.setItem("usuario",this.usuarioRespuesta.resultado.usuario);
