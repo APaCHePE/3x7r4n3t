@@ -29,7 +29,7 @@ t<template>
                 <el-upload
                   ref="uploadZip"
                   :auto-upload="false"
-                  accept=".zip"
+                  accept=".zip, .xml"
                   :limit="1"
                   action="https://jsonplaceholder.typicode.com/posts/"
                 >
@@ -50,7 +50,7 @@ t<template>
           <tr>
             <td>
               <div>
-                <h3 class="mb-2">Adjuntar Guía*</h3>
+                <h3 class="mb-2">Guía*</h3>
                 <el-upload
                   ref="uploadGuia"
                   :auto-upload="false"
@@ -110,7 +110,7 @@ t<template>
               <el-input
                 :disabled="disabledOrden"
                 v-model="ordenNumeroInput"
-                @change="btnEnviar = true"
+                @keypress.native="btnEnviar = false"
               ></el-input>
             </td>
             <td><label class="mx-5">Nro. de Contrato</label></td>
@@ -118,7 +118,7 @@ t<template>
               <el-input
                 :disabled="disabledContrato"
                 v-model="ordenContratoInput"
-                @change="btnEnviar = false"
+                @keypress.native="btnEnviar = false"
               ></el-input>
             </td>
           </tr>
@@ -179,20 +179,20 @@ t<template>
                                 <tbody>
                                   <tr>
                                     <td width="30%" class="bgn">
-                                      <b>Fecha de Vencimiento</b>
-                                    </td>
-                                    <td width="5%" class="bgn">:</td>
-                                    <td width="70%" class="bgn">
-                                      {{ facturaJson.fechaVencimiento }}
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td width="30%" class="bgn">
                                       <b>Fecha de Emisión</b>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
                                       {{ facturaJson.fechaEmision }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td width="30%" class="bgn">
+                                      <b>Fecha de Vencimiento</b>
+                                    </td>
+                                    <td width="5%" class="bgn">:</td>
+                                    <td width="70%" class="bgn">
+                                      {{ facturaJson.fechaVencimiento }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -267,11 +267,11 @@ t<template>
                   </td>
                   <td>{{ itemJ.unidadMedida }}</td>
                   <td>{{ itemJ.codigo }}</td>
-                  <td>
-                    {{ itemJ.descripcion }}
+                  <td style="text-align: left">
+                    <div>{{ itemJ.descripcion }}</div>
                   </td>
-                  <td>
-                    {{ itemJ.valorUnitario }}
+                  <td style="text-align: right">
+                    <div>{{ itemJ.valorUnitario }}</div>
                   </td>
                 </tr>
               </tbody>
@@ -440,11 +440,15 @@ export default {
     async guardarArchivosAdjuntos(idFacturaGenerada) {
       const url =
         "http://localhost:8090/api/admin/crear-documento-comprobante-proveedor";
+        console.log(this.$refs.uploadPdf);
+        console.log(this.$refs.uploadZip);
+        console.log(this.$refs.uploadInforme);
+        console.log(this.$refs.uploadGuia);
       let dataPost = new FormData();
       if(idFacturaGenerada!= null)dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
-      if(idFacturaGenerada!= null)dataPost.append("archivoInforme", this.$refs.uploadInforme.uploadFiles[0].raw);
-      if(idFacturaGenerada!= null)dataPost.append("archivoGuia", this.$refs.uploadGuia.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null && this.$refs.uploadInforme.uploadFiles.length > 0)dataPost.append("archivoInforme", this.$refs.uploadInforme.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null && this.$refs.uploadGuia.uploadFiles.length >0)dataPost.append("archivoGuia", this.$refs.uploadGuia.uploadFiles[0].raw);
       if(idFacturaGenerada!= null)dataPost.append("idDocumento", idFacturaGenerada);
 
       let facRecibida = null;
@@ -458,14 +462,20 @@ export default {
         .catch((e) => {
           console.log("errro" + e);
           facRecibida = e.response.data;
-
         })
         .finally(() => {
           this.cargando = false;
+          if(idFacturaGenerada != null){
+            this.mostrarFactura=false;
+            this.$refs.uploadZip.clearFiles();
+            this.$refs.uploadPdf.clearFiles();
+            this.$refs.uploadInforme.clearFiles();
+          }
         });
       this.rellenarJsonFactura(facRecibida);
     },
     validacionCargaFactura() {
+        this.btnEnviar = true;
       this.facturaJson.ordenNumero = this.ordenNumeroInput
       this.facturaJson.ordenContrato = this.ordenContratoInput
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
@@ -486,7 +496,6 @@ export default {
         this.modal("info","Ingrese número de orden y/o contrato", "");
         return; 
       } else {
-        this.btnEnviar = true;
         this.cargando = true;
         this.guardarFacturaJson();
       }
@@ -496,13 +505,14 @@ export default {
       axios
         .post(url, this.facturaJson)
         .then((response) => {
-          this.$swal({
-            icon: "success",
-            title: "Registro exitoso",
-          });
+          // this.$swal({
+          //   icon: "success",
+          //   title: "Registro exitoso",
+          // });
           console.log("Comprobante detalle exitoso");
           console.log(response.data.resultado);
           this.guardarArchivosAdjuntos(response.data.resultado);
+          this.mostrarFactura = false;
         })
         .catch((e)=>{
           this.$swal({
@@ -511,10 +521,6 @@ export default {
         });
         })
         .finally(() => {
-          this.$refs.uploadZip.clearFiles();
-          this.$refs.uploadPdf.clearFiles();
-          this.$refs.uploadInforme.clearFiles();
-          this.$refs.uploadGuia.clearFiles();
           this.cargando = false;
           this.btnEnviar = true;
         });
@@ -602,8 +608,8 @@ export default {
               item["cbc:InvoicedQuantity"]
                 .content,
   
-            unidadMedida: "UNIDAD",
-            codigo: item["cbc:ID"],
+            unidadMedida: (item["cbc:Note"]!= null)? item["cbc:Note"]:"UNIDAD",
+            codigo: item["cac:Item"]["cac:SellersItemIdentification"]["cbc:ID"],
             descripcion:
               item["cac:Item"]["cbc:Description"],
   
@@ -620,8 +626,8 @@ export default {
             cantidad:
               facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"]
                 .content,
-            unidadMedida: "UNIDAD",
-            codigo: facturaRecibida["cac:InvoiceLine"]["cbc:ID"],
+            unidadMedida: (facturaRecibida["cac:InvoiceLine"]["cbc:Note"]!= null)? facturaRecibida["cac:InvoiceLine"]["cbc:Note"]:"UNIDAD",
+            codigo: facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cac:SellersItemIdentification"]["cbc:ID"],
             descripcion:
               facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cbc:Description"],
             valorUnitario:

@@ -24,7 +24,7 @@
               </td>
               <td>
                 <div>
-                  <h3 class="mb-2">Documento ZIP</h3>
+                  <h3 class="mb-2">Documento XML</h3>
                   <el-upload
                     ref="uploadZip"
                     :auto-upload="false"
@@ -62,7 +62,7 @@
       <div style="width: 70vw; text-align: right">
         <div class="mx-5">
           <el-button type="primary" @click="validarCargaFiles"
-            >Cargar Factura
+            >Cargar Recibo
           </el-button>
           <el-button
             :disabled="btnEnviar"
@@ -77,12 +77,12 @@
         <table>
           <thead>
             <tr>
-              <td><label class="mr-5">Orden de Compra</label></td>
+              <td><label class="mr-5">Nro. de Orden</label></td>
               <td>
                 <el-input
                   :disabled="disabledOrden"
                   v-model="ordenNumeroInput"
-                  @change="btnEnviar = true"
+                  @keypress.native="btnEnviar = false"
                 ></el-input>
               </td>
               <td><label class="mx-5">Nro. de Contrato</label></td>
@@ -90,7 +90,7 @@
                 <el-input
                   :disabled="disabledContrato"
                   v-model="ordenContratoInput"
-                  @change="btnEnviar = false"
+                  @keypress.native="btnEnviar = false"
                 ></el-input>
               </td>
             </tr>
@@ -103,20 +103,20 @@
           <table width="100%">
             <tr style="margin-top: 15px" >
               <td>
-                <h3>{{jsonFormulario.proveedorNombre}}</h3>
+                <h4>{{jsonFormulario.proveedorNombre}}</h4>
                 <p>{{jsonFormulario.proveedorDireccion}}</p>
                 <p><b>TELEFONO</b> {{jsonFormulario.proveedorTelefono}}</p>
               </td>
-              <td style="border: solid">
-                <h3><b>RUC</b> {{jsonFormulario.proveedorNumeroDocumento}}</h3>
-                <h3><b>RECIBO POR HONORARIOS ELECTRONICO</b></h3>
-                <h2>Nro: {{jsonFormulario.serie+" - "+jsonFormulario.numero}}</h2>
+              <td style="border: solid; margin: 10px">
+                <h4><b>RUC</b> {{jsonFormulario.proveedorNumeroDocumento}}</h4>
+                <h4><b>RECIBO POR HONORARIOS ELECTRONICO</b></h4>
+                <h3>Nro: {{jsonFormulario.serie+" - "+jsonFormulario.numero}}</h3>
               </td>
             </tr>
             <tr style="margin-top: 15px" >
               <td class="my-5" colspan="2" style="text-align: left">
                 <p><b>Recibí de:</b> {{jsonFormulario.enteContratante}} </p>
-                <p><b>Identificado con</b> {{jsonFormulario.enteTipoDocumento}} <b>número</b> {{jsonFormulario.enteNroDocumento}}</p>
+                <p><b>Identificado con</b> {{jsonFormulario.enteTipoDocumento}} &nbsp;<b style="margin-left: 30px">número</b> {{jsonFormulario.enteNroDocumento}}</p>
                 <p><b>Domiciliado en</b> {{jsonFormulario.enteDireccion}}</p>
                 <p><b>La suma</b> {{jsonFormulario.montoRecibidoTexto}}</p>
                 <p><b>Por concepto de</b> {{jsonFormulario.concepto}} </p>
@@ -130,9 +130,38 @@
                 <br/> 
               </td>
               <td>
-                <h4><b>Total por honorarios: </b> {{jsonFormulario.importeSubTotal}}</h4>
-                <h4><b>Retención (8 %) IR:</b> {{jsonFormulario.importeIgv}}</h4>
-                <h4><b>Total Neto Recibido:</b> {{jsonFormulario.importeTotal}}</h4>
+                <div class="total-detalle">
+                  <br />
+                  <table width="60%" style="margin: auto">
+                    <tbody>
+                      <tr>
+                        <td class="alinieado-izquierda">
+                          <div><b>Total por honorarios </b></div>
+                        </td>
+                        <td><b> : </b></td>
+                        <td class="alinieado-derecha">
+                          <div>{{ jsonFormulario.importeSubTotal }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="alinieado-izquierda">
+                          <div><b>Retención (8 %) IR </b></div>
+                        </td>
+                        <td><b> : </b></td>
+                        <td class="alinieado-derecha">
+                          <div>{{ jsonFormulario.importeIgv }}</div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="alinieado-izquierda"><b>Total Neto Recibido </b></td>
+                        <td><b> : </b></td>
+                        <td class="alinieado-derecha">
+                          {{ jsonFormulario.importeTotal }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </td>
             </tr>
           </table>
@@ -156,6 +185,8 @@ export default {
       ordenNumeroInput: null,
       ordenContratoInput: null,
       mostrarFactura: null,
+      disabledContrato: null,
+      disabledOrden: null,
       jsonFormulario:{}
     };
   },
@@ -167,50 +198,67 @@ export default {
       this.ordenContratoInput = null;
       this.facturaJson = {};
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
-        alert("Seleccione archivo .zip");
+        this.modal("info", "Seleccione archivo xml", "");
         return; 
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
-        alert("Seleccione archivo .pdf");
+        this.modal("info", "Seleccione archivo pdf", "");
+        return; 
+      } else if (this.$refs.uploadInforme.uploadFiles.length == 0) {
+        this.modal("info", "Debe ingresar informe técnico", "");
         return; 
       } else {
         this.cargando = true;
         this.guardarArchivosAdjuntos();
       }
     },
-    async guardarArchivosAdjuntos() {
+    async guardarArchivosAdjuntos(idFacturaGenerada) {
+      
+          if(!this.cargando)this.cargando = true;
       const url =
         "http://localhost:8090/api/admin/crear-recibo-honorarios-proveedor";
       let dataPost = new FormData();
-      dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null)dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
-      dataPost.append("archivoInforme", this.$refs.uploadZip.uploadFiles[0].raw);
+      if(idFacturaGenerada!= null)dataPost.append("idDocumento", idFacturaGenerada);
+      if(idFacturaGenerada!= null  && this.$refs.uploadInforme.uploadFiles.length > 0)dataPost.append("archivoInforme", this.$refs.uploadZip.uploadFiles[0].raw);
       await axios
         .post(url, dataPost)
         .then((response) => {
           this.jsonFormulario= {};
           this.jsonFormulario = response.data.resultado;
-          if(this.jsonFormulario.proveedorNumeroDocumento!=localStorage.getItem("numeroDocumento")){
-            return this.modal("info", "El recibo ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
-          }
+          // if(this.jsonFormulario.proveedorNumeroDocumento!=localStorage.getItem("numeroDocumento")){
+          //   return this.modal("info", "El recibo ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
+          // }
           this.btnEnviar = false;
           this.mostrarFactura = true;
         })
         .catch((e) => {
           console.log("errro" + e);
-
+          if(idFacturaGenerada!= null){
+            this.modal("info", "No se pudo guardar documentos", "");
+          }else{
+            this.modal("info", "No se pudo procesar documento electrónico", "");
+          }
         })
         .finally(() => {
           this.cargando = false;
+          if(idFacturaGenerada != null){
+            this.$refs.uploadZip.clearFiles();
+            this.$refs.uploadPdf.clearFiles();
+            this.$refs.uploadInforme.clearFiles();
+            this.$refs.uploadGuia.clearFiles();
+            this.btnEnviar = true;
+          }
         });
     },
     validacionCargaFactura() {
       this.jsonFormulario.ordenNumero = this.ordenNumeroInput
       this.jsonFormulario.ordenContrato = this.ordenContratoInput
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
-        alert("Seleccione archivo .zip");
+        this.modal("info", "Seleccione archivo xml", "");
         return;
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
-        alert("Seleccione archivo .pdf");
+        this.modal("info", "Seleccione archivo pdf", "");
         return; 
       } else if (
         (this.jsonFormulario.ordenNumero == null ||
@@ -218,7 +266,7 @@ export default {
         (this.jsonFormulario.ordenContrato == null ||
           this.jsonFormulario.ordenContrato.length == 0)
       ) {
-        alert("Ingrese nro. de orden y/o contrato");
+        this.modal("info","Ingrese número de orden y/o contrato", "");
         return; 
       } else {
         this.btnEnviar = true;
@@ -237,6 +285,9 @@ export default {
           });
           console.log("Comprobante detalle exitoso");
           console.log(response.data);
+          console.log(response.data.resultado);
+          this.guardarArchivosAdjuntos(response.data.resultado);
+          this.mostrarFactura = false;
         })
         .catch((e)=>{
           this.$swal({
@@ -245,8 +296,6 @@ export default {
         });
         })
         .finally(() => {
-          // this.$refs.uploadZip.clearFiles();
-          // this.$refs.uploadPdf.clearFiles();
           this.cargando = false;
           this.btnEnviar = true;
         });
@@ -264,6 +313,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+p{
+  margin-top: 8px;
+}
 .component {
   min-height: 98vh;
   max-width: 100%;
