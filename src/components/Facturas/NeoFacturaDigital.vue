@@ -1,5 +1,5 @@
 t<template>
-  <div class="contenedor-principal">
+  <div class="contenedor-principal contenedor-factura">
     <div>
       <titulo-header>Registre su factura electrónica</titulo-header>
     </div>
@@ -25,7 +25,7 @@ t<template>
             </td>
             <td>
               <div>
-                <h3 class="mb-2">Documento ZIP</h3>
+                <h3 class="mb-2">Documento ZIP/XML</h3>
                 <el-upload
                   ref="uploadZip"
                   :auto-upload="false"
@@ -83,11 +83,12 @@ t<template>
           </tr>
         </tbody>
       </table>
-      <span style="color: red">*Si el producto entregado es un bien adjunte guia</span><br/>
-      <span style="color: red">**Si el producto es un servixio adjutnar informe tecnico</span>
+      <br/>>
+      <span style="color: red">*Si el producto entregado es un bien adjunte guía</span><br/>
+      <span style="color: red">**Si el producto es un servicio adjunte informe técnico</span>
     </div>
     <hr />
-    <div style="width: 70vw; text-align: right">
+    <div style="width: 50vw; text-align: right">
       <div class="mx-5">
         <el-button type="primary" @click="validarCargaFiles"
           >Cargar Factura
@@ -101,11 +102,13 @@ t<template>
       </div>
     </div>
     <hr />
-    <div  v-if="mostrarFactura" class="pie-factura mx-5" style="max-width: 60vw; display: flex">
-      <table>
+    <br />
+    <br />
+    <div  v-if="mostrarFactura" class="pie-factura mx-5" style="max-width: 45vw; display: flex; ">
+      <table width="100%">
         <thead>
           <tr>
-            <td><label class="mr-5">Nro. de Orden</label></td>
+            <td><label class="mr-5"><b>Nro. de Orden</b></label></td>
             <td>
               <el-input
                 :disabled="disabledOrden"
@@ -113,7 +116,7 @@ t<template>
                 @keypress.native="btnEnviar = false"
               ></el-input>
             </td>
-            <td><label class="mx-5">Nro. de Contrato</label></td>
+            <td><label class="mx-5"><b>Nro. de Contrato</b></label></td>
             <td>
               <el-input
                 :disabled="disabledContrato"
@@ -183,7 +186,7 @@ t<template>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ facturaJson.fechaEmision }}
+                                      {{ transformarFecha(facturaJson.fechaEmision) }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -192,7 +195,7 @@ t<template>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ facturaJson.fechaVencimiento }}
+                                      {{ transformarFecha(facturaJson.fechaVencimiento) }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -474,6 +477,11 @@ export default {
         });
       this.rellenarJsonFactura(facRecibida);
     },
+    transformarFecha(fechaRecibida){
+      fechaRecibida = fechaRecibida.trim();
+      fechaRecibida = fechaRecibida.substring(8,10)+"-"+fechaRecibida.substring(5,8)+"-"+fechaRecibida.substring(0,4);
+      return fechaRecibida;
+    },
     validacionCargaFactura() {
         this.btnEnviar = true;
       this.facturaJson.ordenNumero = this.ordenNumeroInput
@@ -527,9 +535,9 @@ export default {
     },
 
     rellenarJsonFactura(facturaRecibida) {
-      if(facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"]["cac:PartyIdentification"]["cbc:ID"].content != localStorage.getItem("User")){
-        return this.modal("info", "La factura ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
-      }
+      // if(facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"]["cac:PartyIdentification"]["cbc:ID"].content != localStorage.getItem("User")){
+      //   return this.modal("info", "La factura ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
+      // }
       // CABECERA
       this.facturaJson["proveedorId003TipoDocumento"] = 1;
       this.facturaJson["id007TipoComprobante"] = 24;
@@ -682,9 +690,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-hr {
-  width: 70vw !important;
-  position: relative;
+.contenedor-factura{
+  label{
+    font-size: 14px;
+  }
+  hr {
+    width: 50vw !important;
+    position: relative;
+    float: left;
+  }
 }
 .alinieado-derecha {
   text-align: right;
