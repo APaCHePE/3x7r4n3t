@@ -1,4 +1,4 @@
-t<template>
+<template>
   <div class="contenedor-principal contenedor-factura">
     <div>
       <titulo-header>Registre su factura electrónica</titulo-header>
@@ -20,6 +20,9 @@ t<template>
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
+                  <el-button @click="verFile()" size="small" type="warning"
+                    >Ver</el-button
+                  >
                 </el-upload>
               </div>
             </td>
@@ -35,6 +38,9 @@ t<template>
                 >
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
+                  >
+                  <el-button @click="verFile()" size="small" type="warning"
+                    >Ver</el-button
                   >
                 </el-upload>
               </div>
@@ -61,6 +67,9 @@ t<template>
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
+                  <el-button @click="verFile()" size="small" type="warning"
+                    >Ver</el-button
+                  >
                 </el-upload>
               </div>
             </td>
@@ -77,15 +86,22 @@ t<template>
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
+                  <el-button @click="verFile()" size="small" type="warning"
+                    >Ver</el-button
+                  >
                 </el-upload>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-      <br/>>
-      <span style="color: red">*Si el producto entregado es un bien adjunte guía</span><br/>
-      <span style="color: red">**Si el producto es un servicio adjunte informe técnico</span>
+      <br />>
+      <span style="color: red"
+        >*Si el producto entregado es un bien adjunte guía</span
+      ><br />
+      <span style="color: red"
+        >**Si el producto es un servicio adjunte informe técnico</span
+      >
     </div>
     <hr />
     <div style="width: 50vw; text-align: right">
@@ -104,11 +120,17 @@ t<template>
     <hr />
     <br />
     <br />
-    <div  v-if="mostrarFactura" class="pie-factura mx-5" style="max-width: 45vw; display: flex; ">
+    <div
+      v-if="mostrarFactura"
+      class="pie-factura mx-5"
+      style="max-width: 45vw; display: flex"
+    >
       <table width="100%">
         <thead>
           <tr>
-            <td><label class="mr-5"><b>Nro. de Orden</b></label></td>
+            <td>
+              <label class="mr-5"><b>Nro. de Orden</b></label>
+            </td>
             <td>
               <el-input
                 :disabled="disabledOrden"
@@ -116,7 +138,9 @@ t<template>
                 @keypress.native="btnEnviar = false"
               ></el-input>
             </td>
-            <td><label class="mx-5"><b>Nro. de Contrato</b></label></td>
+            <td>
+              <label class="mx-5"><b>Nro. de Contrato</b></label>
+            </td>
             <td>
               <el-input
                 :disabled="disabledContrato"
@@ -186,7 +210,11 @@ t<template>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ transformarFecha(facturaJson.fechaEmision) }}
+                                      {{
+                                        transformarFecha(
+                                          facturaJson.fechaEmision
+                                        )
+                                      }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -195,7 +223,11 @@ t<template>
                                     </td>
                                     <td width="5%" class="bgn">:</td>
                                     <td width="70%" class="bgn">
-                                      {{ transformarFecha(facturaJson.fechaVencimiento) }}
+                                      {{
+                                        transformarFecha(
+                                          facturaJson.fechaVencimiento
+                                        )
+                                      }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -413,6 +445,14 @@ export default {
     };
   },
   methods: {
+    verFile() {
+      console.log("Ver file");
+      window.open(
+        "",
+        "https://mz-services.miraflores.gob.pe:8090/api/files/recuperarEntidadArchivo/8707/121254/13773",
+        "_blank"
+      );
+    },
     validarCargaFiles() {
       this.mostrarFactura = false;
       this.ordenNumeroInput = null;
@@ -420,46 +460,57 @@ export default {
       this.facturaJson = {};
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo .zip", "");
-        return; 
+        return;
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo .pdf", "");
-        return; 
-      } else if (this.$refs.uploadInforme.uploadFiles.length == 0 && this.$refs.uploadGuia.uploadFiles.length == 0) {
+        return;
+      } else if (
+        this.$refs.uploadInforme.uploadFiles.length == 0 &&
+        this.$refs.uploadGuia.uploadFiles.length == 0
+      ) {
         this.modal("info", "Debe ingresar Informe técnico o Guía", "");
-        return; 
+        return;
       } else {
         this.cargando = true;
         this.guardarArchivosAdjuntos();
       }
     },
-    modal(icono, titulo, texto){
+    modal(icono, titulo, texto) {
       this.$swal({
-          icon: icono,
-          title: titulo,
-          text: texto,
-        });
-      if(this.cargando)this.cargando=false;
+        icon: icono,
+        title: titulo,
+        text: texto,
+      });
+      if (this.cargando) this.cargando = false;
     },
-    async guardarArchivosAdjuntos(idFacturaGenerada) {
+    async guardarArchivosAdjuntos() {
       const url =
         "http://localhost:8090/api/admin/crear-documento-comprobante-proveedor";
-        console.log(this.$refs.uploadPdf);
-        console.log(this.$refs.uploadZip);
-        console.log(this.$refs.uploadInforme);
-        console.log(this.$refs.uploadGuia);
+      console.log(this.$refs.uploadPdf);
+      console.log(this.$refs.uploadZip);
+      console.log(this.$refs.uploadInforme);
+      console.log(this.$refs.uploadGuia);
       let dataPost = new FormData();
-      if(idFacturaGenerada!= null)dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
+      dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
-      if(idFacturaGenerada!= null && this.$refs.uploadInforme.uploadFiles.length > 0)dataPost.append("archivoInforme", this.$refs.uploadInforme.uploadFiles[0].raw);
-      if(idFacturaGenerada!= null && this.$refs.uploadGuia.uploadFiles.length >0)dataPost.append("archivoGuia", this.$refs.uploadGuia.uploadFiles[0].raw);
-      if(idFacturaGenerada!= null)dataPost.append("idDocumento", idFacturaGenerada);
+      if (this.$refs.uploadInforme.uploadFiles.length > 0)
+        dataPost.append(
+          "archivoInforme",
+          this.$refs.uploadInforme.uploadFiles[0].raw
+        );
+      if (this.$refs.uploadGuia.uploadFiles.length > 0)
+        dataPost.append(
+          "archivoGuia",
+          this.$refs.uploadGuia.uploadFiles[0].raw
+        );
 
       let facRecibida = null;
       await axios
         .post(url, dataPost)
         .then((response) => {
           facRecibida = response.data.resultado.Invoice;
-          this.facturaRecibida = response.data.resultado.Invoice;
+          this.facturaRecibida = response.data.resultado.factura.Invoice;
+          this.tokenTMP = response.data.resultado.token;
           this.btnEnviar = false;
         })
         .catch((e) => {
@@ -468,41 +519,47 @@ export default {
         })
         .finally(() => {
           this.cargando = false;
-          if(idFacturaGenerada != null){
-            this.mostrarFactura=false;
-            this.$refs.uploadZip.clearFiles();
-            this.$refs.uploadPdf.clearFiles();
-            this.$refs.uploadInforme.clearFiles();
-          }
+          // this.mostrarFactura=false;
+          // this.$refs.uploadZip.clearFiles();
+          // this.$refs.uploadPdf.clearFiles();
+          // this.$refs.uploadInforme.clearFiles();
         });
       this.rellenarJsonFactura(facRecibida);
     },
-    transformarFecha(fechaRecibida){
+    transformarFecha(fechaRecibida) {
       fechaRecibida = fechaRecibida.trim();
-      fechaRecibida = fechaRecibida.substring(8,10)+"-"+fechaRecibida.substring(5,8)+"-"+fechaRecibida.substring(0,4);
+      fechaRecibida =
+        fechaRecibida.substring(8, 10) +
+        "-" +
+        fechaRecibida.substring(5, 8) +
+        "-" +
+        fechaRecibida.substring(0, 4);
       return fechaRecibida;
     },
     validacionCargaFactura() {
-        this.btnEnviar = true;
-      this.facturaJson.ordenNumero = this.ordenNumeroInput
-      this.facturaJson.ordenContrato = this.ordenContratoInput
+      this.btnEnviar = true;
+      this.facturaJson.ordenNumero = this.ordenNumeroInput;
+      this.facturaJson.ordenContrato = this.ordenContratoInput;
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo zip", "");
-        return; 
+        return;
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo pdf", "");
-        return; 
-      } else if (this.$refs.uploadInforme.uploadFiles.length == 0 && this.$refs.uploadGuia.uploadFiles.length == 0) {
+        return;
+      } else if (
+        this.$refs.uploadInforme.uploadFiles.length == 0 &&
+        this.$refs.uploadGuia.uploadFiles.length == 0
+      ) {
         this.modal("info", "Debe ingresar informe técnico o guía", "");
-        return; 
+        return;
       } else if (
         (this.facturaJson.ordenNumero == null ||
           this.facturaJson.ordenNumero.length == 0) &&
         (this.facturaJson.ordenContrato == null ||
           this.facturaJson.ordenContrato.length == 0)
       ) {
-        this.modal("info","Ingrese número de orden y/o contrato", "");
-        return; 
+        this.modal("info", "Ingrese número de orden y/o contrato", "");
+        return;
       } else {
         this.cargando = true;
         this.guardarFacturaJson();
@@ -522,11 +579,11 @@ export default {
           this.guardarArchivosAdjuntos(response.data.resultado);
           this.mostrarFactura = false;
         })
-        .catch((e)=>{
+        .catch((e) => {
           this.$swal({
-          icon: "info",
-          title: e.response.data.mensajeError,
-        });
+            icon: "info",
+            title: e.response.data.mensajeError,
+          });
         })
         .finally(() => {
           this.cargando = false;
@@ -595,7 +652,7 @@ export default {
           "cac:PartyLegalEntity"
         ]["cbc:RegistrationName"];
       this.ordenNumeroInput =
-        (facturaRecibida["cac:OrderReference"] != null)
+        facturaRecibida["cac:OrderReference"] != null
           ? facturaRecibida["cac:OrderReference"]["cbc:ID"]
           : null;
       if (this.ordenNumeroInput == null) {
@@ -608,80 +665,97 @@ export default {
       // LIST ITEMS
       this.facturaJson["listaComprobanteDetalle"] = [];
       if (Array.isArray(facturaRecibida["cac:InvoiceLine"])) {
-
         const arrayItems = facturaRecibida["cac:InvoiceLine"];
-        arrayItems.forEach((item)=>{
+        arrayItems.forEach((item) => {
           let obj = {
-            cantidad:
-              item["cbc:InvoicedQuantity"]
-                .content,
-  
-            unidadMedida: (item["cbc:Note"]!= null)? item["cbc:Note"]:"UNIDAD",
+            cantidad: item["cbc:InvoicedQuantity"].content,
+
+            unidadMedida:
+              item["cbc:Note"] != null ? item["cbc:Note"] : "UNIDAD",
             codigo: item["cac:Item"]["cac:SellersItemIdentification"]["cbc:ID"],
-            descripcion:
-              item["cac:Item"]["cbc:Description"],
-  
-            valorUnitario:
-              item["cac:Price"]["cbc:PriceAmount"]
-                .content
+            descripcion: item["cac:Item"]["cbc:Description"],
+
+            valorUnitario: item["cac:Price"]["cbc:PriceAmount"].content,
           };
           this.facturaJson["listaComprobanteDetalle"].push(obj);
-        })
-
+        });
       } else {
-        this.facturaJson["listaComprobanteDetalle"].push(
-          {
-            cantidad:
-              facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"]
-                .content,
-            unidadMedida: (facturaRecibida["cac:InvoiceLine"]["cbc:Note"]!= null)? facturaRecibida["cac:InvoiceLine"]["cbc:Note"]:"UNIDAD",
-            codigo: facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cac:SellersItemIdentification"]["cbc:ID"],
-            descripcion:
-              facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cbc:Description"],
-            valorUnitario:
-              facturaRecibida["cac:InvoiceLine"]["cac:Price"]["cbc:PriceAmount"]
-                .content,
-          },
-        );
+        this.facturaJson["listaComprobanteDetalle"].push({
+          cantidad:
+            facturaRecibida["cac:InvoiceLine"]["cbc:InvoicedQuantity"].content,
+          unidadMedida:
+            facturaRecibida["cac:InvoiceLine"]["cbc:Note"] != null
+              ? facturaRecibida["cac:InvoiceLine"]["cbc:Note"]
+              : "UNIDAD",
+          codigo:
+            facturaRecibida["cac:InvoiceLine"]["cac:Item"][
+              "cac:SellersItemIdentification"
+            ]["cbc:ID"],
+          descripcion:
+            facturaRecibida["cac:InvoiceLine"]["cac:Item"]["cbc:Description"],
+          valorUnitario:
+            facturaRecibida["cac:InvoiceLine"]["cac:Price"]["cbc:PriceAmount"]
+              .content,
+        });
       }
       // PIE FACTURA
       this.facturaJson["descripcionImporte"] =
-        (facturaRecibida["cbc:Note"] != null )?facturaRecibida["cbc:Note"].content: "";
+        facturaRecibida["cbc:Note"] != null
+          ? facturaRecibida["cbc:Note"].content
+          : "";
       this.facturaJson["importeSubTotal"] =
-        (facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"]!=null)?facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"].content:0.0 +
-        (facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"]!= null)?facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"].content:0.0 +
-        (facturaRecibida["cac:LegalMonetaryTotal"]["cbc:AllowanceTotalAmount"]!=null)?facturaRecibida["cac:LegalMonetaryTotal"]["cbc:AllowanceTotalAmount"]
-          .content:0.0;
+        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"] !=
+        null
+          ? facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"]
+              .content
+          : 0.0 +
+            (facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"] !=
+              null)
+          ? facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PrepaidAmount"]
+              .content
+          : 0.0 +
+            (facturaRecibida["cac:LegalMonetaryTotal"][
+              "cbc:AllowanceTotalAmount"
+            ] !=
+              null)
+          ? facturaRecibida["cac:LegalMonetaryTotal"][
+              "cbc:AllowanceTotalAmount"
+            ].content
+          : 0.0;
       this.facturaJson["importeAnticipios"] = 0.0;
       this.facturaJson["importeDescuentos"] =
-        (facturaRecibida["cac:LegalMonetaryTotal"][
-          "cbc:AllowanceTotalAmount"
-        ]!=null)?facturaRecibida["cac:LegalMonetaryTotal"][
-          "cbc:AllowanceTotalAmount"
-        ].content:0.0;
+        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:AllowanceTotalAmount"] !=
+        null
+          ? facturaRecibida["cac:LegalMonetaryTotal"][
+              "cbc:AllowanceTotalAmount"
+            ].content
+          : 0.0;
       this.facturaJson["importeValorVenta"] =
-        ( facturaRecibida["cac:LegalMonetaryTotal"][
-          "cbc:LineExtensionAmount"
-        ]!=null)?facturaRecibida["cac:LegalMonetaryTotal"][
-          "cbc:LineExtensionAmount"
-        ].content: 0.0;
+        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"] !=
+        null
+          ? facturaRecibida["cac:LegalMonetaryTotal"]["cbc:LineExtensionAmount"]
+              .content
+          : 0.0;
       this.facturaJson["importeIsc"] =
-       ( facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
-          "cbc:TaxAmount"
-        ]!=null)? facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
-          "cbc:TaxAmount"
-        ].content: 0.0 ;
-      this.facturaJson["importeIgv"] = (facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
-          "cbc:TaxAmount"
-        ]!= null)?
-        facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"][
-          "cbc:TaxAmount"
-        ].content:0.0;
+        facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"]["cbc:TaxAmount"] !=
+        null
+          ? facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"]["cbc:TaxAmount"]
+              .content
+          : 0.0;
+      this.facturaJson["importeIgv"] =
+        facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"]["cbc:TaxAmount"] !=
+        null
+          ? facturaRecibida["cac:TaxTotal"]["cac:TaxSubtotal"]["cbc:TaxAmount"]
+              .content
+          : 0.0;
 
       this.facturaJson["importeOtrosCargos"] = 0.0;
       this.facturaJson["importeOtrosTributos"] = 0.0;
-      this.facturaJson["importeTotal"] = ( facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PayableAmount"])?
-        facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PayableAmount"].content:0.0;
+      this.facturaJson["importeTotal"] = facturaRecibida[
+        "cac:LegalMonetaryTotal"
+      ]["cbc:PayableAmount"]
+        ? facturaRecibida["cac:LegalMonetaryTotal"]["cbc:PayableAmount"].content
+        : 0.0;
 
       this.mostrarFactura = true;
     },
@@ -690,8 +764,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contenedor-factura{
-  label{
+.contenedor-factura {
+  label {
     font-size: 14px;
   }
   hr {
