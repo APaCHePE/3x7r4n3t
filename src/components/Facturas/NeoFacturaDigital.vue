@@ -20,9 +20,14 @@
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
-                  <el-button @click="verFile()" size="small" type="warning"
-                    >Ver</el-button
-                  >
+                  <template v-if="tokenTMP != null">
+                    <el-button
+                      @click="verFile(1, tokenTMP)"
+                      size="small"
+                      type="warning"
+                      >Ver</el-button
+                    >
+                  </template>
                 </el-upload>
               </div>
             </td>
@@ -39,9 +44,14 @@
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
-                  <el-button @click="verFile()" size="small" type="warning"
-                    >Ver</el-button
-                  >
+                  <template v-if="tokenTMP != null">
+                    <el-button
+                      @click="verFile(2, tokenTMP)"
+                      size="small"
+                      type="warning"
+                      >Ver</el-button
+                    >
+                  </template>
                 </el-upload>
               </div>
             </td>
@@ -67,9 +77,14 @@
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
-                  <el-button @click="verFile()" size="small" type="warning"
-                    >Ver</el-button
-                  >
+                  <template v-if="tokenTMP != null && archivos.archivoGuia ==1">
+                    <el-button
+                      @click="verFile(3, tokenTMP)"
+                      size="small"
+                      type="warning"
+                      >Ver</el-button
+                    >
+                  </template>
                 </el-upload>
               </div>
             </td>
@@ -86,9 +101,14 @@
                   <el-button slot="trigger" size="small" type="primary"
                     >Selecciona un archivo</el-button
                   >
-                  <el-button @click="verFile()" size="small" type="warning"
-                    >Ver</el-button
-                  >
+                  <template v-if="tokenTMP != null && archivos.archivoInforme == 1">
+                    <el-button
+                      @click="verFile(4, tokenTMP)"
+                      size="small"
+                      type="warning"
+                      >Ver</el-button
+                    >
+                  </template>
                 </el-upload>
               </div>
             </td>
@@ -419,6 +439,7 @@
 // import moment from "moment";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 import axios from "axios";
+import Constantes from "../../store/Constantes.js";
 export default {
   components: {
     TituloHeader,
@@ -442,16 +463,26 @@ export default {
       btnEnviar: true,
       ordenNumeroInput: null,
       ordenContratoInput: null,
+      tokenTMP: null,
+      archivos: {
+        archivoPdf: 0,
+        archivoZip: 0,
+        archivoGuia: 0,
+        archivoInforme: 0,
+      },
     };
   },
   methods: {
-    verFile() {
-      console.log("Ver file");
-      window.open(
-        "",
-        "https://mz-services.miraflores.gob.pe:8090/api/files/recuperarEntidadArchivo/8707/121254/13773",
-        "_blank"
-      );
+    verFile(param, token) {
+      console.log("mostrando file clickeado");
+      var urlFiles =
+        Constantes.rutaAdmin +
+        "/recuperarEntidadArchivo/1/0/" +
+        param +
+        "/" +
+        token;
+      console.log(urlFiles);
+      window.open(urlFiles, "_blank");
     },
     validarCargaFiles() {
       this.mostrarFactura = false;
@@ -471,44 +502,38 @@ export default {
         this.modal("info", "Debe ingresar Informe técnico o Guía", "");
         return;
       } else {
-        this.cargando = true;
+        this.archivos.archivoInforme = 0;
+        this.archivos.archivoGuia = 0;
         this.guardarArchivosAdjuntos();
+        this.cargando = true;
       }
-    },
-    modal(icono, titulo, texto) {
-      this.$swal({
-        icon: icono,
-        title: titulo,
-        text: texto,
-      });
-      if (this.cargando) this.cargando = false;
     },
     async guardarArchivosAdjuntos() {
       const url =
-        "http://localhost:8090/api/admin/crear-documento-comprobante-proveedor";
-      console.log(this.$refs.uploadPdf);
-      console.log(this.$refs.uploadZip);
-      console.log(this.$refs.uploadInforme);
-      console.log(this.$refs.uploadGuia);
+        Constantes.rutaAdmin+"/crear-documento-comprobante-proveedor";
       let dataPost = new FormData();
       dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
-      if (this.$refs.uploadInforme.uploadFiles.length > 0)
+      if (this.$refs.uploadInforme.uploadFiles.length > 0) {
         dataPost.append(
           "archivoInforme",
           this.$refs.uploadInforme.uploadFiles[0].raw
         );
-      if (this.$refs.uploadGuia.uploadFiles.length > 0)
+        this.archivos.archivoInforme = 1;
+      }
+      if (this.$refs.uploadGuia.uploadFiles.length > 0) {
         dataPost.append(
           "archivoGuia",
           this.$refs.uploadGuia.uploadFiles[0].raw
         );
+        this.archivos.archivoGuia = 1;
+      }
 
       let facRecibida = null;
       await axios
         .post(url, dataPost)
         .then((response) => {
-          facRecibida = response.data.resultado.Invoice;
+          facRecibida = response.data.resultado.factura.Invoice;
           this.facturaRecibida = response.data.resultado.factura.Invoice;
           this.tokenTMP = response.data.resultado.token;
           this.btnEnviar = false;
@@ -527,6 +552,7 @@ export default {
       this.rellenarJsonFactura(facRecibida);
     },
     transformarFecha(fechaRecibida) {
+      if (fechaRecibida == null) return fechaRecibida;
       fechaRecibida = fechaRecibida.trim();
       fechaRecibida =
         fechaRecibida.substring(8, 10) +
@@ -570,13 +596,12 @@ export default {
       axios
         .post(url, this.facturaJson)
         .then((response) => {
-          // this.$swal({
-          //   icon: "success",
-          //   title: "Registro exitoso",
-          // });
+          this.$swal({
+            icon: "success",
+            title: "Registro exitoso",
+          });
           console.log("Comprobante detalle exitoso");
           console.log(response.data.resultado);
-          this.guardarArchivosAdjuntos(response.data.resultado);
           this.mostrarFactura = false;
         })
         .catch((e) => {
@@ -758,6 +783,14 @@ export default {
         : 0.0;
 
       this.mostrarFactura = true;
+    },
+    modal(icono, titulo, texto) {
+      this.$swal({
+        icon: icono,
+        title: titulo,
+        text: texto,
+      });
+      if (this.cargando) this.cargando = false;
     },
   },
 };

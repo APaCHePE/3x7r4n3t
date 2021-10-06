@@ -9,6 +9,7 @@ import Ordenes from "../views/Opciones/Ordenes.vue";
 import Facturas from "../views/Opciones/Facturas.vue";
 import NeoFacturaDigital from "../components/Facturas/NeoFacturaDigital.vue";
 import ReciboHonorarios from "../components/RecibosH/ReciboHonorarios.vue";
+import ArchivoBanco from "../components/ArchivoBanco/Bandeja.vue";
 import VueSwal from 'vue-swal';
  
 Vue.use(VueSwal);
@@ -61,8 +62,11 @@ const routes = [
         name: "ReciboHonorarios",
         component: ReciboHonorarios
       },
-       
-  
+      {
+        path: '/archivo-banco',
+        name: "ArchivoBanco",
+        component: ArchivoBanco
+      }
     ]
   },
   {

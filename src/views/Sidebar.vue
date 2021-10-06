@@ -35,13 +35,13 @@
             <span style="font-size: 20px">Administración</span>
           </template>
           <el-menu-item-group @click="enviarSelect(ruta)">
-           <router-link :to="'/micuenta'"> <el-menu-item index="1-1">
+           <router-link :to="'/micuenta'"> <el-menu-item index="2-1">
               <span>Cuenta</span>
             </el-menu-item></router-link>
-           <router-link :to="'/miscontactos'"> <el-menu-item index="1-2">
+           <router-link :to="'/miscontactos'"> <el-menu-item index="2-2">
               <span>Contactos</span>
             </el-menu-item></router-link>
-            <router-link :to="'/misusuarios'"><el-menu-item index="1-3">
+            <router-link :to="'/misusuarios'"><el-menu-item index="2-3">
               <span>Usuarios</span>
             </el-menu-item></router-link>
           </el-menu-item-group>
@@ -68,10 +68,10 @@
             <span style="font-size: 20px">Facturas</span>
           </template>
           <el-menu-item-group>
-            <router-link :to="'/facturas'"><el-menu-item index="1-1">
+            <router-link :to="'/facturas'"><el-menu-item index="4-1">
               <span>Listado</span>
             </el-menu-item></router-link>
-             <router-link :to="'/neo-digital'"><el-menu-item index="1-2">
+             <router-link :to="'/neo-digital'"><el-menu-item index="4-2">
              <span>Nueva</span>
             </el-menu-item></router-link>
           </el-menu-item-group>
@@ -82,11 +82,22 @@
             <span style="font-size: 20px">Recibo por Honorarios</span>
           </template>
           <el-menu-item-group>
-            <router-link :to="'/facturas'"><el-menu-item index="1-1">
+            <router-link :to="'/facturas'"><el-menu-item index="5-1">
               <span>Listado</span>
             </el-menu-item></router-link>
-             <router-link :to="'/neo-rxh'"><el-menu-item index="1-2">
+             <router-link :to="'/neo-rxh'"><el-menu-item index="5-2">
              <span>Nuevo</span>
+            </el-menu-item></router-link>
+          </el-menu-item-group>
+        </el-submenu>
+        <el-submenu index="6" style="padding: 30px 0px 0px 0px">
+          <template slot="title">
+            <i class="el-icon-edit-outline"></i>
+            <span style="font-size: 20px">Archivo Banco</span>
+          </template>
+          <el-menu-item-group>
+             <router-link :to="'archivo-banco'"><el-menu-item index="6-1">
+             <span>Bandeja</span>
             </el-menu-item></router-link>
           </el-menu-item-group>
         </el-submenu>

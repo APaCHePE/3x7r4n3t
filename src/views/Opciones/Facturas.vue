@@ -175,7 +175,7 @@ export default {
       dialogVisible: false,
       value1: null,
       value2: null,
-
+      detalleOrden: null,
       options: [
         {
           nombre: "CONSOLIDADO",

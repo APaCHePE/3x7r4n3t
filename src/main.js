@@ -9,6 +9,8 @@ import './plugins/bootstrap-vue.js';
 import '@/assets/style/element.scss';
 import '@/assets/style/stylos-personalizados.scss';
 import '@/assets/style/stilo-responsive.scss';
+import Croppa from 'vue-croppa';
+
 // main.js 
 import VueSweetalert2 from 'vue-sweetalert2';
 
@@ -16,7 +18,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 // import  'sweetalert2/dist/sweetalert2.min.css' ;
 
 Vue.use(VueSweetalert2);
-
+Vue.use(Croppa, { componentName: 'croppa' });
 Vue.config.productionTip = false;
 Vue.directive('uppercase', {
   update(el) {

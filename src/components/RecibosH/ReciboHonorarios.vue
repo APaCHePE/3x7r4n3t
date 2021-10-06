@@ -1,7 +1,8 @@
 <template>
   <div class="component">
     <titulo-header>Registre su recibo por Honorarios</titulo-header>
-    <div class="contenido">
+    <!-- <div class="contenido"> -->
+    <div class="">
       <div class="ml-5" style="text-align: left">
         <table width="80%">
           <tbody>
@@ -20,6 +21,16 @@
                       >Selecciona un archivo</el-button
                     >
                   </el-upload>
+                  <template
+                    v-if="tokenTMP != null && archivos.archivoGuia == 1"
+                  >
+                    <el-button
+                      @click="verFile(4, tokenTMP)"
+                      size="small"
+                      type="warning"
+                      >Ver</el-button
+                    >
+                  </template>
                 </div>
               </td>
               <td>
@@ -35,6 +46,16 @@
                     <el-button slot="trigger" size="small" type="primary"
                       >Selecciona un archivo</el-button
                     >
+                    <template
+                      v-if="tokenTMP != null && archivos.archivoGuia == 1"
+                    >
+                      <el-button
+                        @click="verFile(4, tokenTMP)"
+                        size="small"
+                        type="warning"
+                        >Ver</el-button
+                      >
+                    </template>
                   </el-upload>
                 </div>
               </td>
@@ -51,6 +72,16 @@
                     <el-button slot="trigger" size="small" type="primary"
                       >Selecciona un archivo</el-button
                     >
+                    <template
+                      v-if="tokenTMP != null && archivos.archivoGuia == 1"
+                    >
+                      <el-button
+                        @click="verFile(4, tokenTMP)"
+                        size="small"
+                        type="warning"
+                        >Ver</el-button
+                      >
+                    </template>
                   </el-upload>
                 </div>
               </td>
@@ -70,10 +101,19 @@
             @click="validacionCargaFactura"
             >Enviar</el-button
           >
+          <template v-if="tokenTMP != null && archivos.archivoGuia == 1">
+            <el-button @click="verFile(4, tokenTMP)" size="small" type="warning"
+              >Ver</el-button
+            >
+          </template>
         </div>
       </div>
       <hr />
-      <div  v-if="mostrarFactura" class="pie-factura mx-5" style="max-width: 60vw; display: flex">
+      <div
+        v-if="mostrarFactura"
+        class="pie-factura mx-5"
+        style="max-width: 60vw; display: flex"
+      >
         <table>
           <thead>
             <tr>
@@ -97,37 +137,60 @@
           </thead>
         </table>
       </div>
-      <br/><br/>
+      <br /><br />
       <div class="recibo-honorarios" v-if="mostrarFactura">
         <div class="cabecera">
           <table width="100%">
-            <tr style="margin-top: 15px" >
+            <tr style="margin-top: 15px">
               <td>
-                <h4>{{jsonFormulario.proveedorNombre}}</h4>
-                <p>{{jsonFormulario.proveedorDireccion}}</p>
-                <p><b>TELEFONO</b> {{jsonFormulario.proveedorTelefono}}</p>
+                <h4>{{ jsonFormulario.proveedorNombre }}</h4>
+                <p>{{ jsonFormulario.proveedorDireccion }}</p>
+                <p><b>TELEFONO</b> {{ jsonFormulario.proveedorTelefono }}</p>
               </td>
               <td style="border: solid; margin: 10px">
-                <h4><b>RUC</b> {{jsonFormulario.proveedorNumeroDocumento}}</h4>
+                <h4>
+                  <b>RUC</b> {{ jsonFormulario.proveedorNumeroDocumento }}
+                </h4>
                 <h4><b>RECIBO POR HONORARIOS ELECTRONICO</b></h4>
-                <h3>Nro: {{jsonFormulario.serie+" - "+jsonFormulario.numero}}</h3>
+                <h3>
+                  Nro:
+                  {{ jsonFormulario.serie + " - " + jsonFormulario.numero }}
+                </h3>
               </td>
             </tr>
-            <tr style="margin-top: 15px" >
+            <tr style="margin-top: 15px">
               <td class="my-5" colspan="2" style="text-align: left">
-                <p><b>Recibí de:</b> {{jsonFormulario.enteContratante}} </p>
-                <p><b>Identificado con</b> {{jsonFormulario.enteTipoDocumento}} &nbsp;<b style="margin-left: 30px">número</b> {{jsonFormulario.enteNroDocumento}}</p>
-                <p><b>Domiciliado en</b> {{jsonFormulario.enteDireccion}}</p>
-                <p><b>La suma</b> {{jsonFormulario.montoRecibidoTexto}}</p>
-                <p><b>Por concepto de</b> {{jsonFormulario.concepto}} </p>
-                <p><b>Observación</b> {{jsonFormulario.observacion}}</p>
-                <p><b>Inciso</b> {{jsonFormulario.incisoTipo + "  " + jsonFormulario.incisoDescripcion}}</p>
-                <p><b>Fecha de emisión</b> {{jsonFormulario.fechaEmisionDia}} <b>de</b> {{jsonFormulario.fechaEmisionMes}} <b>del</b> {{jsonFormulario.fechaEmisionAnio}}</p>
+                <p><b>Recibí de:</b> {{ jsonFormulario.enteContratante }}</p>
+                <p>
+                  <b>Identificado con</b>
+                  {{ jsonFormulario.enteTipoDocumento }} &nbsp;<b
+                    style="margin-left: 30px"
+                    >número</b
+                  >
+                  {{ jsonFormulario.enteNroDocumento }}
+                </p>
+                <p><b>Domiciliado en</b> {{ jsonFormulario.enteDireccion }}</p>
+                <p><b>La suma</b> {{ jsonFormulario.montoRecibidoTexto }}</p>
+                <p><b>Por concepto de</b> {{ jsonFormulario.concepto }}</p>
+                <p><b>Observación</b> {{ jsonFormulario.observacion }}</p>
+                <p>
+                  <b>Inciso</b>
+                  {{
+                    jsonFormulario.incisoTipo +
+                    "  " +
+                    jsonFormulario.incisoDescripcion
+                  }}
+                </p>
+                <p>
+                  <b>Fecha de emisión</b> {{ jsonFormulario.fechaEmisionDia }}
+                  <b>de</b> {{ jsonFormulario.fechaEmisionMes }} <b>del</b>
+                  {{ jsonFormulario.fechaEmisionAnio }}
+                </p>
               </td>
             </tr>
-            <tr style="margin-top: 15px" >
+            <tr style="margin-top: 15px">
               <td>
-                <br/> 
+                <br />
               </td>
               <td>
                 <div class="total-detalle">
@@ -153,7 +216,9 @@
                         </td>
                       </tr>
                       <tr>
-                        <td class="alinieado-izquierda"><b>Total Neto Recibido </b></td>
+                        <td class="alinieado-izquierda">
+                          <b>Total Neto Recibido </b>
+                        </td>
                         <td><b> : </b></td>
                         <td class="alinieado-derecha">
                           {{ jsonFormulario.importeTotal }}
@@ -187,11 +252,10 @@ export default {
       mostrarFactura: null,
       disabledContrato: null,
       disabledOrden: null,
-      jsonFormulario:{}
+      jsonFormulario: {},
     };
   },
   methods: {
-    
     validarCargaFiles() {
       this.mostrarFactura = false;
       this.ordenNumeroInput = null;
@@ -199,32 +263,40 @@ export default {
       this.facturaJson = {};
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo xml", "");
-        return; 
+        return;
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo pdf", "");
-        return; 
+        return;
       } else if (this.$refs.uploadInforme.uploadFiles.length == 0) {
         this.modal("info", "Debe ingresar informe técnico", "");
-        return; 
+        return;
       } else {
         this.cargando = true;
         this.guardarArchivosAdjuntos();
       }
     },
     async guardarArchivosAdjuntos(idFacturaGenerada) {
-      
-          if(!this.cargando)this.cargando = true;
+      if (!this.cargando) this.cargando = true;
       const url =
         "http://localhost:8090/api/admin/crear-recibo-honorarios-proveedor";
       let dataPost = new FormData();
-      if(idFacturaGenerada!= null)dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
+      if (idFacturaGenerada != null)
+        dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
-      if(idFacturaGenerada!= null)dataPost.append("idDocumento", idFacturaGenerada);
-      if(idFacturaGenerada!= null  && this.$refs.uploadInforme.uploadFiles.length > 0)dataPost.append("archivoInforme", this.$refs.uploadZip.uploadFiles[0].raw);
+      if (idFacturaGenerada != null)
+        dataPost.append("idDocumento", idFacturaGenerada);
+      if (
+        idFacturaGenerada != null &&
+        this.$refs.uploadInforme.uploadFiles.length > 0
+      )
+        dataPost.append(
+          "archivoInforme",
+          this.$refs.uploadZip.uploadFiles[0].raw
+        );
       await axios
         .post(url, dataPost)
         .then((response) => {
-          this.jsonFormulario= {};
+          this.jsonFormulario = {};
           this.jsonFormulario = response.data.resultado;
           // if(this.jsonFormulario.proveedorNumeroDocumento!=localStorage.getItem("numeroDocumento")){
           //   return this.modal("info", "El recibo ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
@@ -234,15 +306,15 @@ export default {
         })
         .catch((e) => {
           console.log("errro" + e);
-          if(idFacturaGenerada!= null){
+          if (idFacturaGenerada != null) {
             this.modal("info", "No se pudo guardar documentos", "");
-          }else{
+          } else {
             this.modal("info", "No se pudo procesar documento electrónico", "");
           }
         })
         .finally(() => {
           this.cargando = false;
-          if(idFacturaGenerada != null){
+          if (idFacturaGenerada != null) {
             this.$refs.uploadZip.clearFiles();
             this.$refs.uploadPdf.clearFiles();
             this.$refs.uploadInforme.clearFiles();
@@ -252,22 +324,22 @@ export default {
         });
     },
     validacionCargaFactura() {
-      this.jsonFormulario.ordenNumero = this.ordenNumeroInput
-      this.jsonFormulario.ordenContrato = this.ordenContratoInput
+      this.jsonFormulario.ordenNumero = this.ordenNumeroInput;
+      this.jsonFormulario.ordenContrato = this.ordenContratoInput;
       if (this.$refs.uploadZip.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo xml", "");
         return;
       } else if (this.$refs.uploadPdf.uploadFiles.length == 0) {
         this.modal("info", "Seleccione archivo pdf", "");
-        return; 
+        return;
       } else if (
         (this.jsonFormulario.ordenNumero == null ||
           this.jsonFormulario.ordenNumero.length == 0) &&
         (this.jsonFormulario.ordenContrato == null ||
           this.jsonFormulario.ordenContrato.length == 0)
       ) {
-        this.modal("info","Ingrese número de orden y/o contrato", "");
-        return; 
+        this.modal("info", "Ingrese número de orden y/o contrato", "");
+        return;
       } else {
         this.btnEnviar = true;
         this.cargando = true;
@@ -289,38 +361,38 @@ export default {
           this.guardarArchivosAdjuntos(response.data.resultado);
           this.mostrarFactura = false;
         })
-        .catch((e)=>{
+        .catch((e) => {
           this.$swal({
-          icon: "info",
-          title: e.response.data.mensajeError,
-        });
+            icon: "info",
+            title: e.response.data.mensajeError,
+          });
         })
         .finally(() => {
           this.cargando = false;
           this.btnEnviar = true;
         });
     },
-    modal(icono, titulo, texto){
+    modal(icono, titulo, texto) {
       this.$swal({
-          icon: icono,
-          title: titulo,
-          text: texto,
-        });
-      if(this.cargando)this.cargando=false;
+        icon: icono,
+        title: titulo,
+        text: texto,
+      });
+      if (this.cargando) this.cargando = false;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-p{
+p {
   margin-top: 8px;
 }
 .component {
   min-height: 98vh;
   max-width: 100%;
 }
-  // background-color: red;
+// background-color: red;
 .recibo-honorarios {
   height: 20vh;
   width: 60%;

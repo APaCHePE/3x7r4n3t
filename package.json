@@ -1,9 +1,9 @@
 {
-  "name": "ESTEC",
+  "name": "estec-extranet",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --port 5051",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -17,6 +17,7 @@
     "moment": "^2.29.1",
     "sweetalert2": "^11.1.2",
     "vue": "^2.6.12",
+    "vue-croppa": "^1.3.8",
     "vue-router": "^3.2.0",
     "vue-swal": "^1.0.0",
     "vue-sweetalert2": "^5.0.2",

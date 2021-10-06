@@ -73,7 +73,7 @@
             </el-menu-item>
           </el-menu>
         </div>
-        <div class="contenido-dinamico">
+        <div class="contenedor">
           <router-view />
         </div>
       </div>
@@ -117,10 +117,7 @@ export default {
 @import "../plugins/css/main.css";
 @import "../plugins/css/font-awesome.css";
 @import "../plugins/css/responsive.css";
-.contenido-dinamico{
-  max-width: 80%;
-  margin-left: 20%;
-}
+
 .contenedor-opciones {
   position: absolute;
 }
