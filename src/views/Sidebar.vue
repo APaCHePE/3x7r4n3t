@@ -5,7 +5,7 @@
     display: flex; text-align: left"
     >
       <el-menu
-        style="size: 20px; background-color: #efeeee8a"
+        style="size: 20px; background-color: ##003462"
         default-active="2"
         class="el-menu-vertical-demo"
         ><br />
@@ -14,7 +14,7 @@
           >
           <img
             class=""
-            src="../plugins/img/logo.png"
+            src="../plugins/img/nuevo.png"
             width="250"
             height="75px" />
             
@@ -32,7 +32,7 @@
         <el-submenu index="2" style="padding: 50px 0px 0px 0px; text-align: left">
           <template slot="title">
             <i class="el-icon-setting"></i>
-            <span style="font-size: 20px">Administración</span>
+            <span style="font-size: 20px; color: #fff">Administración</span>
           </template>
           <el-menu-item-group @click="enviarSelect(ruta)">
            <router-link :to="'/micuenta'"> <el-menu-item index="2-1">
@@ -65,7 +65,7 @@
         <el-submenu index="4" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px">Facturas</span>
+            <span style="font-size: 20px; color: #fff">Facturas</span>
           </template>
           <el-menu-item-group>
             <router-link :to="'/facturas'"><el-menu-item index="4-1">
@@ -79,7 +79,7 @@
         <el-submenu index="5" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px">Recibo por Honorarios</span>
+            <span style="font-size: 20px; color: #fff">Recibo por Honorarios</span>
           </template>
           <el-menu-item-group>
             <router-link :to="'/facturas'"><el-menu-item index="5-1">
@@ -90,7 +90,7 @@
             </el-menu-item></router-link>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="6" style="padding: 30px 0px 0px 0px">
+        <!-- <el-submenu index="6" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
             <span style="font-size: 20px">Archivo Banco</span>
@@ -100,14 +100,14 @@
              <span>Bandeja</span>
             </el-menu-item></router-link>
           </el-menu-item-group>
-        </el-submenu>
+        </el-submenu> -->
 
         <router-link :to="'/'"><el-menu-item
           index="6"
           style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
         >
           <i class="el-icon-circle-close"></i>
-          <span>Cerrar Sesión</span>
+          <span style="color: #fff">Cerrar Sesión</span>
         </el-menu-item></router-link>
       </el-menu>
     </el-col>
