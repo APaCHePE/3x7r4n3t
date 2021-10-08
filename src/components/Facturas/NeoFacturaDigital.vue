@@ -439,7 +439,7 @@
 // import moment from "moment";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 import axios from "axios";
-import Constantes from "../../store/Constantes.js";
+import constantes from "../../store/Constantes.js";
 export default {
   components: {
     TituloHeader,
@@ -592,7 +592,7 @@ export default {
       }
     },
     guardarFacturaJson() {
-      const url = "http://localhost:8090/api/admin/guardar-comprobante";
+      const url = constantes.rutaAdmin+"/guardar-comprobante";
       axios
         .post(url, this.facturaJson)
         .then((response) => {

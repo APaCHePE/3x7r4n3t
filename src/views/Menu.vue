@@ -25,7 +25,7 @@
       "
       style="background-color: #ffffff; width: 100% !important"
     >
-      <div class="menuDesplegar">
+      <div class="menuDesplegar" style=" background-color:#003462;">
         <Sidebar />
       </div>
       <div class="">
@@ -147,6 +147,7 @@ export default {
 @media (max-width: 606px) {
   .menuDesplegar {
     display: none !important;
+    background-color:#003462;
   }
   .menuMobil {
     display: block !important;

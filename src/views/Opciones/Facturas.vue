@@ -159,6 +159,7 @@
 import moment from "moment";
 import axios from "axios";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
+import constantes from "../../store/Constantes";
 
 export default {
   components: {
@@ -201,7 +202,7 @@ export default {
       console.log(fechaFin);
        axios
           .get(
-            "http://localhost:8090/api/admin/consultar-comprobante", {
+            constantes.rutaAdmin+"/consultar-comprobante", {
               params:{
                 "numeroFac": this.numeroFac,
                 "fecInicio": fechaInicio,

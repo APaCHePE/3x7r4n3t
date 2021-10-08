@@ -1,19 +1,19 @@
 <template>
-  <div class="page-container positionRight" style="box-sizing: content-box">
+  <div class="color" style=" background-color:#003462;box-sizing: content-box">
     <el-col
-      style="mt-3; width: 18%; position: fixed; height: 100%;
+      style="mt-3; width: 18%; position: fixed; height: 100%; 
     display: flex; text-align: left"
     >
       <el-menu
         style="size: 20px; background-color: #efeeee8a"
         default-active="2"
-        class="el-menu-vertical-demo"
+        class="el-menu-vertical-demo color"
         ><br />
 
-        <a
+        <a class="color"
           >
           <img
-            class=""
+            class="color"
             src="../plugins/img/logo.png"
             width="250"
             height="75px" />
@@ -90,7 +90,7 @@
             </el-menu-item></router-link>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="6" style="padding: 30px 0px 0px 0px">
+        <!-- <el-submenu index="6" style="padding: 30px 0px 0px 0px">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
             <span style="font-size: 20px">Archivo Banco</span>
@@ -100,7 +100,7 @@
              <span>Bandeja</span>
             </el-menu-item></router-link>
           </el-menu-item-group>
-        </el-submenu>
+        </el-submenu> -->
 
         <router-link :to="'/'"><el-menu-item
           index="6"

@@ -36,6 +36,7 @@
 
 <script>
 import axios from "axios";
+import constantes from "../store/Constantes";
 export default {
   data() {
     return {
@@ -47,7 +48,7 @@ export default {
     confirmaContraseña() {
       if (this.pass == this.passConf) {
         axios
-          .post("http://localhost:8090/api/admin/modificar-pass-proveedor", {
+          .post(constantes.rutaAdmin+"/modificar-pass-proveedor", {
             user: this.$route.params.hash,
             contrasena: this.pass,
             estado: 1,

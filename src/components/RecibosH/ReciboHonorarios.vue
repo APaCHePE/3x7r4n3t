@@ -239,6 +239,7 @@
 <script>
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 import axios from "axios";
+import constantes from "../../store/Constantes";
 export default {
   components: {
     TituloHeader,
@@ -278,7 +279,7 @@ export default {
     async guardarArchivosAdjuntos(idFacturaGenerada) {
       if (!this.cargando) this.cargando = true;
       const url =
-        "http://localhost:8090/api/admin/crear-recibo-honorarios-proveedor";
+        constantes.rutaAdmin+"/crear-recibo-honorarios-proveedor";
       let dataPost = new FormData();
       if (idFacturaGenerada != null)
         dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
@@ -347,7 +348,7 @@ export default {
       }
     },
     guardarFacturaJson() {
-      const url = "http://localhost:8090/api/admin/guardar-comprobante";
+      const url = constantes.rutaAdmin+"/guardar-comprobante";
       axios
         .post(url, this.jsonFormulario)
         .then((response) => {

@@ -103,6 +103,7 @@
 <script>
 import axios from "axios";
 import image from "@/assets/images/pages/login-v2.svg";
+import constantes from "../store/Constantes";
 export default {
   data() {
     return {
@@ -174,7 +175,7 @@ export default {
     },
     generarSolicitud() {
         axios
-          .post("http://localhost:8090/api/admin/guardar-proveedor", {
+          .post(constantes.rutaAdmin+"/guardar-proveedor", {
             usuario: this.correoEmpresa,
             tipoCuenta: 6,
             persona: {
