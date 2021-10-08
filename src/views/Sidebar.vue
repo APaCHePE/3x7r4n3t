@@ -1,11 +1,11 @@
 <template>
-  <div class="color" style=" background-color:#003462;box-sizing: content-box">
+  <div class="color" style=" background-color:#003462; box-sizing: content-box">
     <el-col
       style="mt-3; width: 18%; position: fixed; height: 100%; 
     display: flex; text-align: left"
     >
       <el-menu
-        style="size: 20px; background-color: ##003462"
+        style="size: 20px; background-color: #003462"
         default-active="2"
         class="el-menu-vertical-demo color"
         ><br />
