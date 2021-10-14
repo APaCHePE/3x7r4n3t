@@ -105,7 +105,6 @@
               title="Detalle"
               :visible.sync="dialogVisibleDetalle"
               width="50%"
-              :before-close="handleClose"
             >
               <el-form>
                 <el-form-item label="Importe">

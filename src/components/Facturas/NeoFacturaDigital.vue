@@ -476,7 +476,7 @@ export default {
     verFile(param, token) {
       console.log("mostrando file clickeado");
       var urlFiles =
-        Constantes.rutaAdmin +
+        constantes.rutaAdmin +
         "/recuperarEntidadArchivo/1/0/" +
         param +
         "/" +
@@ -510,7 +510,7 @@ export default {
     },
     async guardarArchivosAdjuntos() {
       const url =
-        Constantes.rutaAdmin+"/crear-documento-comprobante-proveedor";
+        constantes.rutaAdmin+"/crear-documento-comprobante-proveedor";
       let dataPost = new FormData();
       dataPost.append("archivoPdf", this.$refs.uploadPdf.uploadFiles[0].raw);
       dataPost.append("archivoZip", this.$refs.uploadZip.uploadFiles[0].raw);
