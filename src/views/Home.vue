@@ -86,17 +86,7 @@ export default {
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600");
-@import "../assets/css/colors.css";
-@import "../assets/css/bootstrap.css";
-@import "../assets/css/bootstrap-extended.css";
-@import "../assets/css/components.css";
-@import "../assets/css/themes/dark-layout.css";
-@import "../assets/css/themes/bordered-layout.css";
-@import "../assets/css/themes/semi-dark-layout.css";
-@import "../assets/css/core/menu/menu-types/vertical-menu.css";
-@import "../assets/css/plugins/forms/form-validation.css";
-@import "../assets/css/pages/page-auth.css";
-@import "../assets/style.css";
+
 .position-left {
   float: left;
 }

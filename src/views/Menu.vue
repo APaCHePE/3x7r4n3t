@@ -109,14 +109,8 @@ export default {
 
 <style lang="scss" scoped>
 
-@import "../plugins/css/bootstrap/bootstrap.css";
-@import "../plugins/css/bootstrap/bootstrap-select.min.css";
-@import "../plugins/css/bootstrap/bootstrap-datetimepicker.min.css";
-@import "../plugins/css/bootstrap/bootstrap-multiselect.css";
-@import "../plugins/css/style.css";
-@import "../plugins/css/main.css";
-@import "../plugins/css/font-awesome.css";
-@import "../plugins/css/responsive.css";
+// @import "../plugins/css/font-awesome.css";
+// @import "../plugins/css/responsive.css";
 
 .contenedor-opciones {
   position: absolute;

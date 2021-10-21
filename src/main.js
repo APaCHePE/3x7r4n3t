@@ -12,12 +12,12 @@ import '@/assets/style/stilo-responsive.scss';
 import Croppa from 'vue-croppa';
 
 // main.js 
-import VueSweetalert2 from 'vue-sweetalert2';
+// import VueSweetalert2 from 'vue-sweetalert2';
 
 // Si no necesita los estilos, no conecte 
 // import  'sweetalert2/dist/sweetalert2.min.css' ;
 
-Vue.use(VueSweetalert2);
+// Vue.use(VueSweetalert2);
 Vue.use(Croppa, { componentName: 'croppa' });
 Vue.config.productionTip = false;
 Vue.directive('uppercase', {

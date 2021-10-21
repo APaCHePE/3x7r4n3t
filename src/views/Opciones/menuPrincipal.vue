@@ -100,14 +100,7 @@ export default {
 </script>
 
 <style>
-@import "../../plugins/css/bootstrap/bootstrap.css";
-@import "../../plugins/css/bootstrap/bootstrap-select.min.css";
-@import "../../plugins/css/bootstrap/bootstrap-datetimepicker.min.css";
-@import "../../plugins/css/bootstrap/bootstrap-multiselect.css";
-@import "../../plugins/css/style.css";
-@import "../../plugins/css/main.css";
-@import "../../plugins/css/font-awesome.css";
-@import "../../plugins/css/responsive.css";
+
 .bienvenido {
   box-shadow: 3px 2px 10px #c7c7c7;
   border-radius: 28px !important;

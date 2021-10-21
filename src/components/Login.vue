@@ -1,5 +1,39 @@
 <template>
-  <div class="auth-login-form mt-2">
+  <div class="login-container auth-login-form mt-2">
+    <div>
+      <b-form>
+        <b-form-group
+          id="input-group-1"
+          label="Usuario:"
+          label-for="input-1"
+          description="We'll never share your email with anyone else."
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.email"
+            type="email"
+            placeholder="Enter email"
+            required
+            v-uppercase
+          ></b-form-input>
+        </b-form-group>
+        <b-form-group
+          id="input-group-1"
+          label="Contraseña:"
+          label-for="input-1"
+          description="We'll never share your email with anyone else."
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.email"
+            type="email"
+            placeholder="Enter email"
+            required
+            v-uppercase
+          ></b-form-input>
+        </b-form-group>
+      </b-form>
+    </div>
     <div class="form-group">
       <label class="form-label position-left size-text-login" for="login-email"
         >Usuario</label
@@ -72,12 +106,20 @@ export default {
   name: "Login",
   data() {
     return {
+      form: {
+        email: '',
+        name: '',
+        food: null,
+        checked: []
+      },
       logo_v2: image,
       user: null,
       password: null,
       usuarioRespuesta: null,
       continuar: false,
       cargando: false,
+      foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+      show: true
     };
   },
   created() {},
@@ -166,17 +208,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600");
-@import "../assets/css/colors.css";
-@import "../assets/css/bootstrap.css";
-@import "../assets/css/bootstrap-extended.css";
-@import "../assets/css/components.css";
-@import "../assets/css/themes/dark-layout.css";
-@import "../assets/css/themes/bordered-layout.css";
-@import "../assets/css/themes/semi-dark-layout.css";
-@import "../assets/css/core/menu/menu-types/vertical-menu.css";
-@import "../assets/css/plugins/forms/form-validation.css";
-@import "../assets/css/pages/page-auth.css";
-@import "../assets/style.css";
+
 .position-left {
   float: left;
 }
