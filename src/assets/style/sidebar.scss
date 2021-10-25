@@ -1,0 +1,81 @@
+@import './responsive.scss';
+
+.sidebar {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100% !important;
+  display: block;
+
+  // align-items: baseline;
+  .el-menu {
+    height: 100% !important;
+    background-color: $blue-custom;
+    border: none;
+
+    .el-submenu {
+      text-align: left;
+      &__title:hover {
+        background-color: $blue-custom!important;
+      }
+    }
+
+    .el-submenu:hover {
+      // background-color: $secondary-custom!important;
+    }
+
+    .el-submenu:active {}
+
+
+    &-item {
+      text-align: left;
+    }
+
+    &-item:hover {
+      text-align: left;
+      background-color: $blue-custom !important;
+    }
+
+    &--inline {
+      height: auto;
+      margin: 5px 10px;
+    }
+
+    &-item-group {
+      padding: 0px;
+
+      &__title {
+        display: none;
+      }
+    }
+  }
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Estilos barra (thumb) de scroll */
+.sidebar::-webkit-scrollbar-thumb {
+  background: $secondary-custom;
+  border-radius: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:active {
+  background-color: greenyellow;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: $secondary-custom;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos track de scroll */
+.sidebar::-webkit-scrollbar-track {
+  background: $blue-custom;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track:hover,
+.sidebar::-webkit-scrollbar-track:active {
+  background: $blue-custom;
+}

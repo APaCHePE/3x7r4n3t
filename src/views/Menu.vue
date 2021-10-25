@@ -1,29 +1,6 @@
 <template>
-  <div>
-    <!-- <div > -->
-    <!-- <b-button
-      v-b-toggle.sidebar-1
-      variant="background-color: #ffffff;box-shadow: none"
-      class="buttonMenu"
-    >
-      <a id="left-sidebar-hide" href="#">
-        <img
-          src="../plugins/img/icons/ico-navbar.png"
-          style="width: 25px; height: 25px"
-        />
-      </a>
-    </b-button> -->
-
-    <!-- </div> -->
     <div
-      class="
-        ball-scale-multiple
-        top-bar-fixed
-        left-sidebar-fixed
-        page-footer
-        boxed-layout
-      "
-      style="background-color: #ffffff; width: 100% !important"
+      class=" menu"
     >
       <div class="menuDesplegar" style=" background-color:#003462;">
         <Sidebar />
@@ -73,15 +50,15 @@
             </el-menu-item>
           </el-menu>
         </div>
-        <div class="contenedor">
-          <router-view />
-        </div>
       </div>
-    </div>
-  </div>
+      <div class="contenedor">
+        <router-view />
+      </div>
+    </div> 
 </template>
 <script>
 import Sidebar from "./Sidebar.vue";
+import '../assets/style/menu.scss';
 export default {
   components: {
     Sidebar,

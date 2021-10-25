@@ -228,11 +228,11 @@ export default {
 </script>
 
 <style>
-.menu {
+/* .menu {
   margin-right: 105px;
   font-size: 18px;
   margin-left: 105px;
-}
+} */
 .añadir {
   color: #51c1ff;
   text-align: right;

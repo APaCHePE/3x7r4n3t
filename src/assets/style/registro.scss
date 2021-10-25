@@ -1,0 +1,7 @@
+@import "./responsive.scss";
+
+.registro{
+  @include smartphone{
+    // background-color: cadetblue;
+  }
+}

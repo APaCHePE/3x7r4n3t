@@ -1,9 +1,9 @@
 <template>
-  <div class="page-container ">
+  <div class="mi-cuenta">
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px; margin-left: 100px;"
+        style=" margin-left: 10px;"
       >
         <titulo-header>Mis Datos</titulo-header><br />
         <div class="container miCuenta">
@@ -169,9 +169,6 @@ export default {
 </script>
 
 <style>
-.miCuenta{
-
-}
 .textoCuenta {
   text-align: left;
   width: 950px;

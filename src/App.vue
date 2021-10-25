@@ -6,6 +6,7 @@
 
 <style lang="scss">
 html, body {
+  margin: 0px;
   // background: #EAF0F9;
   background: #FFFFFC;
 }

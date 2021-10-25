@@ -1,91 +1,105 @@
 <template>
-  <div class="auth-login-form mt-2">
-    <div class="form-group">
-      <label class="form-label position-left size-text-login" for="NomEmpresa"
-        >Razón social</label
+  <div class="registro mt-2">
+    <b-form @submit="onSubmit" class="align-left">
+      <b-form-group
+        id="name"
+        label="Razón social:"
+        label-for="nombreRazSocial"
+        description=""
       >
-      <input
-        class="form-control"
-        id="NomEmpresa"
-        type="text"
-        name="NomEmpresa"
-        placeholder=""
-        aria-describedby="NomEmpresa"
-        autofocus=""
-        maxlength="100"
-        v-model="NombreEmpresa"
-        v-uppercase
-      />
-    </div>
-    <div class="form-group">
-      <label class="form-label position-left size-text-login" for="ruc"
-        >RUC</label
-      >
-      <input
-        class="form-control"
+        <b-form-input
+          id="name"
+          name="nombreRazSocial"
+          type="text"
+          placeholder="Razón social"
+          v-model="form.nombreEmpresa"
+          maxlength="100"
+          required
+          v-uppercase
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
         id="ruc"
-        type="text"
-        name="ruc"
-        placeholder=""
-        maxlength="11"
-        aria-describedby="ruc"
-        autofocus=""
-        v-model="rucEmpresa"
-        @keypress="soloNumeros"
-      />
-    </div>
-    <div class="form-group">
-      <label class="form-label position-left size-text-login" for="correo"
-        >Correo electrónico</label
+        label-for="ruc"
+        label="RUC:"
+        description=""
       >
-      <input
-        class="form-control"
+        <b-form-input
+          id="ruc"
+          name="ruc"
+          v-model="form.rucEmpresa"
+          type="text"
+          placeholder="RUC"
+          maxlength="11"
+          required
+          autofocus=""
+          v-uppercase
+          @keypress="soloNumeros"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
         id="correo"
-        type="text"
-        name="correo"
-        placeholder=""
-        aria-describedby="correo"
-        autofocus=""
-        maxlength="30"
-        v-model="correoEmpresa"
-        v-uppercase
-      />
-    </div>
-    <div class="form-group">
-      <label class="form-label position-left size-text-login" for="telefono"
-        >Teléfono / Celular</label
+        label-for="correo"
+        label="Correo electrónico:"
+        description=""
       >
-      <input
-        @keypress="soloNumeros"
-        class="form-control"
+        <b-form-input
+          id="correo"
+          name="correo"
+          v-model="form.correoEmpresa"
+          type="text"
+          placeholder="Correo electrónico"
+          maxlength="30"
+          required
+          autofocus=""
+          v-uppercase
+          @keypress="soloNumeros"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
         id="telefono"
-        type="text"
-        name="telefono"
-        placeholder=""
-        aria-describedby="telefono"
-        autofocus=""
-        maxlength="9"
-        v-model="telefonoEmpresa"
-      />
-    </div>
-    <div class="form-group">
-      <label class="form-label position-left size-text-login">Dirección</label>
-      <input
-        class="form-control"
+        label-for="telefono"
+        label="Teléfono / Celular:"
+        description=""
+      >
+       
+        <b-form-input
+          id="telefono"
+          name="telefono"
+          v-model="form.telefonoEmpresa"
+          type="text"
+          placeholder="Teléfono"
+          maxlength="9"
+          required
+          autofocus="telefono"
+          v-uppercase
+          @keypress="soloNumeros"
+        ></b-form-input>
+      </b-form-group>
+      <b-form-group
         id="direccion"
-        type="text"
-        placeholder=""
-        autofocus=""
-        maxlength="50"
-        v-model="direccion"
-        v-uppercase
-      />
-    </div>
+        label="Dirección:"
+        label-for="input-1"
+        description=""
+      >
+        <b-form-input
+          id="direccion"
+          name="direccion"
+          type="text"
+          v-model="form.direccion"
+          placeholder="RUC"
+          maxlength="150"
+          required
+          autofocus=""
+          v-uppercase
+        ></b-form-input>
+      </b-form-group>
+      <b-button class="btn btn-primary mt-3" style="width: 100%" submit  variant="primary" >
+        Solicitar
+      </b-button>
+    </b-form>
 
-    <button class="btn btn-primary btn-block" @click="validacionFormulario()">
-      Solicitar
-    </button>
-    <p class="text-center mt-2" style="color: #51c1ff">
+    <p class="text-center mt-2" >
       <a @click="login = false"><span>&nbsp;Ya tengo cuenta</span></a>
     </p>
     <el-dialog :visible.sync="cargando" width="30%">
@@ -104,9 +118,17 @@
 import axios from "axios";
 import image from "@/assets/images/pages/login-v2.svg";
 import constantes from "../store/Constantes";
+import "../assets/style/registro.scss";
 export default {
   data() {
     return {
+      form: {
+        nombreEmpresa: "",
+        rucEmpresa: "",
+        correoEmpresa: "",
+        telefonoEmpresa: "",
+        direccion: "",
+      },
       cargando: false,
       NombreEmpresa: null,
       rucEmpresa: null,
@@ -131,89 +153,93 @@ export default {
     },
   },
   methods: {
-    soloNumeros(event){
+    soloNumeros(event) {
       var key = window.event ? event.which : event.keyCode;
-      if(key == 8){
+      if (key == 8) {
         console.log("solo numeros ");
-      }else if (key < 48 || key > 57) {
+      } else if (key < 48 || key > 57) {
         event.preventDefault();
       }
     },
     validacionFormulario() {
       this.cargando = true;
       if (!this.NombreEmpresa || this.NombreEmpresa.length <= 2) {
-        this.modal("info","Ingrese razón social" ,"");
-        return ;
-      }else if(!this.rucEmpresa){
-        this.modal("info","Ingrese su número de RUC" ,"");
-        return ;
-      }else if(this.rucEmpresa.trim().length != 11){
-        this.modal("info","Verifique el número de RUC" ,"");
-        return ;
-      }else if(!this.correoEmpresa || this.correoEmpresa.length <= 2){
-        this.modal("info","Ingrese su correo electrónico" ,"");
-        return ;
-      }else if ( !this.correoEmpresa.includes("@") || !this.correoEmpresa.includes(".")) {
-				return this.modal('info','Verifique el campo de correo','');
-			}else if(!this.telefonoEmpresa || this.telefonoEmpresa.length <= 2){
-        this.modal("info","Ingrese teléfono/celular" ,"");
-        return ;
-			}else if(!this.direccion || this.direccion.length <= 2){
-        this.modal("info","Ingrese dirección" ,"");
-        return ;
-      }else{
-        this.generarSolicitud()
+        this.modal("info", "Ingrese razón social", "");
+        return;
+      } else if (!this.rucEmpresa) {
+        this.modal("info", "Ingrese su número de RUC", "");
+        return;
+      } else if (this.rucEmpresa.trim().length != 11) {
+        this.modal("info", "Verifique el número de RUC", "");
+        return;
+      } else if (!this.correoEmpresa || this.correoEmpresa.length <= 2) {
+        this.modal("info", "Ingrese su correo electrónico", "");
+        return;
+      } else if (
+        !this.correoEmpresa.includes("@") ||
+        !this.correoEmpresa.includes(".")
+      ) {
+        return this.modal("info", "Verifique el campo de correo", "");
+      } else if (!this.telefonoEmpresa || this.telefonoEmpresa.length <= 2) {
+        this.modal("info", "Ingrese teléfono/celular", "");
+        return;
+      } else if (!this.direccion || this.direccion.length <= 2) {
+        this.modal("info", "Ingrese dirección", "");
+        return;
+      } else {
+        this.generarSolicitud();
       }
     },
-    modal(icono, titulo, texto){
+    modal(icono, titulo, texto) {
       this.$swal({
-          icon: icono,
-          title: titulo,
-          text: texto,
-        });
-      if(this.cargando)this.cargando=false;
+        icon: icono,
+        title: titulo,
+        text: texto,
+      });
+      if (this.cargando) this.cargando = false;
     },
     generarSolicitud() {
-        axios
-          .post(constantes.rutaAdmin+"/guardar-proveedor", {
-            usuario: this.correoEmpresa,
-            tipoCuenta: 6,
-            persona: {
-              nroDocumento: this.rucEmpresa,
-              tipoDocumento: this.tipoDocumento,
-              nombreCompleto: this.NombreEmpresa,
-              telefonoPrincipal: this.telefonoEmpresa,
-              direccion: this.direccion,
-              idSistema: 9,
-            },
-          })
-          .then((response) => {
-            console.log(response);
-            if (response.data.esCorrecto) {
-              this.$swal({
-                icon: "success",
-                title: "",
-                text: "Se ha registrado su solicitud con éxito",
-              });
-              this.login = false;
-            } else {
-              this.$swal({
-                icon: "info",
-                title: "Aviso",
-                text: "El proveedor ya ha sido registrada",
-              });
-            }
-          })
-          .catch((e) => {
-            console.log(e);
+      axios
+        .post(constantes.rutaAdmin + "/guardar-proveedor", {
+          usuario: this.correoEmpresa,
+          tipoCuenta: 6,
+          persona: {
+            nroDocumento: this.rucEmpresa,
+            tipoDocumento: this.tipoDocumento,
+            nombreCompleto: this.NombreEmpresa,
+            telefonoPrincipal: this.telefonoEmpresa,
+            direccion: this.direccion,
+            idSistema: 9,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          if (response.data.esCorrecto) {
             this.$swal({
-              icon: "error",
+              icon: "success",
               title: "",
-              text: "No se ha podido registrar, intente mas tarde.",
+              text: "Se ha registrado su solicitud con éxito",
             });
-          }).finally(()=>{
-          this.cargando=false;
-        });;
+            this.login = false;
+          } else {
+            this.$swal({
+              icon: "info",
+              title: "Aviso",
+              text: "El proveedor ya ha sido registrada",
+            });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          this.$swal({
+            icon: "error",
+            title: "",
+            text: "No se ha podido registrar, intente mas tarde.",
+          });
+        })
+        .finally(() => {
+          this.cargando = false;
+        });
     },
   },
 };

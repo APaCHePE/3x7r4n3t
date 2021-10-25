@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  // name: 'menuPrincipal',
+  // name: 'Bienvenidos_bk',
   data() {
     return {
       itemsNav: [

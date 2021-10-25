@@ -1,56 +1,54 @@
 <template>
-  <div class="color" style=" background-color:#003462; box-sizing: content-box">
-    <el-col
+  <div class="sidebar" style="box-sizing: content-box">
+    <!-- <el-col
       style="mt-3; width: 18%; position: fixed; height: 100%; 
     display: flex; text-align: left"
+    > -->
+    <el-menu
+      default-active="1"
+      :background-color="'rgb(' + blue_custom + ')'"
+      text-color="#fff"
+      :active-text-color="'rgb(' + secondary_custom + ')'"
+      @open="handleOpen"
+      @close="handleClose"
     >
-      <el-menu
-        style="size: 20px; background-color: #003462"
-        default-active="2"
-        class="el-menu-vertical-demo color"
-        ><br />
+      <img class="" src="../plugins/img/nuevo.png" width="250" height="75px" />
 
-        <a class="color"
-          >
-          <img 
-            class=""
-            src="../plugins/img/nuevo.png"
-            width="250"
-            height="75px" />
-            
-            <br /><br /></a>
-            <br />
-
-       <router-link :to="'/menu'"> <el-menu-item
-          index="1"
-          style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
-        >
+      <router-link :to="'/menu'">
+        <el-menu-item index="1">
           <i class="el-icon-menu"></i>
           <span>Inicio</span>
-        </el-menu-item></router-link>
+        </el-menu-item></router-link
+      >
 
-        <el-submenu index="2" style="padding: 50px 0px 0px 0px; text-align: left">
-          <template slot="title">
-            <i class="el-icon-setting"></i>
-            <span style="font-size: 20px; color: #fff">Administración</span>
-          </template>
-          <el-menu-item-group @click="enviarSelect(ruta)">
-           <router-link :to="'/micuenta'"> <el-menu-item index="2-1">
+      <el-submenu index="2">
+        <template slot="title">
+          <i class="el-icon-setting"></i>
+          <span style="font-size: 13px">Administración</span>
+        </template>
+        <el-menu-item-group @click="enviarSelect(ruta)" title="Group One">
+          <router-link :to="'/micuenta'">
+            <el-menu-item index="2-1">
               <span>Cuenta</span>
-            </el-menu-item></router-link>
-           <router-link :to="'/miscontactos'"> <el-menu-item index="2-2">
+            </el-menu-item></router-link
+          >
+          <router-link :to="'/miscontactos'">
+            <el-menu-item index="2-2">
               <span>Contactos</span>
-            </el-menu-item></router-link>
-            <router-link :to="'/misusuarios'"><el-menu-item index="2-3">
+            </el-menu-item></router-link
+          >
+          <router-link :to="'/misusuarios'"
+            ><el-menu-item index="2-3">
               <span>Usuarios</span>
-            </el-menu-item></router-link>
-          </el-menu-item-group>
-        </el-submenu>
+            </el-menu-item></router-link
+          >
+        </el-menu-item-group>
+      </el-submenu>
 
-        <!-- <el-submenu index="3" style="padding: 30px 0px 0px 0px">
+      <!-- <el-submenu index="3" >
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px">Ordenes</span>
+            <span style="">Ordenes</span>
           </template>
           <el-menu-item-group>
             <router-link :to="'/ordenes'"><el-menu-item index="1-1">
@@ -62,38 +60,48 @@
           </el-menu-item-group>
         </el-submenu> -->
 
-        <el-submenu index="4" style="padding: 30px 0px 0px 0px">
-          <template slot="title">
-            <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px; color: #fff">Facturas</span>
-          </template>
-          <el-menu-item-group>
-            <router-link :to="'/facturas'"><el-menu-item index="4-1">
+      <el-submenu index="4">
+        <template slot="title">
+          <i class="el-icon-edit-outline"></i>
+          <span>Facturas</span>
+        </template>
+        <el-menu-item-group>
+          <router-link :to="'/facturas'"
+            ><el-menu-item index="4-1">
               <span>Listado</span>
-            </el-menu-item></router-link>
-             <router-link :to="'/neo-digital'"><el-menu-item index="4-2">
-             <span>Nueva</span>
-            </el-menu-item></router-link>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="5" style="padding: 30px 0px 0px 0px">
-          <template slot="title">
-            <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px; color: #fff">Recibo por Honorarios</span>
-          </template>
-          <el-menu-item-group>
-            <router-link :to="'/facturas'"><el-menu-item index="5-1">
+            </el-menu-item></router-link
+          >
+          <router-link :to="'/neo-digital'"
+            ><el-menu-item index="4-2">
+              <span>Nueva</span>
+            </el-menu-item></router-link
+          >
+        </el-menu-item-group>
+      </el-submenu>
+
+      <el-submenu index="5">
+        <template slot="title">
+          <i class="el-icon-edit-outline"></i>
+          <span>Recibo por Honorarios</span>
+        </template>
+        <el-menu-item-group>
+          <router-link :to="'/facturas'"
+            ><el-menu-item index="5-1">
               <span>Listado</span>
-            </el-menu-item></router-link>
-             <router-link :to="'/neo-rxh'"><el-menu-item index="5-2">
-             <span>Nuevo</span>
-            </el-menu-item></router-link>
-          </el-menu-item-group>
-        </el-submenu>
-        <!-- <el-submenu index="6" style="padding: 30px 0px 0px 0px">
+            </el-menu-item></router-link
+          >
+          <router-link :to="'/neo-rxh'"
+            ><el-menu-item index="5-2">
+              <span>Nuevo</span>
+            </el-menu-item></router-link
+          >
+        </el-menu-item-group>
+      </el-submenu>
+
+      <!-- <el-submenu index="6">
           <template slot="title">
             <i class="el-icon-edit-outline"></i>
-            <span style="font-size: 20px">Archivo Banco</span>
+            <span style=" ">Archivo Banco</span>
           </template>
           <el-menu-item-group>
              <router-link :to="'archivo-banco'"><el-menu-item index="6-1">
@@ -102,97 +110,27 @@
           </el-menu-item-group>
         </el-submenu> -->
 
-        <router-link :to="'/'"><el-menu-item
-          index="6"
-          style="font-size: 20px; padding: 30px 0px 0px 20px; color: black;"
-        >
+      <router-link :to="'/'"
+        ><el-menu-item index="6">
           <i class="el-icon-circle-close"></i>
-          <span style="color: #fff">Cerrar Sesión</span>
-        </el-menu-item></router-link>
-      </el-menu>
-    </el-col>
-
-    <!-- <b-sidebar
-    id="sidebar-1"
-    shadow
-    class="mt-3"
-    visible
-    noCloseOnRouteChange
-    noHeader
-    :backdrop-variant="variant"
-  >
-    <div class="left-sidebar-wrapper">
-      <div>
-        <div class="scroll-area">
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav" style="text-align: center">
-              <br />
-              <a
-                ><img
-                  class=""
-                  src="../plugins/img/logo.png"
-                  width="300"
-                  height="80px"
-              /></a>
-            </div>
-          </div>
-        </div>
-        <div class="scroll-area">
-          <ul
-            class="sidebar-nav"
-            data-open-speed="250"
-            data-close-speed="200"
-            data-easing="linear"
-            style="text-align: left;"
-          >
-            <div v-for="(i, a) in itemsNav" :key="a + 'lista'">
-              <li v-if="i.children">
-                <a href="#" style="size: 20px"
-                  ><span class="nav-item-text" style="font-size: 20px">{{
-                    i.name
-                  }}</span></a
-                >
-                <ul role="menu">
-                  <li
-                    v-for="(child, b) in i.children"
-                    :key="b + 'lista'"
-                    @click="enviarSelect(child)"
-                  >
-                    <router-link :to="child.url"
-                      ><span class="nav-item-text" style="font-size: 20px"
-                        >{{ child.name }}
-                      </span></router-link
-                    >
-                  </li>
-                </ul>
-              </li>
-
-              <li v-else @click="enviarSelect(i)">
-                <router-link :to="i.url"
-                  ><span class="nav-item-text" style="font-size: 20px"
-                    >{{ i.name }}
-                  </span></router-link
-                >
-              </li>
-              <br />
-            </div>
-            <br />
-          </ul>
-        </div>
-      </div>
-    </div>
-  </b-sidebar> -->
+          <span style="">Cerrar Sesión</span>
+        </el-menu-item></router-link
+      >
+    </el-menu>
   </div>
 </template>
 
 <script>
 // import nav from "@/router/opciones-menu.js";
+import "../assets/style/sidebar.scss";
 export default {
   name: "sidebar",
   data() {
     return {
       cuenta: "/micuenta",
       variant: "dark",
+      blue_custom: "0,54,95",
+      secondary_custom: "81,193, 225",
       variants: [
         "transparent",
         "white",
@@ -205,13 +143,18 @@ export default {
         "warning",
         "info",
       ],
-    
     };
   },
   mounted() {
     console.log(this.itemsNav);
   },
   methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
     enviarSelect(param) {
       this.$emit("cambio-component", param);
       console.log(param);
@@ -220,5 +163,3 @@ export default {
 };
 </script>
 
-<style></style>
-<!---->

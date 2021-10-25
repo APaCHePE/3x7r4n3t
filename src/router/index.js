@@ -25,7 +25,7 @@ const routes = [
     children:[
       {
         path: '/',
-        component: ()=>import('../views/Opciones/menuPrincipal.vue') 
+        component: ()=>import('../views/Opciones/Bienvenidos.vue') 
       },
       {
         path: '/misusuarios',
