@@ -8,10 +8,7 @@
     </div>
     <div class="menu-mobil" style="background-color: #003462">
       <SidebarMobil />
-    </div>
-    <div class="menuMobil">
-      
-    </div>
+    </div> -->
     <div class="contenido-dinamico">
       <router-view />
     </div>
@@ -30,21 +27,10 @@ export default {
   },
   data() {
     return {
-      activeIndex2: "1",
-      isCollapse: true,
     };
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>

@@ -7,7 +7,6 @@
         </div></template>
     
     <el-menu
-      default-active="1"
       :background-color="'rgb(' + blue_custom + ')'"
       text-color="#fff"
       :active-text-color="'rgb(' + secondary_custom + ')'"

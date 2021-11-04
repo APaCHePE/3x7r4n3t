@@ -1,12 +1,9 @@
 <template>
   <div class="sidebar" style="box-sizing: content-box">
     <el-menu
-      default-active="1"
       :background-color="'rgb(' + blue_custom + ')'"
       text-color="#fff"
       :active-text-color="'rgb(' + secondary_custom + ')'"
-      @open="handleOpen"
-      @close="handleClose"
     >
       <template ><img class="el-menu-imagen" src="../../plugins/img/nuevo.png" width="250" height="75px" /></template>
 
@@ -143,7 +140,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.itemsNav);
+    console.log(this.variants);
   },
   methods: {
     handleOpen(key, keyPath) {

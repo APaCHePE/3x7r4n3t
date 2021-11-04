@@ -41,7 +41,7 @@
 </template>
 <script>
 export default {
-  props: [ "userId"],
+  // props: [ "userId"],
   data() {
     return {
       listaOpciones: [
@@ -100,7 +100,7 @@ export default {
     };
   },
   created() {
-    this.$emit("setIdUser", this.userId);
+    // this.$emit("setIdUser", this.userId);
   },
 };
 </script>
