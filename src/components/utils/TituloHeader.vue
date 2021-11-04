@@ -21,12 +21,12 @@
     margin: auto;
     .content-header {
       text-align: left;
-      width: 100%;
       h1.title-top {
         font-weight: 600;
         color: #0078cf;
         padding-bottom: 10px;
         padding-top: 10px;
+        padding-left: 15px;
         font-size: 25px;
       }
     }

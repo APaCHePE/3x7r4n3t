@@ -1,12 +1,10 @@
 <template>
-  <div class="page-container ">
-    <!-- <div class="main-content body-full positionRight"> -->
+  <div class="mis-usuarios">
       <div
-        class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px; margin-left: 100px;"
+        class=" "
       >
         <titulo-header>Mis Usuarios</titulo-header><br />
-        <div class="container">
+        <div class="container-body">
           <div id="misUsuarios">
             <!-- <h2 class="titulo">Mis Usuarios</h2> -->
             <div id="cuentasBAncarias" class="textoCuenta2">
@@ -109,6 +107,7 @@
 
 <script>
 import TituloHeader from "@/components/utils/TituloHeader.vue";
+import '../../assets/style/misusuarios.scss';
 
 export default {
   components: {
@@ -167,16 +166,16 @@ export default {
 </script>
 
 <style>
-.textoCuenta2 {
+/* .textoCuenta2 {
   text-align: left;
   margin-left: 65px;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 23px;
-}
+} */
 
-.titulo {
+/* .titulo {
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
@@ -206,7 +205,7 @@ export default {
 
   width: 350px;
   height: 70px;
-}
+} */
 .añadir {
   color: #51c1ff;
   text-align: right;

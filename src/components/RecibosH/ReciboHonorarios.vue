@@ -2,7 +2,7 @@
   <div class="component">
     <titulo-header>Registre su recibo por Honorarios</titulo-header>
     <!-- <div class="contenido"> -->
-    <div class="">
+    <div class="container-body">
       <div class="ml-5" style="text-align: left">
         <table width="80%">
           <tbody>

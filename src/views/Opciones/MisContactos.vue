@@ -1,18 +1,12 @@
 <template>
-  <div class="page-container ">
+  <div class="mis-contactos">
     <!-- <div class="main-content body-full positionRight"> -->
       <div
         class="content contentTG left-sidebar-toggle contenedor-opciones"
-        style="min-height: 592px; margin-left: 100px;"
       >
         <titulo-header>Mis Contactos</titulo-header><br />
-        <div class="container">
+        <div class="container-body">
           <div>
-            <!-- <h2 class="titulo">Mis Contactos</h2> -->
-            <!-- <div id="cuentasBAncarias" class="textoCuenta2"> -->
-              <!-- <div>
-                <b-table striped hover :items="items" :fields="fields"  style="width: 90%;"></b-table>
-            </div>  -->
 
               <el-table :data="tableData" style="width: 100%">
                 <el-table-column prop="cargo" label="Cargo" width="130">
@@ -49,6 +43,7 @@
 
 <script>
 import TituloHeader from "@/components/utils/TituloHeader.vue";
+import '../../assets/style/miscontactos.scss';
 
 export default {
   components: {
@@ -113,7 +108,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .textoCuenta {
   text-align: left;
   width: 950px;

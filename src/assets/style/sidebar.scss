@@ -7,6 +7,10 @@
   display: block;
 
   // align-items: baseline;
+  .el-menu--inline ::after{
+    background-color: $blue-custom;
+    margin-bottom: 0px;
+  }
   .el-menu {
     height: 100% !important;
     background-color: $blue-custom;
@@ -14,24 +18,23 @@
 
     .el-submenu {
       text-align: left;
+      background-color: $blue-custom!important;
+      margin-bottom: 0px;
       &__title:hover {
         background-color: $blue-custom!important;
       }
     }
-
-    .el-submenu:hover {
-      // background-color: $secondary-custom!important;
+    &-imagen{
+      // @include tablet{
+      //   display: none;
+      // }
     }
-
-    .el-submenu:active {}
-
 
     &-item {
       text-align: left;
     }
 
     &-item:hover {
-      text-align: left;
       background-color: $blue-custom !important;
     }
 
@@ -46,6 +49,42 @@
       &__title {
         display: none;
       }
+    }
+  }
+  .el-drawer{
+    background-color: $blue-custom;
+    color: $white-custom;
+    .el-drawer__body {
+      overflow-y: auto !important;
+    }
+    .el-drawer__body::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    /* Estilos barra (thumb) de scroll */
+    .el-drawer__body::-webkit-scrollbar-thumb {
+      background: $secondary-custom;
+      border-radius: 8px;
+    }
+    
+    .el-drawer__body::-webkit-scrollbar-thumb:active {
+      background-color: greenyellow;
+    }
+    
+    .el-drawer__body::-webkit-scrollbar-thumb:hover {
+      background: $secondary-custom;
+      box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Estilos track de scroll */
+    .el-drawer__body::-webkit-scrollbar-track {
+      background: $blue-custom;
+      border-radius: 4px;
+    }
+    
+    .el-drawer__body::-webkit-scrollbar-track:hover,
+    .el-drawer__body::-webkit-scrollbar-track:active {
+      background: $blue-custom;
     }
   }
 }

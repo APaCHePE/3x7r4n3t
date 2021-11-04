@@ -1,9 +1,5 @@
 <template>
   <div class="sidebar" style="box-sizing: content-box">
-    <!-- <el-col
-      style="mt-3; width: 18%; position: fixed; height: 100%; 
-    display: flex; text-align: left"
-    > -->
     <el-menu
       default-active="1"
       :background-color="'rgb(' + blue_custom + ')'"
@@ -12,12 +8,12 @@
       @open="handleOpen"
       @close="handleClose"
     >
-      <img class="" src="../plugins/img/nuevo.png" width="250" height="75px" />
+      <template ><img class="el-menu-imagen" src="../../plugins/img/nuevo.png" width="250" height="75px" /></template>
 
       <router-link :to="'/menu'">
         <el-menu-item index="1">
           <i class="el-icon-menu"></i>
-          <span>Inicio</span>
+          <span slot="title">Inicio</span>
         </el-menu-item></router-link
       >
 
@@ -113,7 +109,7 @@
       <router-link :to="'/'"
         ><el-menu-item index="6">
           <i class="el-icon-circle-close"></i>
-          <span style="">Cerrar Sesión</span>
+          <span slot="title">Cerrar Sesión</span>
         </el-menu-item></router-link
       >
     </el-menu>
@@ -122,11 +118,12 @@
 
 <script>
 // import nav from "@/router/opciones-menu.js";
-import "../assets/style/sidebar.scss";
+import "../../assets/style/sidebar.scss";
 export default {
   name: "sidebar",
   data() {
     return {
+      isCollapse: true,
       cuenta: "/micuenta",
       variant: "dark",
       blue_custom: "0,54,95",

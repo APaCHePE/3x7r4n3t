@@ -1,0 +1,15 @@
+@import "./responsive.scss";
+
+
+.mis-contactos{
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  @include smartphone{
+  }
+  @include tablet{
+  }
+  @include desktop{
+  }
+  
+}

@@ -1,18 +1,58 @@
 @import './responsive.scss';
 
 .menu{
-  background-color: chocolate!important;
-  width: 100%;
+  background-color: #f1f2f7;
   overflow-y: hidden;
   @include desktop{
     display: flex;
     flex-direction: row;
     height: 100vh;
   }
-  .izquierda{
-    background-color: cornflowerblue;
+  @include tablet{
+    display: flex;
+    flex-direction: row;
   }
-  .derecha{
-    background-color: crimson;
+  @include smartphone{
+    display: block;
+    // flex-direction: column;
+  }
+  
+  &-web{
+    @include desktop{
+    }
+    @include tablet{
+      display: none ;
+    }
+    @include smartphone{
+      display: none ;
+    }
+  }
+  &-tablet{
+    @include desktop{
+      display: none;
+    }
+    @include tablet{
+    }
+    @include smartphone{
+      display: none;
+    }
+  }
+  &-mobil{
+    @include desktop{
+      display: none;
+    }
+    @include tablet{
+      display: none;
+    }
+    @include smartphone{
+    }
+  }
+  .contenido-dinamico{
+    width: 100%;
+    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
+    overflow-y: auto;
+    overflow-x: auto;
   }
 }

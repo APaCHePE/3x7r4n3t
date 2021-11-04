@@ -1,15 +1,11 @@
 <template>
-  <div class="page-container">
+  <div class="lista-facturas">
     <!-- <div class="main-content body-full positionRight"> -->
     <div
       class="content contentTG left-sidebar-toggle contenedor-opciones"
-      style="min-height: 592px; margin-left: 70px"
     >
       <titulo-header>Facturas</titulo-header><br />
-      <div class="container">
-            <!-- <span slot="label" class="menu"
-              ><i class="el-icon-search"></i> Busqueda</span
-            > -->
+      <div class="container-body">
             <div>
               <div class="row">
                 <div class="col-md-4" style="float: left">N° de Factura</div>
@@ -46,8 +42,10 @@
               </div>
               <br />
               <el-button
-                style="background-color: #51c1ff; width: 900px; color: #ffffff"
+                style="display: block; width: 90%; margin: auto"
                 icon="el-icon-search"
+                type="primary"
+                size="medium"
                 @click="BuscarFacturas()"
                 >Buscar</el-button
               ><br /><br /><br />
@@ -159,6 +157,7 @@ import moment from "moment";
 import axios from "axios";
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 import constantes from "../../store/Constantes";
+import '../../assets/style/facturas.scss';
 
 export default {
   components: {

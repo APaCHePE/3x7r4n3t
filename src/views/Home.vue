@@ -3,12 +3,18 @@
     <div class="home-contenedor">
       <div class="izquierda">
         <a class="brand-logo" href="javascript:void(0);">
-          <h2 class="brand-text text-primary ml-1">ESTEC</h2>
-
+          <!-- <h2 class="brand-text text-white ml-1">ESTEC</h2> -->
           <img class="img-fluid" :src="logo_v2" alt="Login V2" />
         </a>
       </div>
       <div class="derecha">
+          <template
+            ><img
+              class="derecha-imagen"
+              src="../plugins/img/nuevo.png"
+              width="250"
+              height="75px"
+          /></template>
         <div class="derecha-contenido">
           <p class="mb-2">Portal pago a provedores</p>
           <div>
