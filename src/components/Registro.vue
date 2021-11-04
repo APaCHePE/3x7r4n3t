@@ -1,6 +1,6 @@
 <template>
   <div class="registro mt-2">
-    <b-form @submit="onSubmit" class="align-left">
+    <b-form @submit="validacionFormulario" class="align-left">
       <b-form-group
         id="name"
         label="Razón social:"
@@ -32,7 +32,7 @@
           placeholder="RUC"
           maxlength="11"
           required
-          autofocus=""
+          autofocus
           v-uppercase
           @keypress="soloNumeros"
         ></b-form-input>
@@ -51,7 +51,7 @@
           placeholder="Correo electrónico"
           maxlength="30"
           required
-          autofocus=""
+          autofocus
           v-uppercase
           @keypress="soloNumeros"
         ></b-form-input>
@@ -71,7 +71,7 @@
           placeholder="Teléfono"
           maxlength="9"
           required
-          autofocus="telefono"
+          autofocus
           v-uppercase
           @keypress="soloNumeros"
         ></b-form-input>
@@ -90,7 +90,7 @@
           placeholder="RUC"
           maxlength="150"
           required
-          autofocus=""
+          autofocus
           v-uppercase
         ></b-form-input>
       </b-form-group>
@@ -163,16 +163,16 @@ export default {
     },
     validacionFormulario() {
       this.cargando = true;
-      if (!this.NombreEmpresa || this.NombreEmpresa.length <= 2) {
+      if (!this.form.NombreEmpresa || this.form.NombreEmpresa.length <= 2) {
         this.modal("info", "Ingrese razón social", "");
         return;
-      } else if (!this.rucEmpresa) {
+      } else if (!this.form.rucEmpresa) {
         this.modal("info", "Ingrese su número de RUC", "");
         return;
-      } else if (this.rucEmpresa.trim().length != 11) {
+      } else if (this.form.rucEmpresa.trim().length != 11) {
         this.modal("info", "Verifique el número de RUC", "");
         return;
-      } else if (!this.correoEmpresa || this.correoEmpresa.length <= 2) {
+      } else if (!this.form.correoEmpresa || this.form.correoEmpresa.length <= 2) {
         this.modal("info", "Ingrese su correo electrónico", "");
         return;
       } else if (
@@ -180,10 +180,10 @@ export default {
         !this.correoEmpresa.includes(".")
       ) {
         return this.modal("info", "Verifique el campo de correo", "");
-      } else if (!this.telefonoEmpresa || this.telefonoEmpresa.length <= 2) {
+      } else if (!this.form.telefonoEmpresa || this.form.telefonoEmpresa.length <= 2) {
         this.modal("info", "Ingrese teléfono/celular", "");
         return;
-      } else if (!this.direccion || this.direccion.length <= 2) {
+      } else if (!this.form.direccion || this.form.direccion.length <= 2) {
         this.modal("info", "Ingrese dirección", "");
         return;
       } else {
@@ -201,14 +201,14 @@ export default {
     generarSolicitud() {
       axios
         .post(constantes.rutaAdmin + "/guardar-proveedor", {
-          usuario: this.correoEmpresa,
+          usuario: this.form.correoEmpresa,
           tipoCuenta: 6,
           persona: {
-            nroDocumento: this.rucEmpresa,
-            tipoDocumento: this.tipoDocumento,
-            nombreCompleto: this.NombreEmpresa,
-            telefonoPrincipal: this.telefonoEmpresa,
-            direccion: this.direccion,
+            nroDocumento: this.form.rucEmpresa,
+            tipoDocumento: this.form.tipoDocumento,
+            nombreCompleto: this.form.NombreEmpresa,
+            telefonoPrincipal: this.form.telefonoEmpresa,
+            direccion: this.form.direccion,
             idSistema: 9,
           },
         })

@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="mt-2">
-      <b-form  @submit="validarLogin">
+      <b-form  >
         <b-form-group
           id="input-group-1"
           label="Usuario:"
@@ -32,6 +32,7 @@
           ></b-form-input>
 
           <b-button
+          @click="validarLogin()"
             class="btn btn-primary mt-3"
             type="submit"
             variant="primary"
@@ -52,7 +53,7 @@
         <span class="sr-only">Loading...</span>
       </div>
     </el-dialog>
-    <router-link v-if="continuar" to="/menu"></router-link>
+    <!-- <router-link v-if="continuar" to="/menu"></router-link> -->
     <p class="text-center mt-2">
       <a @click="login = false"><span>&nbsp;Solicitar Cuenta</span></a>
     </p>
@@ -105,7 +106,6 @@ export default {
             this.$router.replace("/menu");},
     validarLogin() {
       this.cargando = true;
-      debugger
       if (this.form.password == null || this.form.password.length <= 5) {
         this.$swal({
           icon: "info",
@@ -123,13 +123,13 @@ export default {
         this.cargando = false;
         return;
       } else {
-        this.guardarUser();
+        this.loginUsuario();
       }
     },
-    guardarUser() {
-      debugger
+    async loginUsuario() {
       const url = constantes.rutaAdmin + "/login-externos"; 
-      axios
+      let acces = false;
+      await axios
         .get(url, {
           params: {
             user: this.form.user,
@@ -137,53 +137,56 @@ export default {
           },
         })
         .then((response) => {
-          debugger
           this.usuarioRespuesta = response.data;
           this.cargando = false;
           if (response.data.esCorrecto) {
-            localStorage.setItem(
-              "User",
-              this.usuarioRespuesta.resultado.persona.nroDocumento
-            );
-            localStorage.setItem(
-              "nombreUsuario",
-              this.usuarioRespuesta.resultado.persona.nombreCompleto
-            );
-            localStorage.setItem(
-              "numeroDocumento",
-              this.usuarioRespuesta.resultado.persona.nroDocumento
-            );
-            localStorage.setItem(
-              "telefonoPrincipal",
-              this.usuarioRespuesta.resultado.persona.telefonoPrincipal
-            );
-            localStorage.setItem(
-              "usuario",
-              this.usuarioRespuesta.resultado.usuario
-            );
-            this.$router.replace("/menu");
+            // localStorage.setItem(
+            //   "User",
+            //   this.usuarioRespuesta.resultado.persona.nroDocumento
+            // );
+            // localStorage.setItem(
+            //   "nombreUsuario",
+            //   this.usuarioRespuesta.resultado.persona.nombreCompleto
+            // );
+            // localStorage.setItem(
+            //   "numeroDocumento",
+            //   this.usuarioRespuesta.resultado.persona.nroDocumento
+            // );
+            // localStorage.setItem(
+            //   "telefonoPrincipal",
+            //   this.usuarioRespuesta.resultado.persona.telefonoPrincipal
+            // );
+            // localStorage.setItem(
+            //   "usuario",
+            //   this.usuarioRespuesta.resultado.usuario
+            // );
+            debugger
+            acces = true 
             // this.continuar = true;
           } else {
-            this.$swal({
-              icon: "info",
-              title: "info",
-              text: this.usuarioRespuesta.mensajeError,
-            });
+            // this.$swal({
+            //   icon: "info",
+            //   title: "info",
+            //   text: this.usuarioRespuesta.mensajeError,
+            // });
           }
         })
-        .catch((e) => {
-          this.cargando = false;
-          console.log("error al logear ");
-          console.log(e.response.data.mensajeError);
-          this.$swal({
-            icon: "error",
-            title: "Error",
-            text: e.response.data.mensajeError,
-          });
-        })
-        .finally(() => {
-          this.cargando = false;
-        });
+        // .catch((e) => {
+          // this.cargando = false;
+          // console.log("error al logear ");
+          // console.log(e.response.data.mensajeError);
+          // this.$swal({
+          //   icon: "error",
+          //   title: "Error",
+          //   text: e.response.data.mensajeError,
+          // });
+        // })
+        // .finally(() => {
+        //   this.cargando = false;
+        // });
+        debugger
+          if(acces)this.$router.push("/menu");
+          console.log("paso el replace")
     },
   },
 };
