@@ -94,7 +94,7 @@
           v-uppercase
         ></b-form-input>
       </b-form-group>
-      <b-button class="btn btn-primary mt-3" style="width: 100%" submit  variant="primary" >
+      <b-button class="btn btn-primary mt-3" style="width: 100%" submit  variant="primary" @click="generarSolicitud()">
         Solicitar
       </b-button>
     </b-form>
