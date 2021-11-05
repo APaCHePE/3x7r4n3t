@@ -1,103 +1,60 @@
 <template>
   <div class="registro mt-2">
-    <b-form @submit="validacionFormulario" class="align-left">
-      <b-form-group
-        id="name"
-        label="Razón social:"
-        label-for="nombreRazSocial"
-        description=""
-      >
-        <b-form-input
-          id="name"
-          name="nombreRazSocial"
-          type="text"
-          placeholder="Razón social"
-          v-model="form.nombreEmpresa"
-          maxlength="100"
-          required
-          v-uppercase
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="ruc"
-        label-for="ruc"
-        label="RUC:"
-        description=""
-      >
-        <b-form-input
-          id="ruc"
-          name="ruc"
-          v-model="form.rucEmpresa"
-          type="text"
-          placeholder="RUC"
-          maxlength="11"
-          required
-          autofocus
-          v-uppercase
-          @keypress="soloNumeros"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="correo"
-        label-for="correo"
-        label="Correo electrónico:"
-        description=""
-      >
-        <b-form-input
-          id="correo"
-          name="correo"
-          v-model="form.correoEmpresa"
-          type="text"
-          placeholder="Correo electrónico"
-          maxlength="30"
-          required
-          autofocus
-          v-uppercase
-          @keypress="soloNumeros"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="telefono"
-        label-for="telefono"
-        label="Teléfono / Celular:"
-        description=""
-      >
-       
-        <b-form-input
+    <label>Razón social:</label>
+    <el-input
+      id="name"
+      name="nombreRazSocial"
+      type="text"
+      v-model="nombreEmpresa"
+      maxlength="100"
+      required
+    ></el-input>
+    <label>RUC:</label>
+    <el-input
+      id="ruc"
+      name="ruc"
+      v-model="rucEmpresa"
+      type="text"
+      maxlength="11"
+      required
+      autofocus
+      @keypress="soloNumeros"
+    ></el-input>
+    <label>Correo electrónico:</label>
+    <el-input
+      id="correo"
+      name="correo"
+      v-model="correoEmpresa"
+      type="text"
+      maxlength="30"
+      required
+      autofocus
+      @keypress="soloNumeros"
+    ></el-input>
+    <label>Teléfono / Celular:</label>
+        <el-input
           id="telefono"
           name="telefono"
-          v-model="form.telefonoEmpresa"
+          v-model="telefonoEmpresa"
           type="text"
-          placeholder="Teléfono"
           maxlength="9"
           required
           autofocus
-          v-uppercase
           @keypress="soloNumeros"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="direccion"
-        label="Dirección:"
-        label-for="input-1"
-        description=""
-      >
-        <b-form-input
+        ></el-input>
+    <label>Dirección:</label>
+        <el-input
           id="direccion"
           name="direccion"
           type="text"
-          v-model="form.direccion"
-          placeholder="RUC"
+          v-model="direccion"
           maxlength="150"
           required
           autofocus
-          v-uppercase
-        ></b-form-input>
-      </b-form-group>
+        ></el-input>
       <b-button class="btn btn-primary mt-3" style="width: 100%" submit  variant="primary" @click="generarSolicitud()">
         Solicitar
       </b-button>
-    </b-form>
 
     <p class="text-center mt-2" >
       <a @click="login = false"><span>&nbsp;Ya tengo cuenta</span></a>
@@ -122,15 +79,8 @@ import "../assets/style/registro.scss";
 export default {
   data() {
     return {
-      form: {
-        nombreEmpresa: "",
-        rucEmpresa: "",
-        correoEmpresa: "",
-        telefonoEmpresa: "",
-        direccion: "",
-      },
       cargando: false,
-      NombreEmpresa: null,
+      nombreEmpresa: null,
       rucEmpresa: null,
       correoEmpresa: null,
       telefonoEmpresa: null,
@@ -163,16 +113,16 @@ export default {
     },
     validacionFormulario() {
       this.cargando = true;
-      if (!this.form.NombreEmpresa || this.form.NombreEmpresa.length <= 2) {
+      if (!this.NombreEmpresa || this.NombreEmpresa.length <= 2) {
         this.modal("info", "Ingrese razón social", "");
         return;
-      } else if (!this.form.rucEmpresa) {
+      } else if (!this.rucEmpresa) {
         this.modal("info", "Ingrese su número de RUC", "");
         return;
-      } else if (this.form.rucEmpresa.trim().length != 11) {
+      } else if (this.rucEmpresa.trim().length != 11) {
         this.modal("info", "Verifique el número de RUC", "");
         return;
-      } else if (!this.form.correoEmpresa || this.form.correoEmpresa.length <= 2) {
+      } else if (!this.correoEmpresa || this.correoEmpresa.length <= 2) {
         this.modal("info", "Ingrese su correo electrónico", "");
         return;
       } else if (
@@ -180,10 +130,10 @@ export default {
         !this.correoEmpresa.includes(".")
       ) {
         return this.modal("info", "Verifique el campo de correo", "");
-      } else if (!this.form.telefonoEmpresa || this.form.telefonoEmpresa.length <= 2) {
+      } else if (!this.telefonoEmpresa || this.telefonoEmpresa.length <= 2) {
         this.modal("info", "Ingrese teléfono/celular", "");
         return;
-      } else if (!this.form.direccion || this.form.direccion.length <= 2) {
+      } else if (!this.direccion || this.direccion.length <= 2) {
         this.modal("info", "Ingrese dirección", "");
         return;
       } else {
@@ -201,14 +151,14 @@ export default {
     generarSolicitud() {
       axios
         .post(constantes.rutaAdmin + "/guardar-proveedor", {
-          usuario: this.form.correoEmpresa,
+          usuario: this.correoEmpresa,
           tipoCuenta: 6,
           persona: {
-            nroDocumento: this.form.rucEmpresa,
+            nroDocumento: this.rucEmpresa,
             tipoDocumento: this.tipoDocumento,
-            nombreCompleto: this.form.nombreEmpresa,
-            telefonoPrincipal: this.form.telefonoEmpresa,
-            direccion: this.form.direccion,
+            nombreCompleto: this.nombreEmpresa,
+            telefonoPrincipal: this.telefonoEmpresa,
+            direccion: this.direccion,
             idSistema: 9,
           },
         })

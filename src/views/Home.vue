@@ -4,20 +4,22 @@
       <div class="izquierda">
         <a class="brand-logo" href="javascript:void(0);">
           <!-- <h2 class="brand-text text-white ml-1">ESTEC</h2> -->
+          <!-- <div class="texto"><h2 ><u>Portal pago a provedores</u></h2></div> -->
           <img class="img-fluid" :src="logo_v2" alt="Login V2" />
         </a>
       </div>
       <div class="derecha">
-          <template
+          <!-- <template
             ><img
               class="derecha-imagen"
               src="../plugins/img/nuevo.png"
               width="250"
               height="75px"
-          /></template>
+          /></template> -->
         <div class="derecha-contenido">
-          <p class="mb-2">Portal pago a provedores</p>
-          <div>
+          <p class="mb-1" v-if="login"><b>Registrate!</b></p>
+          <p class="mb-1" v-else><b>Te damos la bienvenida!</b></p>
+          <div class="forms">
             <div v-if="login">
               <Registro @cambiar-registro="cambiarModo" :Login="login" />
             </div>
