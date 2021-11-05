@@ -6,7 +6,6 @@
         id="input-1"
         v-model="form.user"
         type="email"
-        placeholder="Ingrese usuario"
       ></el-input>
       <label>Contraseña:</label>
 
@@ -15,7 +14,6 @@
         v-model="form.password"
         autocomplete="off"
         :type="'password'"
-        placeholder="Ingreser contraseña"
         required
       ></el-input>
       <el-button

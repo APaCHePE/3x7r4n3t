@@ -3,7 +3,7 @@
 
 
 .home {
-  background-color:$blue-custom;
+  background-color:$white-custom;
 
   &-contenedor {
     display: flex;
@@ -40,6 +40,16 @@
       @include desktop {
         width: 60%;
         min-width: 50%;
+      }
+      .texto{
+        text-align: left;
+        align-items: left;
+        margin-left: 15px;
+        margin-top: 15px;
+        h2{
+          position: static;
+          align-items: left;
+        }
       }
     }
 

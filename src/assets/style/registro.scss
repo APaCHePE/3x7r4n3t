@@ -5,7 +5,13 @@
   @include smartphone{
     
   }
+  // label {
+  //   margin-top: 5px;
+  // }
   .el-input{
-    margin-bottom: .15rem;
+    border-radius: 4px;
+    border: 0 !important;
+    border-bottom: 1px solid $blue-custom !important;
+    outline: 0;
   }
 }
