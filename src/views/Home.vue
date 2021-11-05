@@ -16,8 +16,8 @@
               height="75px"
           /></template>
         <div class="derecha-contenido">
-          <p class="mb-2">Portal pago a provedores</p>
-          <div>
+          <p class="mb-1">Portal pago a provedores</p>
+          <div class="forms">
             <div v-if="login">
               <Registro @cambiar-registro="cambiarModo" :Login="login" />
             </div>

@@ -1,7 +1,11 @@
 @import "./responsive.scss";
 
 .registro{
+  text-align: left;
   @include smartphone{
-    // background-color: cadetblue;
+    
+  }
+  .el-input{
+    margin-bottom: .15rem;
   }
 }

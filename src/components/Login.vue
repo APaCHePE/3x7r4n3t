@@ -1,47 +1,32 @@
 <template>
   <div class="login">
     <div class="mt-2">
-      <el-form ref="form" :model="form" >
-        <el-form-item
-          id="input-group-1"
-          label="Usuario:"
-          label-for="input-1"
-          description=""
-        >
-          <el-input
-            id="input-1"
-            v-model="form.user"
-            type="email"
-            placeholder="Ingrese usuario"
-            required
-            
-          ></el-input>
-        </el-form-item>
-        <el-form-item
-          id="input-group-1"
-          label="Contraseña:"
-          label-for="input-1"
-          description=""
-        >
-          <el-input
-            id="input-1"
-            v-model="form.password"
-            type="password"
-            placeholder="Ingreser contraseña"
-            required
-          ></el-input>
+      <label>Usuario:</label>
+      <el-input
+        id="input-1"
+        v-model="form.user"
+        type="email"
+        placeholder="Ingrese usuario"
+      ></el-input>
+      <label>Contraseña:</label>
 
-        </el-form-item>
-          <el-button
-          @click="validarLogin()"
-            class="btn btn-primary mt-3"
-            type="submit"
-            variant="primary"
-            style="width:100%"
-          >
-            Ingresar
-          </el-button>
-      </el-form>
+      <el-input
+        id="input-1"
+        v-model="form.password"
+        autocomplete="off"
+        :type="'password'"
+        placeholder="Ingreser contraseña"
+        required
+      ></el-input>
+      <el-button
+        class="mt-3"
+        ref="contraseniaFocus"
+        @click="validarLogin()"
+        type="primary"
+        style="width: 100%"
+      >
+        Ingresar
+      </el-button>
     </div>
     <el-dialog :visible.sync="cargando" width="30%">
       <div
@@ -56,7 +41,6 @@
     <p class="text-center mt-2">
       <a @click="login = false"><span>&nbsp;Solicitar Cuenta</span></a>
     </p>
-    <b-button @click="entrar()">Entrar </b-button>
   </div>
 </template>
 
@@ -87,13 +71,18 @@ export default {
     };
   },
   created() {},
+  directives: {
+    uppercase: {
+      update(el) {
+        el.value = el.value.toUpperCase();
+      },
+    },
+  },
   computed: {
     login: {
-      // getter
       get: function () {
         return this.Login;
       },
-      // setter
       set: function () {
         console.log("enviando parametro ");
         this.$emit("cambiar-registro");
@@ -101,19 +90,23 @@ export default {
     },
   },
   methods: {
-    entrar(){
-            this.$router.replace("/menu");},
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        console.log("CONSOLEANDO EL FORMULARIO VALDACION ");
+        console.log(valid);
+        console.log("CONSOLEANDO EL FORMULARIO ");
+        console.log(formName);
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
     validarLogin() {
       this.cargando = true;
-      if (this.form.password == null || this.form.password.length <= 5) {
-        this.$swal({
-          icon: "info",
-          title: "info",
-          text: "Debe ingresar una contraseña",
-        });
-        this.cargando = false;
-        return;
-      } else if (this.form.user == null || this.form.user.length <= 5) {
+      if (this.form.user == null || this.form.user.length <= 5) {
         this.$swal({
           icon: "info",
           title: "info",
@@ -121,12 +114,20 @@ export default {
         });
         this.cargando = false;
         return;
-      } else {
+      } else if (this.form.password == null || this.form.password.length <= 5) {
+        this.$swal({
+          icon: "info",
+          title: "info",
+          text: "Debe ingresar una contraseña",
+        });
+        this.cargando = false;
+        return;
+      }else {
         this.loginUsuario();
       }
     },
     async loginUsuario() {
-      const url = constantes.rutaAdmin + "/login-externos"; 
+      const url = constantes.rutaAdmin + "/login-externos";
       let acces = false;
       await axios
         .get(url, {
@@ -160,10 +161,9 @@ export default {
               this.usuarioRespuesta.resultado.usuario
             );
             // debugger
-            acces = true 
+            acces = true;
             this.continuar = true;
-          } 
-          else {
+          } else {
             this.$swal({
               icon: "info",
               title: "info",
@@ -184,9 +184,9 @@ export default {
         .finally(() => {
           this.cargando = false;
         });
-        // debugger
-          if(acces)this.$router.push("/menu");
-          console.log("paso el replace")
+      // debugger
+      if (acces) this.$router.push("/menu");
+      console.log("paso el replace");
     },
   },
 };

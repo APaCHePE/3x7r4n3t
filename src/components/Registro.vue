@@ -1,69 +1,41 @@
 <template>
   <div class="registro mt-2">
-    <b-form @submit="validacionFormulario" class="align-left">
-      <b-form-group
-        id="name"
-        label="Razón social:"
-        label-for="nombreRazSocial"
-        description=""
-      >
-        <b-form-input
-          id="name"
-          name="nombreRazSocial"
-          type="text"
-          placeholder="Razón social"
-          v-model="form.nombreEmpresa"
-          maxlength="100"
-          required
-          v-uppercase
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="ruc"
-        label-for="ruc"
-        label="RUC:"
-        description=""
-      >
-        <b-form-input
-          id="ruc"
-          name="ruc"
-          v-model="form.rucEmpresa"
-          type="text"
-          placeholder="RUC"
-          maxlength="11"
-          required
-          autofocus
-          v-uppercase
-          @keypress="soloNumeros"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="correo"
-        label-for="correo"
-        label="Correo electrónico:"
-        description=""
-      >
-        <b-form-input
-          id="correo"
-          name="correo"
-          v-model="form.correoEmpresa"
-          type="text"
-          placeholder="Correo electrónico"
-          maxlength="30"
-          required
-          autofocus
-          v-uppercase
-          @keypress="soloNumeros"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="telefono"
-        label-for="telefono"
-        label="Teléfono / Celular:"
-        description=""
-      >
-       
-        <b-form-input
+    <label>Razón social:</label>
+    <el-input
+      id="name"
+      name="nombreRazSocial"
+      type="text"
+      placeholder="Razón social"
+      v-model="form.nombreEmpresa"
+      maxlength="100"
+      required
+    ></el-input>
+    <label>RUC:</label>
+    <el-input
+      id="ruc"
+      name="ruc"
+      v-model="form.rucEmpresa"
+      type="text"
+      placeholder="RUC"
+      maxlength="11"
+      required
+      autofocus
+      @keypress="soloNumeros"
+    ></el-input>
+    <label>Correo electrónico:</label>
+    <el-input
+      id="correo"
+      name="correo"
+      v-model="form.correoEmpresa"
+      type="text"
+      placeholder="Correo electrónico"
+      maxlength="30"
+      required
+      autofocus
+      @keypress="soloNumeros"
+    ></el-input>
+    <label>Teléfono / Celular:</label>
+        <el-input
           id="telefono"
           name="telefono"
           v-model="form.telefonoEmpresa"
@@ -72,17 +44,10 @@
           maxlength="9"
           required
           autofocus
-          v-uppercase
           @keypress="soloNumeros"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
-        id="direccion"
-        label="Dirección:"
-        label-for="input-1"
-        description=""
-      >
-        <b-form-input
+        ></el-input>
+    <label>Dirección:</label>
+        <el-input
           id="direccion"
           name="direccion"
           type="text"
@@ -91,13 +56,10 @@
           maxlength="150"
           required
           autofocus
-          v-uppercase
-        ></b-form-input>
-      </b-form-group>
+        ></el-input>
       <b-button class="btn btn-primary mt-3" style="width: 100%" submit  variant="primary" @click="generarSolicitud()">
         Solicitar
       </b-button>
-    </b-form>
 
     <p class="text-center mt-2" >
       <a @click="login = false"><span>&nbsp;Ya tengo cuenta</span></a>
@@ -137,6 +99,66 @@ export default {
       tipoDocumento: 4,
       direccion: null,
       logo_v2: image,
+      rules: {
+        name: [
+          {
+            required: true,
+            message: "Please input Activity name",
+            trigger: "blur",
+          },
+          {
+            min: 3,
+            max: 5,
+            message: "Length should be 3 to 5",
+            trigger: "blur",
+          },
+        ],
+        region: [
+          {
+            required: true,
+            message: "Please select Activity zone",
+            trigger: "change",
+          },
+        ],
+        date1: [
+          {
+            type: "date",
+            required: true,
+            message: "Please pick a date",
+            trigger: "change",
+          },
+        ],
+        date2: [
+          {
+            type: "date",
+            required: true,
+            message: "Please pick a time",
+            trigger: "change",
+          },
+        ],
+        type: [
+          {
+            type: "array",
+            required: true,
+            message: "Please select at least one activity type",
+            trigger: "change",
+          },
+        ],
+        resource: [
+          {
+            required: true,
+            message: "Please select activity resource",
+            trigger: "change",
+          },
+        ],
+        desc: [
+          {
+            required: true,
+            message: "Please input activity form",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   computed: {

@@ -83,12 +83,14 @@
       flex-direction: column;
       border-radius: 10px;
       @include smartphone {
+        width: 90%;
         padding: 10px 20px;
         justify-content: center;
         align-items: center;
       }
 
       @include tablet {
+        width: 60%;
         padding: 10px 20px;
         flex-wrap: wrap;
         justify-content: center;
@@ -97,10 +99,23 @@
       }
 
       @include desktop {
+        width: 70%;
         padding: 10px 20px;
         flex-wrap: wrap;
         justify-content: center;
         word-wrap:break-Word;
+      }
+      .forms{
+        display: block;
+        @include smartphone {
+        }
+  
+        @include tablet {
+          
+        }
+  
+        @include desktop {
+        }
       }
     }
   }
