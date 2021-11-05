@@ -206,7 +206,7 @@ export default {
           persona: {
             nroDocumento: this.form.rucEmpresa,
             tipoDocumento: this.tipoDocumento,
-            nombreCompleto: this.form.NombreEmpresa,
+            nombreCompleto: this.form.nombreEmpresa,
             telefonoPrincipal: this.form.telefonoEmpresa,
             direccion: this.form.direccion,
             idSistema: 9,
