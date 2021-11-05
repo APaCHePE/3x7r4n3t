@@ -14,7 +14,7 @@
         <template slot="title"
           ><img
             class="el-menu-imagen"
-            src="../../plugins/img/nuevo.png"
+            src="../../assets/images/nuevo.png"
             width="150"
             height="50px"
             @click="drawer = true"
@@ -31,7 +31,7 @@
       <template slot="title"
         ><img
           class="el-menu-imagen"
-          src="../../plugins/img/nuevo.png"
+          src="../../assets/images/nuevo.png"
           width="150"
           height="50px"
           @click="drawer = true"

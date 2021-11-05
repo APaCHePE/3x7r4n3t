@@ -14,7 +14,7 @@
       :collapse="isCollapse"
       @close="handleClose"
     >
-      <template  v-if="!isCollapse"><img class="el-menu-imagen" src="../../plugins/img/nuevo.png" width="250" height="75px" /></template>
+      <template  v-if="!isCollapse"><img class="el-menu-imagen" src="../../assets/images/nuevo.png" width="250" height="75px" /></template>
 
       <router-link :to="'/menu'">
         <el-menu-item index="1">

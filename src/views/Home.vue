@@ -9,13 +9,13 @@
         </a>
       </div>
       <div class="derecha">
-          <!-- <template
+          <template
             ><img
               class="derecha-imagen"
-              src="../plugins/img/nuevo.png"
+              src="../assets/images/logo.png"
               width="250"
               height="75px"
-          /></template> -->
+          /></template>
         <div class="derecha-contenido">
           <p class="mb-1" v-if="login"><b>Registrate!</b></p>
           <p class="mb-1" v-else><b>Te damos la bienvenida!</b></p>

@@ -5,7 +5,7 @@
       text-color="#fff"
       :active-text-color="'rgb(' + secondary_custom + ')'"
     >
-      <template ><img class="el-menu-imagen" src="../../plugins/img/nuevo.png" width="250" height="75px" /></template>
+      <template ><img class="el-menu-imagen" src="../../assets/images/nuevo.png" width="250" height="75px" /></template>
 
       <router-link :to="'/menu'">
         <el-menu-item index="1">
