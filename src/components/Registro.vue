@@ -134,7 +134,7 @@ export default {
       rucEmpresa: null,
       correoEmpresa: null,
       telefonoEmpresa: null,
-      tipoDocumento: 4,
+      tipoDocumento: 6,
       direccion: null,
       logo_v2: image,
     };
@@ -205,7 +205,7 @@ export default {
           tipoCuenta: 6,
           persona: {
             nroDocumento: this.form.rucEmpresa,
-            tipoDocumento: this.form.tipoDocumento,
+            tipoDocumento: this.tipoDocumento,
             nombreCompleto: this.form.NombreEmpresa,
             telefonoPrincipal: this.form.telefonoEmpresa,
             direccion: this.form.direccion,
