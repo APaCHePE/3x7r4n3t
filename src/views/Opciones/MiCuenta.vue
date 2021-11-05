@@ -3,25 +3,28 @@
     <div class="container contenedor-opciones">
       <titulo-header>Mis Datos</titulo-header><br />
       <div class="container-body">
-        <div id="miCuenta">
-          <div id="detalleCuenta" class="textoCuenta">
-            <div class="row">
-              <div class="col-md-6">Razon Social: {{ nombreRazonSocial }}</div>
-              <div class="col-md-6">Ruc: {{ numeroRuc }}</div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-md-6">Cuenta Administardora: {{ cuenta }}</div>
-              <div class="col-md-6">
-                Teléfono / Celular principal: {{ telefono }}
-              </div>
-            </div>
+        <div id="miCuenta"><br>
+          <div style="font-size:12px; ">
+            <el-row :gutter="10" class="d-flex justify-content-end">
+              <el-col :md="6"><p><b>Razon Social:</b></p></el-col>
+              <el-col :md="6"><p>{{ nombreRazonSocial }}</p> </el-col>
+              <el-col :md="6"><p><b>Ruc:</b></p></el-col>
+              <el-col :md="6"><p>{{ numeroRuc }}</p></el-col>
+            </el-row>
+            <el-row :gutter="10" class="d-flex justify-content-end">
+              <el-col :md="6"><p><b>Cuenta:</b></p></el-col>
+              <el-col :md="6"><p>{{ cuenta }}</p></el-col>
+              <el-col :md="6"><p><b>Teléfono / Celular:</b></p></el-col>
+              <el-col :md="6"><p>{{ telefono }}</p></el-col>
+            </el-row>
           </div>
+
         </div>
         <br />
         <div>
-          <div id="cuentasBAncarias" class="textoCuenta">
-            <div class="table-responsive-sm">
+          <div id="cuentasBAncarias" >
+
+            <!-- <div class="table-responsive-sm">
               <table id="example2" class="table table-hover table-sm mb-2">
                 <thead>
                   <tr>
@@ -62,10 +65,73 @@
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <h2 class="titulo2">Cuentas Bancarias</h2>
+            </div> -->
 
-            <div class="row">
+            <div class="añadir">
+              <el-button type="text" @click="dialogVisible = true"
+                >+ añadir cuenta</el-button
+              >
+            </div>
+            <el-table
+              :data="tableData"
+              style="width: 90%;margin-left: auto; ">
+              <el-table-column
+                prop="entidad"
+                label="Entidad Bancaria"
+                width="250">
+              </el-table-column>
+              <el-table-column
+                prop="moneda"
+                label="Moneda"
+                width="200">
+              </el-table-column>
+              <el-table-column
+                prop="cCorriente"
+                label="N° Cuenta"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="cInterbancaria"
+                label="CCI"
+                width="180">
+              </el-table-column>
+            </el-table><br><br>
+
+
+
+
+            <h4 style="color:#5278d2">Cuentas Bancarias</h4><br>
+               <div class="añadir" style="margin-top: -5%;">
+              <el-button type="text" @click="dialogVisible = true"
+                >+ añadir cuenta</el-button
+              >
+            </div>
+            <el-table
+              :data="tableData2"
+              style="width: 90%;margin-left: auto; ">
+              <el-table-column
+                prop="entidad"
+                label="Entidad Bancaria"
+                width="250">
+              </el-table-column>
+              <el-table-column
+                prop="moneda"
+                label="Moneda"
+                width="200">
+              </el-table-column>
+              <el-table-column
+                prop="cCorriente"
+                label="N° Cuenta"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="cInterbancaria"
+                label="CCI"
+                width="180">
+              </el-table-column>
+            </el-table><br>
+
+            <!-- <div class="row">
               <div class="col-md-3">Entidad Bancaria</div>
               <div class="col-md-3">Moneda</div>
               <div class="col-md-3">N° Cuenta</div>
@@ -105,7 +171,7 @@
               <el-button type="text" @click="dialogVisible = true"
                 >+ añadir cuenta</el-button
               >
-            </div>
+            </div> -->
 
             <el-dialog
               title="Nueva cuenta"
@@ -135,34 +201,32 @@
               </span>
             </el-dialog>
           </div>
-        </div>
+        </div><br><br>
+
+
+
         <div>
           <div id="cuentasBAncarias" class="textoCuenta">
-            <h2 class="titulo2">Cuenta de Detraccíon</h2>
-            <div class="row">
-              <div class="col-md-3">Entidad Bancaria</div>
-              <div class="col-md-3">Moneda</div>
-              <div class="col-md-3">N° Cuenta</div>
-            </div>
-            <div class="row">
-              <div class="col-md-3">
-                <input
-                  class="form-control form-control-merge"
-                  v-model="entidadDetraccion"
-                  disabled
-                />
-              </div>
-              <div class="col-md-3">
-                <input
-                  class="form-control form-control-merge"
-                  v-model="monedaDetraccion"
-                  disabled
-                />
-              </div>
-              <div class="col-md-3">
-                <input class="form-control form-control-merge" />
-              </div>
-            </div>
+            <h4 style="color:#5278d2">Cuentas Bancarias</h4><br>
+             <el-table
+              :data="tableData2"
+              style="width: 90%;margin-left: auto; ">
+              <el-table-column
+                prop="entidad"
+                label="Entidad Bancaria"
+                width="250">
+              </el-table-column>
+              <el-table-column
+                prop="moneda"
+                label="Moneda"
+                width="200">
+              </el-table-column>
+              <el-table-column
+                prop="cCorriente"
+                label="N° Cuenta"
+                width="180">
+              </el-table-column>
+            </el-table><br>
           </div>
         </div>
       </div>
@@ -188,11 +252,21 @@ export default {
           cInterbancaria: "100191902746320951",
         },
       ],
+       tableData2: [
+        {
+          entidad: "",
+          moneda: "",
+          cCorriente: "",
+          cInterbancaria: "",
+        },
+      ],
       dialogVisible: false,
-      nombreRazonSocial: null,
-      numeroRuc: null,
-      cuenta: null,
-      telefono: null,
+      //datos principales 
+      nombreRazonSocial: localStorage.getItem("nombreUsuario"),
+      numeroRuc: localStorage.getItem("numeroDocumento"), 
+      cuenta: localStorage.getItem("usuario"),
+      telefono: localStorage.getItem("telefonoPrincipal"),
+      //
       entidadDetraccion: "Banco de la Nacion",
       monedaDetraccion: "soles",
     };
