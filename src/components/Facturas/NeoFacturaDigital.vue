@@ -167,7 +167,7 @@
       </div>
       <div v-if="mostrarFactura">
         <div
-          class="ml-5 titulo"
+          class="mx-5 ml-5 titulo"
         >
           <h2><b>Vista previa</b></h2>
         </div>
@@ -608,9 +608,9 @@ export default {
     },
 
     rellenarJsonFactura(facturaRecibida) {
-      // if(facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"]["cac:PartyIdentification"]["cbc:ID"].content != localStorage.getItem("User")){
-      //   return this.modal("info", "La factura ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
-      // }
+      if(facturaRecibida["cac:AccountingSupplierParty"]["cac:Party"]["cac:PartyIdentification"]["cbc:ID"].content != localStorage.getItem("User")){
+        return this.modal("info", "La factura ingresada no corresponde a "+localStorage.getItem("nombreUsuario"),"");
+      }
       // CABECERA
       this.facturaJson["proveedorId003TipoDocumento"] = 1;
       this.facturaJson["id007TipoComprobante"] = 24;

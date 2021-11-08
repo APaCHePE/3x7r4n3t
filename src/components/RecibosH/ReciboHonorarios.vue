@@ -105,7 +105,6 @@
         v-if="mostrarFactura"
         class="pie-factura mx-5"
       >
-      
         <div
           class="ml-5 titulo" 
         >
