@@ -18,7 +18,7 @@
       maxlength="11"
       required
       autofocus
-      @keypress="soloNumeros"
+      @keypress.native="soloNumeros"
     ></el-input>
     <label>Correo electrónico:</label>
     <el-input
@@ -26,48 +26,44 @@
       name="correo"
       v-model="correoEmpresa"
       type="text"
-      maxlength="30"
-      required
-      autofocus
-      @keypress="soloNumeros"
+      maxlength="60"
     ></el-input>
     <label>Teléfono / Celular:</label>
-        <el-input
-          id="telefono"
-          name="telefono"
-          v-model="telefonoEmpresa"
-          type="text"
-          maxlength="9"
-          required
-          autofocus
-          @keypress="soloNumeros"
-        ></el-input>
+    <el-input
+      id="telefono"
+      name="telefono"
+      v-model="telefonoEmpresa"
+      type="text"
+      maxlength="9"
+      required
+      autofocus
+      @keypress.native="soloNumeros"
+    ></el-input>
     <label>Dirección:</label>
-        <el-input
-          id="direccion"
-          name="direccion"
-          type="text"
-          v-model="direccion"
-          maxlength="150"
-          required
-          autofocus
-        ></el-input>
-      <b-button class="btn btn-primary mt-3" style="width: 100%" submit  variant="primary" @click="generarSolicitud()">
-        Solicitar
-      </b-button>
+    <el-input
+      id="direccion"
+      name="direccion"
+      type="text"
+      v-model="direccion"
+      maxlength="150"
+      required
+      autofocus
+    ></el-input>
+    <b-button
+      class="btn btn-primary mt-3"
+      style="width: 100%"
+      submit
+      variant="primary"
+      @click="validacionFormulario()"
+    >
+      Solicitar
+    </b-button>
 
-    <p class="text-center mt-2" >
-      <a @click="login = false"><span>&nbsp;Ya tengo cuenta</span></a>
-    </p>
-    <el-dialog :visible.sync="cargando" width="30%">
-      <div
-        class="spinner-border"
-        style="width: 3rem; height: 3rem"
-        role="status"
+    <p class="text-center mt-2">
+      <el-button type="text" @click="login = false"
+        ><u><span>&nbsp;Ya tengo cuenta</span></u></el-button
       >
-        <span class="sr-only">Loading...</span>
-      </div>
-    </el-dialog>
+    </p>
   </div>
 </template>
 
@@ -79,7 +75,6 @@ import "../assets/style/registro.scss";
 export default {
   data() {
     return {
-      cargando: false,
       nombreEmpresa: null,
       rucEmpresa: null,
       correoEmpresa: null,
@@ -112,8 +107,17 @@ export default {
       }
     },
     validacionFormulario() {
-      this.cargando = true;
-      if (!this.NombreEmpresa || this.NombreEmpresa.length <= 2) {
+      this.$swal.fire({
+        title: "Solicitando...",
+        showCloseButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          console.log("mostrando ");
+          this.$swal.showLoading();
+        },
+      });
+      if (!this.nombreEmpresa || this.nombreEmpresa.length <= 2) {
         this.modal("info", "Ingrese razón social", "");
         return;
       } else if (!this.rucEmpresa) {
@@ -129,7 +133,8 @@ export default {
         !this.correoEmpresa.includes("@") ||
         !this.correoEmpresa.includes(".")
       ) {
-        return this.modal("info", "Verifique el campo de correo", "");
+        this.modal("info", "Verifique el campo de correo", "")
+        return ;
       } else if (!this.telefonoEmpresa || this.telefonoEmpresa.length <= 2) {
         this.modal("info", "Ingrese teléfono/celular", "");
         return;
@@ -140,13 +145,17 @@ export default {
         this.generarSolicitud();
       }
     },
-    modal(icono, titulo, texto) {
-      this.$swal({
+    async modal(icono, titulo, texto) {
+      
+      this.$swal.fire({
         icon: icono,
         title: titulo,
         text: texto,
+        showBottomCancel: true,
+        didOpen: () => {
+          this.$swal.hideLoading();
+        },
       });
-      if (this.cargando) this.cargando = false;
     },
     generarSolicitud() {
       axios
@@ -165,31 +174,15 @@ export default {
         .then((response) => {
           console.log(response);
           if (response.data.esCorrecto) {
-            this.$swal({
-              icon: "success",
-              title: "",
-              text: "Se ha registrado su solicitud con éxito",
-            });
+            this.modal("success", "", "Se ha registrado su solicitud con éxito");
             this.login = false;
           } else {
-            this.$swal({
-              icon: "info",
-              title: "Aviso",
-              text: "El proveedor ya ha sido registrada",
-            });
+            this.modal("info", "Aviso", "El proveedor ya ha sido registrado");
           }
         })
         .catch((e) => {
-          console.log(e);
-          this.$swal({
-            icon: "error",
-            title: "",
-            text: "No se ha podido registrar, intente mas tarde.",
-          });
+          this.modal("error", "No se ha podido registrar", e.response.data.mensajeError + "");
         })
-        .finally(() => {
-          this.cargando = false;
-        });
     },
   },
 };

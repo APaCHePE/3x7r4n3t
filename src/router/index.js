@@ -10,9 +10,7 @@ import Facturas from "../views/Opciones/Facturas.vue";
 import NeoFacturaDigital from "../components/Facturas/NeoFacturaDigital.vue";
 import ReciboHonorarios from "../components/RecibosH/ReciboHonorarios.vue";
 import ArchivoBanco from "../components/ArchivoBanco/Bandeja.vue";
-import VueSwal from 'vue-swal';
- 
-Vue.use(VueSwal);
+
 Vue.use(VueRouter);
 
 const routes = [

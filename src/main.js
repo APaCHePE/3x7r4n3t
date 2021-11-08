@@ -5,17 +5,9 @@ import router from "./router";
 import store from "./store";
 import './plugins/element.js';
 import './plugins/bootstrap-vue.js';
+import './plugins/sweetalert.js';
 import api from './plugins/axios.js';
-import './plugins/bootstrap-vue.js';
 import Croppa from 'vue-croppa';
-
-// main.js 
-// import VueSweetalert2 from 'vue-sweetalert2';
-
-// Si no necesita los estilos, no conecte 
-// import  'sweetalert2/dist/sweetalert2.min.css' ;
-
-// Vue.use(VueSweetalert2);
 
 import '@/assets/style/element.scss';
 import '@/assets/style/stylos-personalizados.scss';

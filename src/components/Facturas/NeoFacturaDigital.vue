@@ -4,129 +4,119 @@
       <titulo-header>Registre su factura electrónica</titulo-header>
     </div>
     <div class="container-body">
-      <div class=" ml-5" style="text-align: left">
-        <table width="80%">
-          <tbody>
-            <tr>
-              <td>
-                <div>
-                  <h3 class="mb-2">Documento PDF</h3>
-                  <el-upload
-                    ref="uploadPdf"
-                    :auto-upload="false"
-                    accept=".pdf"
-                    :limit="1"
-                    action="https://jsonplaceholder.typicode.com/posts/"
+      <div class="cabecera-factura">
+        <el-row :gutter="10">
+          <el-col :md="12">
+            <div>
+              <h3 class="mb-2">Documento PDF</h3>
+              <el-upload
+                ref="uploadPdf"
+                :auto-upload="false"
+                accept=".pdf"
+                :limit="1"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button slot="trigger" size="small" type="primary"
+                  >Selecciona un archivo</el-button
+                >
+                <template v-if="tokenTMP != null">
+                  <el-button
+                    @click="verFile(1, tokenTMP)"
+                    size="small"
+                    type="warning"
+                    >Ver</el-button
                   >
-                    <el-button slot="trigger" size="small" type="primary"
-                      >Selecciona un archivo</el-button
-                    >
-                    <template v-if="tokenTMP != null">
-                      <el-button
-                        @click="verFile(1, tokenTMP)"
-                        size="small"
-                        type="warning"
-                        >Ver</el-button
-                      >
-                    </template>
-                  </el-upload>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <h3 class="mb-2">Documento ZIP/XML</h3>
-                  <el-upload
-                    ref="uploadZip"
-                    :auto-upload="false"
-                    accept=".zip, .xml"
-                    :limit="1"
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                </template>
+              </el-upload>
+            </div>
+          </el-col>
+          <el-col :md="12">
+            <div>
+              <h3 class="mb-2">Documento ZIP/XML</h3>
+              <el-upload
+                ref="uploadZip"
+                :auto-upload="false"
+                accept=".zip, .xml"
+                :limit="1"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button slot="trigger" size="small" type="primary"
+                  >Selecciona un archivo</el-button
+                >
+                <template v-if="tokenTMP != null">
+                  <el-button
+                    @click="verFile(2, tokenTMP)"
+                    size="small"
+                    type="warning"
+                    >Ver</el-button
                   >
-                    <el-button slot="trigger" size="small" type="primary"
-                      >Selecciona un archivo</el-button
-                    >
-                    <template v-if="tokenTMP != null">
-                      <el-button
-                        @click="verFile(2, tokenTMP)"
-                        size="small"
-                        type="warning"
-                        >Ver</el-button
-                      >
-                    </template>
-                  </el-upload>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </template>
+              </el-upload>
+            </div>
+          </el-col>
+        </el-row>
+        <hr />
+        <el-row :gutter="10">
+          <el-col :md="12">
+            <div>
+              <h3 class="mb-2">Guía*</h3>
+              <el-upload
+                ref="uploadGuia"
+                :auto-upload="false"
+                accept=".pdf"
+                :limit="1"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button slot="trigger" size="small" type="primary"
+                  >Selecciona un archivo</el-button
+                >
+                <template v-if="tokenTMP != null && archivos.archivoGuia ==1">
+                  <el-button
+                    @click="verFile(3, tokenTMP)"
+                    size="small"
+                    type="warning"
+                    >Ver</el-button
+                  >
+                </template>
+              </el-upload>
+            </div>
+          </el-col>
+          <el-col :md="12">
+            <div>
+              <h3 class="mb-2">Informe técnico**</h3>
+              <el-upload
+                ref="uploadInforme"
+                :auto-upload="false"
+                accept=".pdf"
+                :limit="1"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button slot="trigger" size="small" type="primary"
+                  >Selecciona un archivo</el-button
+                >
+                <template v-if="tokenTMP != null && archivos.archivoInforme == 1">
+                  <el-button
+                    @click="verFile(4, tokenTMP)"
+                    size="small"
+                    type="warning"
+                    >Ver</el-button
+                  >
+                </template>
+              </el-upload>
+            </div>
+          </el-col>
+          <el-col :md="24" class="mt-2">
+            <span style="color: red"
+              >*Si el producto entregado es un bien adjunte guía</span
+            ><br />
+            <span style="color: red"
+              >**Si el producto es un servicio adjunte informe técnico</span>
+          </el-col>
+        </el-row>
+        <hr />
       </div>
-      <hr />
-      <div class="ml-5" style="text-align: left">
-        <table width="80%">
-          <tbody>
-            <tr>
-              <td>
-                <div>
-                  <h3 class="mb-2">Guía*</h3>
-                  <el-upload
-                    ref="uploadGuia"
-                    :auto-upload="false"
-                    accept=".pdf"
-                    :limit="1"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                  >
-                    <el-button slot="trigger" size="small" type="primary"
-                      >Selecciona un archivo</el-button
-                    >
-                    <template v-if="tokenTMP != null && archivos.archivoGuia ==1">
-                      <el-button
-                        @click="verFile(3, tokenTMP)"
-                        size="small"
-                        type="warning"
-                        >Ver</el-button
-                      >
-                    </template>
-                  </el-upload>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <h3 class="mb-2">Informe técnico**</h3>
-                  <el-upload
-                    ref="uploadInforme"
-                    :auto-upload="false"
-                    accept=".pdf"
-                    :limit="1"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                  >
-                    <el-button slot="trigger" size="small" type="primary"
-                      >Selecciona un archivo</el-button
-                    >
-                    <template v-if="tokenTMP != null && archivos.archivoInforme == 1">
-                      <el-button
-                        @click="verFile(4, tokenTMP)"
-                        size="small"
-                        type="warning"
-                        >Ver</el-button
-                      >
-                    </template>
-                  </el-upload>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <br />>
-        <span style="color: red"
-          >*Si el producto entregado es un bien adjunte guía</span
-        ><br />
-        <span style="color: red"
-          >**Si el producto es un servicio adjunte informe técnico</span
-        >
-      </div>
-      <hr />
-      <div style="width: 50vw; text-align: right">
-        <div class="mx-5">
+      <div class="botonera-factura" style="text-align: right">
+        <el-row :gutter="10">
           <el-button type="primary" @click="validarCargaFiles"
             >Cargar Factura
           </el-button>
@@ -136,55 +126,53 @@
             @click="validacionCargaFactura"
             >Enviar</el-button
           >
-        </div>
+        </el-row>
       </div>
       <hr />
-      <br />
-      <br />
       <div
         v-if="mostrarFactura"
         class="pie-factura mx-5"
-        style="max-width: 45vw; display: flex"
+        style="display: flex"
       >
-        <table width="100%">
-          <thead>
-            <tr>
-              <td>
+        <el-row :gutter="10">
+          <el-col :md="12">
+            <el-row>
+              <el-col :md="12">
                 <label class="mr-5"><b>Nro. de Orden</b></label>
-              </td>
-              <td>
+              </el-col>
+              <el-col :md="12">
                 <el-input
                   :disabled="disabledOrden"
                   v-model="ordenNumeroInput"
                   @keypress.native="btnEnviar = false"
                 ></el-input>
-              </td>
-              <td>
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :md="12">
+            <el-row>
+              <el-col :md="12">
                 <label class="mx-5"><b>Nro. de Contrato</b></label>
-              </td>
-              <td>
+              </el-col>
+              <el-col :md="12">
                 <el-input
                   :disabled="disabledContrato"
                   v-model="ordenContratoInput"
                   @keypress.native="btnEnviar = false"
                 ></el-input>
-              </td>
-            </tr>
-          </thead>
-        </table>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
       </div>
       <div v-if="mostrarFactura">
         <div
-          class="ml-5"
-          style="display: flex; justify-content: left; margin-bottom: 20px"
+          class="ml-5 titulo"
         >
           <h2><b>Vista previa</b></h2>
         </div>
-        <div
-          class="content contentTG left-sidebar-toggle contenedor-opciones ml-5"
-          style="min-height: 592px"
-        >
-          <div class="body-registro">
+        <div>
+          <div class="body-comprobante">
             <br />
             <div id="cabecera" class="cabecera">
               <div style="text-align: left">
@@ -800,16 +788,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contenedor-factura {
-  label {
-    font-size: 14px;
-  }
-  hr {
-    width: 50vw !important;
-    position: relative;
-    float: left;
-  }
-}
+// .contenedor-factura {
+//   label {
+//     font-size: 14px;
+//   }
+//   hr {
+//     width: 50vw !important;
+//     position: relative;
+//     float: left;
+//   }
+// }
 .alinieado-derecha {
   text-align: right;
 }
@@ -831,26 +819,6 @@ export default {
   align-content: center;
 }
 
-.body-registro {
-  width: 60%;
-  box-shadow: 3px 2px 10px #c7c7c7;
-  /* border: 1px solid #b0b0b0; */
-  box-sizing: border-box;
-  border-radius: 10px;
-  background-color: white;
-  margin-bottom: 50px;
-  padding-bottom: 30px;
-}
-.cabecera {
-  margin-left: 30px;
-  margin-right: 30px;
-  border-bottom: 3px solid rgb(225, 225, 228);
-  columns: 2;
-}
-.cabecera-detalle {
-  border: 3px solid #b0b0b0;
-  margin-bottom: 30px;
-}
 .cuerpo {
   margin-left: 30px;
   margin-right: 30px;

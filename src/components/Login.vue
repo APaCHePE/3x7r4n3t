@@ -2,19 +2,14 @@
   <div class="login">
     <div class="mt-2">
       <label>Usuario:</label>
-      <el-input
-        id="input-1"
-        v-model="form.user"
-        type="email"
-      ></el-input>
+      <el-input id="input-1" v-model="form.user" type="email"></el-input>
       <label>Contraseña:</label>
 
       <el-input
         id="input-1"
         v-model="form.password"
-        autocomplete="off"
         :type="'password'"
-        required
+        show-password
       ></el-input>
       <el-button
         class="mt-3"
@@ -26,18 +21,10 @@
         Ingresar
       </el-button>
     </div>
-    <el-dialog :visible.sync="cargando" width="30%">
-      <div
-        class="spinner-border"
-        style="width: 3rem; height: 3rem"
-        role="status"
-      >
-        <span class="sr-only">Loading...</span>
-      </div>
-    </el-dialog>
-    <!-- <router-link v-if="continuar" to="/menu"></router-link> -->
     <p class="text-center mt-2">
-      <a @click="login = false"><span>&nbsp;Solicitar Cuenta</span></a>
+      <el-button type="text" @click="login = false"
+        ><u><span>&nbsp;Solicitar Cuenta</span></u></el-button
+      >
     </p>
   </div>
 </template>
@@ -103,31 +90,28 @@ export default {
       });
     },
     validarLogin() {
-      this.cargando = true;
+      this.$swal.fire({
+        title: "Solicitando...",
+        showCloseButton: false,
+        showCancelButton: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          this.$swal.showLoading();
+        },
+      });
       if (this.form.user == null || this.form.user.length <= 5) {
-        this.$swal({
-          icon: "info",
-          title: "info",
-          text: "Debe ingresar un usuario",
-        });
-        this.cargando = false;
+        this.modal("info", "", "Debe ingresar un usuario");
         return;
       } else if (this.form.password == null || this.form.password.length <= 5) {
-        this.$swal({
-          icon: "info",
-          title: "info",
-          text: "Debe ingresar una contraseña",
-        });
-        this.cargando = false;
+        this.modal("info", "", "Debe ingresar una contraseña");
         return;
-      }else {
+      } else {
         this.loginUsuario();
       }
     },
-    async loginUsuario() {
+    loginUsuario() {
       const url = constantes.rutaAdmin + "/login-externos";
-      let acces = false;
-      await axios
+      axios
         .get(url, {
           params: {
             user: this.form.user,
@@ -158,33 +142,36 @@ export default {
               "usuario",
               this.usuarioRespuesta.resultado.usuario
             );
-            // debugger
-            acces = true;
+            this.$router.push("/menu");
             this.continuar = true;
-          } else {
-            this.$swal({
-              icon: "info",
-              title: "info",
-              text: this.usuarioRespuesta.mensajeError,
+            this.$swal.fire({
+              icon: "success",
+              title: "Bienvenido",
+              text: "",
+              showConfirmButton: false,
+              timer: 1200,
+              didOpen: () => {
+                this.$swal.hideLoading();
+              },
             });
+          } else {
+            this.modal("info", "", this.usuarioRespuesta.mensajeError);
           }
         })
         .catch((e) => {
-          this.cargando = false;
-          console.log("error al logear ");
-          console.log(e.response.data.mensajeError);
-          this.$swal({
-            icon: "error",
-            title: "Error",
-            text: e.response.data.mensajeError,
-          });
-        })
-        .finally(() => {
-          this.cargando = false;
+          this.modal("error", "", e.response.data.mensajeError + "");
         });
-      // debugger
-      if (acces) this.$router.push("/menu");
-      console.log("paso el replace");
+    },
+    modal(icono, titulo, texto) {
+      this.$swal.fire({
+        icon: icono,
+        title: titulo,
+        text: texto,
+        showBottomCancel: true,
+        didOpen: () => {
+          this.$swal.hideLoading();
+        },
+      });
     },
   },
 };

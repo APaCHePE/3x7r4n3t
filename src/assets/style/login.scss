@@ -10,8 +10,14 @@
   }
   .el-input{
     border: 0 !important;
-    border-bottom: 1px solid $blue-custom !important;
+    border-bottom: 1px solid $primary-custom !important;
     outline: 0;
     // border: 1px solid #DCDFE6;
+    &__inner{
+      border: none;
+    }
+    &__icon{
+      color: $primary-custom !important;
+    }
   }
 }

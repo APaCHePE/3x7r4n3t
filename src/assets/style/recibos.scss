@@ -1,6 +1,5 @@
 @import "./responsive.scss";
 
-
 .lista-facturas{
   margin: auto;
   padding-top: 10px;
@@ -13,7 +12,7 @@
   }
   
 }
-.neo-facturas{
+.neo-recibos{
   margin: auto;
   padding-top: 10px;
   padding-bottom: 25px;
@@ -30,7 +29,6 @@
   .botonera-factura{
     margin: 10px;
   }
-  
   .body-comprobante {
     width: 90%;
     box-shadow: 3px 2px 10px #c7c7c7;
@@ -42,20 +40,18 @@
     margin-bottom: 50px;
     padding-bottom: 30px;
   }
-  .cabecera {
-    margin-left: 30px;
-    margin-right: 30px;
-    border-bottom: 3px solid rgb(225, 225, 228);
-    columns: 2;
-  }
   .titulo{
     text-align: left;
   }
-  .cabecera-detalle {
-    border: 3px solid #b0b0b0;
-    margin-bottom: 30px;
+  .cabecera {
+    margin-left: 30px;
+    margin-right: 30px;
+    // border-bottom: 3px solid rgb(225, 225, 228);
+    text-align: left;
   }
   .footer{
-    text-align: right;
+    align-items: right;
+    display: flex;
+    justify-content: right;
   }
 }

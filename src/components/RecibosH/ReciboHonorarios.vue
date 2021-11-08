@@ -1,97 +1,94 @@
 <template>
-  <div class="component">
+  <div class="neo-recibos">
     <titulo-header>Registre su recibo por Honorarios</titulo-header>
     <!-- <div class="contenido"> -->
     <div class="container-body">
       <div class="ml-5" style="text-align: left">
-        <table width="80%">
-          <tbody>
-            <tr>
-              <td>
-                <div>
-                  <h3 class="mb-2">Documento PDF</h3>
-                  <el-upload
-                    ref="uploadPdf"
-                    :auto-upload="false"
-                    accept=".pdf"
-                    :limit="1"
-                    action="https://jsonplaceholder.typicode.com/posts/"
+        <el-row :gutter="10">
+          <el-col :md="8">
+            <div>
+              <h3 class="mb-2">Documento PDF</h3>
+              <el-upload
+                ref="uploadPdf"
+                :auto-upload="false"
+                accept=".pdf"
+                :limit="1"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button slot="trigger" size="small" type="primary"
+                  >Selecciona un archivo</el-button
+                >
+              </el-upload>
+              <template
+                v-if="tokenTMP != null && archivos.archivoGuia == 1"
+              >
+                <el-button
+                  @click="verFile(4, tokenTMP)"
+                  size="small"
+                  type="warning"
+                  >Ver</el-button
+                >
+              </template>
+            </div>
+          </el-col>
+          <el-col :md="8">
+            <div>
+              <h3 class="mb-2">Documento XML</h3>
+              <el-upload
+                ref="uploadZip"
+                :auto-upload="false"
+                accept=".zip, .xml"
+                :limit="1"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button slot="trigger" size="small" type="primary"
+                  >Selecciona un archivo</el-button
+                >
+                <template
+                  v-if="tokenTMP != null && archivos.archivoGuia == 1"
+                >
+                  <el-button
+                    @click="verFile(4, tokenTMP)"
+                    size="small"
+                    type="warning"
+                    >Ver</el-button
                   >
-                    <el-button slot="trigger" size="small" type="primary"
-                      >Selecciona un archivo</el-button
-                    >
-                  </el-upload>
-                  <template
-                    v-if="tokenTMP != null && archivos.archivoGuia == 1"
+                </template>
+              </el-upload>
+            </div>
+          </el-col>
+          <el-col :md="8">
+            <div>
+              <h3 class="mb-2">Informe técnico</h3>
+              <el-upload
+                ref="uploadInforme"
+                :auto-upload="false"
+                accept=".pdf"
+                :limit="1"
+                action="https://jsonplaceholder.typicode.com/posts/"
+              >
+                <el-button slot="trigger" size="small" type="primary"
+                  >Selecciona un archivo</el-button
+                >
+                <template
+                  v-if="tokenTMP != null && archivos.archivoGuia == 1"
+                >
+                  <el-button
+                    @click="verFile(4, tokenTMP)"
+                    size="small"
+                    type="warning"
+                    >Ver</el-button
                   >
-                    <el-button
-                      @click="verFile(4, tokenTMP)"
-                      size="small"
-                      type="warning"
-                      >Ver</el-button
-                    >
-                  </template>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <h3 class="mb-2">Documento XML</h3>
-                  <el-upload
-                    ref="uploadZip"
-                    :auto-upload="false"
-                    accept=".zip, .xml"
-                    :limit="1"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                  >
-                    <el-button slot="trigger" size="small" type="primary"
-                      >Selecciona un archivo</el-button
-                    >
-                    <template
-                      v-if="tokenTMP != null && archivos.archivoGuia == 1"
-                    >
-                      <el-button
-                        @click="verFile(4, tokenTMP)"
-                        size="small"
-                        type="warning"
-                        >Ver</el-button
-                      >
-                    </template>
-                  </el-upload>
-                </div>
-              </td>
-              <td>
-                <div>
-                  <h3 class="mb-2">Informe técnico</h3>
-                  <el-upload
-                    ref="uploadInforme"
-                    :auto-upload="false"
-                    accept=".pdf"
-                    :limit="1"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                  >
-                    <el-button slot="trigger" size="small" type="primary"
-                      >Selecciona un archivo</el-button
-                    >
-                    <template
-                      v-if="tokenTMP != null && archivos.archivoGuia == 1"
-                    >
-                      <el-button
-                        @click="verFile(4, tokenTMP)"
-                        size="small"
-                        type="warning"
-                        >Ver</el-button
-                      >
-                    </template>
-                  </el-upload>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </template>
+              </el-upload>
+            </div>
+          </el-col>
+        </el-row>
       </div>
       <hr />
       <div style="width: 70vw; text-align: right">
-        <div class="mx-5">
+        
+        <el-row :gutter="10">
           <el-button type="primary" @click="validarCargaFiles"
             >Cargar Recibo
           </el-button>
@@ -101,66 +98,76 @@
             @click="validacionCargaFactura"
             >Enviar</el-button
           >
-          <template v-if="tokenTMP != null && archivos.archivoGuia == 1">
-            <el-button @click="verFile(4, tokenTMP)" size="small" type="warning"
-              >Ver</el-button
-            >
-          </template>
-        </div>
+        </el-row>
       </div>
       <hr />
       <div
         v-if="mostrarFactura"
         class="pie-factura mx-5"
-        style="max-width: 60vw; display: flex"
       >
-        <table>
-          <thead>
-            <tr>
-              <td><label class="mr-5">Nro. de Orden</label></td>
-              <td>
+      
+        <div
+          class="ml-5 titulo" 
+        >
+          <h2><b>Vista previa</b></h2>
+        </div>
+        <el-row :gutter="10">
+          <el-col :md="12">
+            <el-row>
+              <el-col :md="12">
+                <label class="mr-2"><b>Nro. de Orden</b></label>
+              </el-col>
+              <el-col :md="12">
                 <el-input
                   :disabled="disabledOrden"
                   v-model="ordenNumeroInput"
                   @keypress.native="btnEnviar = false"
                 ></el-input>
-              </td>
-              <td><label class="mx-5">Nro. de Contrato</label></td>
-              <td>
+              </el-col>
+            </el-row>
+          </el-col>
+          <el-col :md="12">
+            <el-row>
+              <el-col :md="12">
+                <label class="mx-2"><b>Nro. de Contrato</b></label>
+              </el-col>
+              <el-col :md="12">
                 <el-input
                   :disabled="disabledContrato"
                   v-model="ordenContratoInput"
                   @keypress.native="btnEnviar = false"
                 ></el-input>
-              </td>
-            </tr>
-          </thead>
-        </table>
+              </el-col>
+            </el-row>
+          </el-col>
+        </el-row>
       </div>
-      <br /><br />
-      <div class="recibo-honorarios" v-if="mostrarFactura">
+      <br />
+      <div class="body-comprobante" v-if="mostrarFactura">
+        <br />
+        <el-row :gutter="10">
+          <el-col :md="12">
+            <h4>{{ jsonFormulario.proveedorNombre }}</h4>
+            <p>{{ jsonFormulario.proveedorDireccion }}</p>
+            <p><b>TELEFONO</b> {{ jsonFormulario.proveedorTelefono }}</p>
+          </el-col>
+          <el-col :md="12" style="border: solid;">
+              <h4>
+                <b>RUC</b> {{ jsonFormulario.proveedorNumeroDocumento }}
+              </h4>
+              <h4><b>RECIBO POR HONORARIOS ELECTRONICO</b></h4>
+              <h3>
+                Nro:
+                {{ jsonFormulario.serie + " - " + jsonFormulario.numero }}
+              </h3>
+          </el-col>
+        </el-row>
         <div class="cabecera">
-          <table width="100%">
-            <tr style="margin-top: 15px">
-              <td>
-                <h4>{{ jsonFormulario.proveedorNombre }}</h4>
-                <p>{{ jsonFormulario.proveedorDireccion }}</p>
-                <p><b>TELEFONO</b> {{ jsonFormulario.proveedorTelefono }}</p>
-              </td>
-              <td style="border: solid; margin: 10px">
-                <h4>
-                  <b>RUC</b> {{ jsonFormulario.proveedorNumeroDocumento }}
-                </h4>
-                <h4><b>RECIBO POR HONORARIOS ELECTRONICO</b></h4>
-                <h3>
-                  Nro:
-                  {{ jsonFormulario.serie + " - " + jsonFormulario.numero }}
-                </h3>
-              </td>
-            </tr>
-            <tr style="margin-top: 15px">
-              <td class="my-5" colspan="2" style="text-align: left">
-                <p><b>Recibí de:</b> {{ jsonFormulario.enteContratante }}</p>
+          <el-row>
+            <el-col :md="20">
+              <p><b>Recibí de:</b> {{ jsonFormulario.enteContratante }}</p>
+            </el-col>
+            <el-col :md="20">
                 <p>
                   <b>Identificado con</b>
                   {{ jsonFormulario.enteTipoDocumento }} &nbsp;<b
@@ -169,10 +176,20 @@
                   >
                   {{ jsonFormulario.enteNroDocumento }}
                 </p>
+            </el-col>
+            <el-col :md="20">
                 <p><b>Domiciliado en</b> {{ jsonFormulario.enteDireccion }}</p>
+            </el-col>
+            <el-col :md="20">
                 <p><b>La suma</b> {{ jsonFormulario.montoRecibidoTexto }}</p>
+            </el-col>
+            <el-col :md="20">
                 <p><b>Por concepto de</b> {{ jsonFormulario.concepto }}</p>
+            </el-col>
+            <el-col :md="20">
                 <p><b>Observación</b> {{ jsonFormulario.observacion }}</p>
+            </el-col>
+            <el-col :md="20">
                 <p>
                   <b>Inciso</b>
                   {{
@@ -181,55 +198,48 @@
                     jsonFormulario.incisoDescripcion
                   }}
                 </p>
+            </el-col>
+            <el-col :md="20">
                 <p>
                   <b>Fecha de emisión</b> {{ jsonFormulario.fechaEmisionDia }}
                   <b>de</b> {{ jsonFormulario.fechaEmisionMes }} <b>del</b>
                   {{ jsonFormulario.fechaEmisionAnio }}
                 </p>
-              </td>
-            </tr>
-            <tr style="margin-top: 15px">
-              <td>
-                <br />
-              </td>
-              <td>
-                <div class="total-detalle">
-                  <br />
-                  <table width="60%" style="margin: auto">
-                    <tbody>
-                      <tr>
-                        <td class="alinieado-izquierda">
-                          <div><b>Total por honorarios </b></div>
-                        </td>
-                        <td><b> : </b></td>
-                        <td class="alinieado-derecha">
-                          <div>{{ jsonFormulario.importeSubTotal }}</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="alinieado-izquierda">
-                          <div><b>Retención (8 %) IR </b></div>
-                        </td>
-                        <td><b> : </b></td>
-                        <td class="alinieado-derecha">
-                          <div>{{ jsonFormulario.importeIgv }}</div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="alinieado-izquierda">
-                          <b>Total Neto Recibido </b>
-                        </td>
-                        <td><b> : </b></td>
-                        <td class="alinieado-derecha">
-                          {{ jsonFormulario.importeTotal }}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </td>
-            </tr>
-          </table>
+            </el-col>
+          </el-row>
+          <div class="footer"> 
+            <table width="40%">
+              <tbody>
+                <tr>
+                  <td class="alinieado-izquierda">
+                    <div><b>Total por honorarios </b></div>
+                  </td>
+                  <td><b> : </b></td>
+                  <td class="alinieado-derecha">
+                    <div>{{ jsonFormulario.importeSubTotal }}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="alinieado-izquierda">
+                    <div><b>Retención (8 %) IR </b></div>
+                  </td>
+                  <td><b> : </b></td>
+                  <td class="alinieado-derecha">
+                    <div>{{ jsonFormulario.importeIgv }}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="alinieado-izquierda">
+                    <b>Total Neto Recibido </b>
+                  </td>
+                  <td><b> : </b></td>
+                  <td class="alinieado-derecha">
+                    {{ jsonFormulario.importeTotal }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -240,12 +250,14 @@
 import TituloHeader from "@/components/utils/TituloHeader.vue";
 import axios from "axios";
 import constantes from "../../store/Constantes";
+import '../../assets/style/recibos.scss';
 export default {
   components: {
     TituloHeader,
   },
   data() {
     return {
+      tokenTMP: null,
       cargando: false,
       btnEnviar: true,
       ordenNumeroInput: null,
@@ -390,12 +402,6 @@ p {
   margin-top: 8px;
 }
 .component {
-  min-height: 98vh;
   max-width: 100%;
-}
-// background-color: red;
-.recibo-honorarios {
-  height: 20vh;
-  width: 60%;
 }
 </style>

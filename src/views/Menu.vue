@@ -8,7 +8,7 @@
     </div>
     <div class="menu-mobil" style="background-color: #003462">
       <SidebarMobil />
-    </div> -->
+    </div>
     <div class="contenido-dinamico">
       <router-view />
     </div>
